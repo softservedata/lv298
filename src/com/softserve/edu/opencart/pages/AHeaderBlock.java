@@ -109,13 +109,13 @@ public abstract class AHeaderBlock {
         }
 
         // currencyElements
-        public List<WebElement> get小urrencyElements() {
+        public List<WebElement> get製rrencyElements() {
             return currencyElements;
         }
 
-        public WebElement get小urrencyElementByName(Currencies currencyName) {
+        public WebElement get製rrencyElementByName(Currencies currencyName) {
             WebElement result = null;
-            for (WebElement current : get小urrencyElements()) {
+            for (WebElement current : get製rrencyElements()) {
                 if (current.getText().toLowerCase().trim().contains(
                         currencyName.toString().toLowerCase().trim())) {
                     result = current;
@@ -129,16 +129,16 @@ public abstract class AHeaderBlock {
             return result;
         }
 
-        public List<String> get小urrencyElementsText() {
+        public List<String> get製rrencyElementsText() {
             List<String> result = new ArrayList<>();
-            for (WebElement current : get小urrencyElements()) {
+            for (WebElement current : get製rrencyElements()) {
                 result.add(current.getText());
             }
             return result;
         }
 
-        public void click小urrencyElementByName(Currencies currencyName) {
-            get小urrencyElementByName(currencyName).click();
+        public void click製rrencyElementByName(Currencies currencyName) {
+            get製rrencyElementByName(currencyName).click();
         }
     }
 
@@ -406,7 +406,7 @@ public abstract class AHeaderBlock {
     
     protected void chooseCurrency(Currencies currencyName) {
         clickCurrency();
-        currencyComponent.click小urrencyElementByName(currencyName);
+        currencyComponent.click製rrencyElementByName(currencyName);
     }
 
     public HomePage gotoHomePage() {
