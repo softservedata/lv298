@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.pages.registration.RegistrationPage;
 
 public abstract class AHeaderBlock {
 

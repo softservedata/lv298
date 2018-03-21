@@ -1,15 +1,15 @@
 package com.softserve.edu.opencart.data.countrystate;
 
 public enum Countryes {
-    UKRAINE(220), USA(223), POLAND(170);
+    UKRAINE("220"), USA("223"), POLAND("170");
 
-    private int option;
+    private String value;
 
-    private Countryes(int option) {
-	this.option = option;
+    private Countryes(String value) {
+	this.value = value;
     }
-
-    public int getOption() {
-	return option;
+    @Override
+    public String toString() {
+	return value;
     }
 }

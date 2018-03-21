@@ -1,8 +1,5 @@
 package com.softserve.edu.opencart.data.users;
 
-import com.softserve.edu.opencart.data.countrystate.Countryes;
-import com.softserve.edu.opencart.data.countrystate.States;
-
 interface IFirstname {
     ILastname setFirstname(String firstname);
 }
@@ -32,11 +29,11 @@ interface IPostCode {
 }
 
 interface ICountry {
-    IState setCountry(Countryes country);
+    IState setCountry(String country);
 }
 
 interface IState {
-    IPassword setState(States state);
+    IPassword setState(String state);
 }
 
 interface IPassword {
@@ -71,8 +68,8 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone, IAddress
     private String addressAdditional;
     private String city;
     private String postCode;
-    private int country;
-    private int state;
+    private String country;
+    private String state;
     private String password;
     private boolean subscribe;
 
@@ -160,14 +157,14 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone, IAddress
 	return this;
     }
 
-    public IState setCountry(Countryes country) {
-	this.country = country.getOption();
+    public IState setCountry(String country) {
+	this.country = country;
 	return this;
     }
 
    
-    public IPassword setState(States state) {
-	this.state = state.getOption();
+    public IPassword setState(String state) {
+	this.state = state;
 	return this;
     }
 
@@ -228,12 +225,12 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone, IAddress
 	return postCode;
     }
 
-    public int getCountry() {
-	return country;
+    public String getCountry() {
+	return country.toString();
     }
 
-    public int getState() {
-	return state;
+    public String getState() {
+	return state.toString();
     }
 
     public String getPassword() {
@@ -243,4 +240,5 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone, IAddress
     public boolean isSubscribe() {
 	return subscribe;
     }
+
 }

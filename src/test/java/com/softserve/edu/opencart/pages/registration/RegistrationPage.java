@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.pages;
+package com.softserve.edu.opencart.pages.registration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.pages.ARightPanel;
 import com.softserve.edu.opencart.tools.JavaScriptInjection;
+import com.softserve.edu.opencart.tools.Waiters;
 
 public class RegistrationPage extends ARightPanel {
 
@@ -30,7 +32,7 @@ public class RegistrationPage extends ARightPanel {
 
     private final String BUTTON_CLASS_CONTINUE = "input.btn-primary";
 
-    private WebDriver driver;
+    protected WebDriver driver;
 
     public RegistrationPage(WebDriver driver) {
 	super(driver);
@@ -182,9 +184,8 @@ public class RegistrationPage extends ARightPanel {
 	getCountrySelector().click();
     }
 
-    public void selectCountryByIndex(int option) {
-	clickCountrySelector();
-	toSelectCountry().selectByIndex(option);
+    public void selectCountryByValue(String country) {
+	toSelectCountry().selectByValue(country);
     }
 
     // State Selector
@@ -200,9 +201,8 @@ public class RegistrationPage extends ARightPanel {
 	getStateSelector().click();
     }
 
-    public void selectStateByIndex(int option) {
-	clickStateSelector();
-	toSelectStateSelector().selectByIndex(option);
+    public void selectStateByValue(String state) {
+	toSelectStateSelector().selectByValue(state);
     }
 
     // Subscribe Radio Button
@@ -255,7 +255,7 @@ public class RegistrationPage extends ARightPanel {
 	getContinueButton();
     }
 
-    public RegistrationPage registrationUser(IUser user) {
+    public FailRegistrationPage registrationUser(IUser user) {
 	sendTextToFirstNameField(user.getFirstname());
 	JavaScriptInjection.inject().scroll(driver, getFirstNameField());
 	sendTextToLastNameField(user.getLastname());
@@ -276,14 +276,14 @@ public class RegistrationPage extends ARightPanel {
 	if (user.getPostCode() != null) {
 	    sendTextToPostcodeField(user.getPostCode());
 	}
-	selectCountryByIndex(user.getCountry());
-	selectStateByIndex(user.getState());
+	selectCountryByValue(user.getCountry());
+	selectStateByValue(user.getState());
 	JavaScriptInjection.inject().scroll(driver, getPasswordField());
 	sendTextToPasswordField(user.getPassword());
 	sendTextToPasswordConfirmField(user.getPassword());
 	selectSubscribe(user.isSubscribe());
 	clickAgreeCheckBox();
 	clickContinueButton();
-	return new RegistrationPage(driver);
+	return new FailRegistrationPage(driver);
     }
 }

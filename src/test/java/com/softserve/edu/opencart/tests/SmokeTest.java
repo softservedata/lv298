@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.tests;
 
+import static org.testng.Assert.assertEquals;
+
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -16,8 +18,10 @@ import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.HomePage;
 import com.softserve.edu.opencart.pages.MyAccountPage;
-import com.softserve.edu.opencart.pages.RegistrationPage;
 import com.softserve.edu.opencart.pages.SearchPage;
+import com.softserve.edu.opencart.pages.registration.FailRegistrationPage;
+import com.softserve.edu.opencart.pages.registration.RegistrationPage;
+import com.softserve.edu.opencart.pages.registration.SuccessRegistrationPage;
 
 public class SmokeTest extends TestRunner {
 
@@ -116,10 +120,12 @@ public class SmokeTest extends TestRunner {
     
     
     @Test(dataProvider = "usersProvider")
-    public void smokeRegistrationPage(IUser user) {
+    public void smokeRegistrationPage(IUser user) throws InterruptedException {
 	RegistrationPage registrationPage = Application.get().loadHomePage().gotoRegistrationPage();
-	registrationPage.registrationUser(user);
-	
+	FailRegistrationPage actual = registrationPage.registrationUser(user);
+	String expected = "Warning: E-Mail Address is already registered!";
+	Assert.assertEquals(actual.getErrorText(), expected);
+	Thread.sleep(4000);
     }
     
     

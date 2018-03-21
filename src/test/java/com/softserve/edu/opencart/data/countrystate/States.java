@@ -1,18 +1,19 @@
 package com.softserve.edu.opencart.data.countrystate;
 
 public enum States {
-    Dolnoslaskie(2631), Lodzkie(2633), Lubelskie(2634),	//Poland
-    Kiyv(3490), Lviv(3491), Ternopil(3500),		//Ukraine
-    Alaska(3614), California(3624); 			//USA
+    Dolnoslaskie("2631"), Lodzkie("2633"), Lubelskie("2634"),	//Poland
+    Kiyv("3490"), Lviv("3491"), Ternopil("3500"),		//Ukraine
+    Alaska("3614"), California("3624"); 			//USA
 
-    private int option;
+    private String value;
 
-    private States(int option) {
-	this.option = option;
+    private States(String value) {
+	this.value = value;
     }
 
-    public int getOption() {
-	return option;
+    @Override
+    public String toString() {
+	return value;
     }
     
 }
