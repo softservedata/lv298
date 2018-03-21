@@ -1,5 +1,8 @@
 package com.softserve.edu.opencart.data.users;
 
+import com.softserve.edu.opencart.data.countrystate.Countryes;
+import com.softserve.edu.opencart.data.countrystate.States;
+
 public final class UserRepository {
     
     private static volatile UserRepository instance = null;
@@ -31,8 +34,8 @@ public final class UserRepository {
                 .setAddressMain("addressMain")
                 .setCity("city")
                 .setPostCode("postCode")
-                .setCountry("country")
-                .setState("state")
+                .setCountry(Countryes.UKRAINE)
+                .setState(States.Lviv)
                 .setPassword("qwerty")
                 .setSubscribe(true)
                 .setFax("fax")

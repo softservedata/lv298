@@ -306,6 +306,23 @@ public abstract class AHeaderBlock {
         }
         return new LoginPage(driver);
     }
+    
+    public void loadRegistrationPage(AHeaderBlock head) {
+	head.clickSearchField();
+	head.clickMyAccount();
+	accountInComponent = new AccountInComponent();
+        accountInComponent.clickRegister();
+    }
+    
+    public RegistrationPage gotoRegistrationPage() {
+	if (isLogged()) {
+	    HomePage homePage = signoutToHomePage();
+	    loadRegistrationPage(homePage);
+	}else {
+	    loadRegistrationPage(this);
+	}
+	return new RegistrationPage(driver);
+    }
 
     public HomePage signoutToHomePage() {
         if (isLogged()) {

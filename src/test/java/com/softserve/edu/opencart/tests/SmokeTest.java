@@ -16,6 +16,7 @@ import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.HomePage;
 import com.softserve.edu.opencart.pages.MyAccountPage;
+import com.softserve.edu.opencart.pages.RegistrationPage;
 import com.softserve.edu.opencart.pages.SearchPage;
 
 public class SmokeTest extends TestRunner {
@@ -112,4 +113,14 @@ public class SmokeTest extends TestRunner {
         Thread.sleep(4000);
     }
 
+    
+    
+    @Test(dataProvider = "usersProvider")
+    public void smokeRegistrationPage(IUser user) {
+	RegistrationPage registrationPage = Application.get().loadHomePage().gotoRegistrationPage();
+	registrationPage.registrationUser(user);
+	
+    }
+    
+    
 }

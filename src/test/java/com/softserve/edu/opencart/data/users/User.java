@@ -1,5 +1,8 @@
 package com.softserve.edu.opencart.data.users;
 
+import com.softserve.edu.opencart.data.countrystate.Countryes;
+import com.softserve.edu.opencart.data.countrystate.States;
+
 interface IFirstname {
     ILastname setFirstname(String firstname);
 }
@@ -29,11 +32,11 @@ interface IPostCode {
 }
 
 interface ICountry {
-    IState setCountry(String country);
+    IState setCountry(Countryes country);
 }
 
 interface IState {
-    IPassword setState(String state);
+    IPassword setState(States state);
 }
 
 interface IPassword {
@@ -46,15 +49,17 @@ interface ISubscribe {
 
 interface IUSerBuild {
     IUSerBuild setFax(String fax);
+
     IUSerBuild setCompany(String company);
+
     IUSerBuild setAddressAdditional(String addressAdditional);
-    //User build();
+
+    // User build();
     IUser build();
 }
 
-public class User implements IFirstname, ILastname, IEmail, ITelephone,
-                             IAddressMain, ICity, IPostCode, ICountry,
-                             IState, IPassword, ISubscribe, IUSerBuild, IUser {
+public class User implements IFirstname, ILastname, IEmail, ITelephone, IAddressMain, ICity, IPostCode, ICountry,
+	IState, IPassword, ISubscribe, IUSerBuild, IUser {
 
     private String firstname;
     private String lastname;
@@ -66,176 +71,176 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone,
     private String addressAdditional;
     private String city;
     private String postCode;
-    private String country;
-    private String state;
+    private int country;
+    private int state;
     private String password;
     private boolean subscribe;
-    
-//    public User(String firstname, String lastname,
-//            String email, String telephone, String fax, String company,
-//            String addressMain, String addressAdditional,
-//            String city, String postCode, String country, String state,
-//            String password, boolean subscribe) {
-//        this.firstname = firstname;
-//        this.lastname = lastname;
-//        this.email = email;
-//        this.telephone = telephone;
-//        this.fax = fax;
-//        this.company = company;
-//        this.addressMain = addressMain;
-//        this.addressAdditional = addressAdditional;
-//        this.city = city;
-//        this.postCode = postCode;
-//        this.country = country;
-//        this.state = state;
-//        this.password = password;
-//        this.subscribe = subscribe;
-//    }
 
-    //public User() {
+    // public User(String firstname, String lastname,
+    // String email, String telephone, String fax, String company,
+    // String addressMain, String addressAdditional,
+    // String city, String postCode, String country, String state,
+    // String password, boolean subscribe) {
+    // this.firstname = firstname;
+    // this.lastname = lastname;
+    // this.email = email;
+    // this.telephone = telephone;
+    // this.fax = fax;
+    // this.company = company;
+    // this.addressMain = addressMain;
+    // this.addressAdditional = addressAdditional;
+    // this.city = city;
+    // this.postCode = postCode;
+    // this.country = country;
+    // this.state = state;
+    // this.password = password;
+    // this.subscribe = subscribe;
+    // }
+
+    // public User() {
     private User() {
     }
-    
-    //public static User get() {
+
+    // public static User get() {
     public static IFirstname get() {
-        return new User();
+	return new User();
     }
-    
+
     // setters
-    
-    //public void setFirstname(String firstname) {
-    //public User setFirstname(String firstname) {
+
+    // public void setFirstname(String firstname) {
+    // public User setFirstname(String firstname) {
     public ILastname setFirstname(String firstname) {
-        this.firstname = firstname;
-        return this;
+	this.firstname = firstname;
+	return this;
     }
 
     public IEmail setLastname(String lastname) {
-        this.lastname = lastname;
-        return this;
+	this.lastname = lastname;
+	return this;
     }
 
     public ITelephone setEmail(String email) {
-        this.email = email;
-        return this;
+	this.email = email;
+	return this;
     }
 
     public IAddressMain setTelephone(String telephone) {
-        this.telephone = telephone;
-        return this;
+	this.telephone = telephone;
+	return this;
     }
 
     public IUSerBuild setFax(String fax) {
-        this.fax = fax;
-        return this;
+	this.fax = fax;
+	return this;
     }
 
     public IUSerBuild setCompany(String company) {
-        this.company = company;
-        return this;
+	this.company = company;
+	return this;
     }
 
     public ICity setAddressMain(String addressMain) {
-        this.addressMain = addressMain;
-        return this;
+	this.addressMain = addressMain;
+	return this;
     }
 
     public IUSerBuild setAddressAdditional(String addressAdditional) {
-        this.addressAdditional = addressAdditional;
-        return this;
+	this.addressAdditional = addressAdditional;
+	return this;
     }
 
     public IPostCode setCity(String city) {
-        this.city = city;
-        return this;
+	this.city = city;
+	return this;
     }
 
     public ICountry setPostCode(String postCode) {
-        this.postCode = postCode;
-        return this;
+	this.postCode = postCode;
+	return this;
     }
 
-    public IState setCountry(String country) {
-        this.country = country;
-        return this;
+    public IState setCountry(Countryes country) {
+	this.country = country.getOption();
+	return this;
     }
 
-    public IPassword setState(String state) {
-        this.state = state;
-        return this;
+   
+    public IPassword setState(States state) {
+	this.state = state.getOption();
+	return this;
     }
 
     public ISubscribe setPassword(String password) {
-        this.password = password;
-        return this;
+	this.password = password;
+	return this;
     }
 
     public IUSerBuild setSubscribe(boolean subscribe) {
-        this.subscribe = subscribe;
-        return this;
+	this.subscribe = subscribe;
+	return this;
     }
-    
-    //public User build() {
+
+    // public User build() {
     public IUser build() {
-        return this;
+	return this;
     }
 
     // getters
-    
+
     public String getFirstname() {
-        return firstname;
+	return firstname;
     }
 
     public String getLastname() {
-        return lastname;
+	return lastname;
     }
 
     public String getEmail() {
-        return email;
+	return email;
     }
 
     public String getTelephone() {
-        return telephone;
+	return telephone;
     }
 
     public String getFax() {
-        return fax;
+	return fax;
     }
 
     public String getCompany() {
-        return company;
+	return company;
     }
 
     public String getAddressMain() {
-        return addressMain;
+	return addressMain;
     }
 
     public String getAddressAdditional() {
-        return addressAdditional;
+	return addressAdditional;
     }
 
     public String getCity() {
-        return city;
+	return city;
     }
 
     public String getPostCode() {
-        return postCode;
+	return postCode;
     }
 
-    public String getCountry() {
-        return country;
+    public int getCountry() {
+	return country;
     }
 
-    public String getState() {
-        return state;
+    public int getState() {
+	return state;
     }
 
     public String getPassword() {
-        return password;
+	return password;
     }
 
     public boolean isSubscribe() {
-        return subscribe;
+	return subscribe;
     }
-    
 }

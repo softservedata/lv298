@@ -9,22 +9,12 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 
 public class BrowserWrapper {
 
     private interface IBrowser {
         WebDriver getBrowser(IApplicationSource applicationSource);
-    }
-
-    private static class Firefox5xTemporary implements IBrowser {
-        public WebDriver getBrowser(IApplicationSource applicationSource) {
-            System.setProperty("webdriver.gecko.driver",
-                    applicationSource.getDriverPath());
-            return new FirefoxDriver();
-        }
     }
 
     private static class ChromeTemporary implements IBrowser {
@@ -66,7 +56,6 @@ public class BrowserWrapper {
 
     public static enum Browsers {
         DEFAULT_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
-        FIREFOX5X_TEMPORARY("FireFox5xTemporary", new Firefox5xTemporary()),
         CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         CHROME_PROFILE("ChromeProfile", new ChromeProfile()),
         CHROME_WITHOUTUI("ChromeWithoutUI", new ChromeWithoutUI());
