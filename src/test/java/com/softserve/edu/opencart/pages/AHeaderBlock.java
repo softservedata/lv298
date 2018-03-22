@@ -3,24 +3,51 @@ package com.softserve.edu.opencart.pages;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.tools.RegexUtils;
 
 public abstract class AHeaderBlock {
 
+    // *********Atomic operations*********
+    public void clickWebElement(WebElement webElement) {
+        webElement.click();
+    }
+
+    public void clearWebElement(WebElement webElement) {
+        webElement.clear();
+    }
+
+    public String getWebElementText(WebElement webElement) {
+        return webElement.getText();
+    }
+
+    public String getWebElementTextWithAttribute(WebElement webElement, String attribute) {
+        return webElement.getAttribute(attribute);
+    }
+
+    public void sendWebElementText(WebElement webElement, String text) {
+        webElement.sendKeys(text);
+    }
+    //
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     private class CurrencyComponent {
-        
+
+        // *********Web Elements*********
+        @FindBy(css = "button.currency-select.btn.btn-link.btn-block")
         private List<WebElement> currencyElements;
-        
+
+        // *********Constructor*********
         public CurrencyComponent() {
-            currencyElements = driver.findElements(By.cssSelector("button.currency-select.btn.btn-link.btn-block"));
+            PageFactory.initElements(driver, this);
         }
-        
-        // currencyElements
+
+        // *********Currency Elements*********
         public List<WebElement> getCurrencyElements() {
             return currencyElements;
         }
@@ -28,7 +55,7 @@ public abstract class AHeaderBlock {
         public WebElement getCurrencyElementByName(Currencies currencyName) {
             WebElement result = null;
             for (WebElement current : getCurrencyElements()) {
-                if (current.getText().toLowerCase().trim()
+                if (getWebElementText(current).toLowerCase().trim()
                         .contains(currencyName.toString().toLowerCase().trim())) {
                     result = current;
                     break;
@@ -44,259 +71,310 @@ public abstract class AHeaderBlock {
         public List<String> getCurrencyElementsText() {
             List<String> result = new ArrayList<>();
             for (WebElement current : getCurrencyElements()) {
-                result.add(current.getText());
+                result.add(getWebElementText(current));
             }
             return result;
         }
 
         public void clickCurrencyElementByName(Currencies currencyName) {
-            getCurrencyElementByName(currencyName).click();
+            clickWebElement(getCurrencyElementByName(currencyName));
         }
     }
-    
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     private class AccountInComponent {
-        
+
+        // *********Web Elements*********
+        @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/register')]")
         private WebElement register;
+
+        @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/login')]")
         private WebElement login;
-        
+
+        // *********Constructor*********
         public AccountInComponent() {
-            register = driver.findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/register')]"));
-            login = driver.findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/login')]"));
+            PageFactory.initElements(driver, this);
         }
-        
-        // register
+
+        // *********Register*********
         public WebElement getRegister() {
             return register;
         }
 
         public String getRegisterText() {
-            return getRegister().getText();
+            return getWebElementText(getRegister());
         }
 
         public void clickRegister() {
-            getRegister().click();
+            clickWebElement(getRegister());
         }
 
-        // login
+        // *********Login*********
         public WebElement getLogin() {
             return login;
         }
 
         public String getLoginText() {
-            return getLogin().getText();
+            return getWebElementText(getLogin());
         }
 
         public void clickLogin() {
-            getLogin().click();
+            clickWebElement(getLogin());
         }
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     private class AccountOutComponent {
-        
+
+        // *********Web Elements*********
+        @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/account')]")
         private WebElement myAccountLogin;
+
+        @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/logout')]")
         private WebElement logout;
-        
+
+        // *********Constructor*********
         public AccountOutComponent() {
-            myAccountLogin = driver.findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/account')]"));
-            logout = driver.findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/logout')]"));
+            PageFactory.initElements(driver, this);
         }
-        
-        // myAccountLogin
+
+        // *********My Account Login*********
         public WebElement getMyAccountLogin() {
             return myAccountLogin;
         }
 
         public String getMyAccountLoginText() {
-            return getMyAccountLogin().getText();
+            return getWebElementText(getMyAccountLogin());
         }
 
         public void clickMyAccountLogin() {
-            getMyAccountLogin().click();
+            clickWebElement(getMyAccountLogin());
         }
 
-        // logout
+        // *********Logout*********
         public WebElement getLogout() {
             return logout;
         }
 
         public String getLogoutText() {
-            return getLogout().getText();
+            return getWebElementText(getLogout());
         }
 
         public void clickLogout() {
-            getLogout().click();
+            clickWebElement(getLogout());
         }
     }
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    public class ProductActionNotification {
+
+        // *********Web Elements*********
+        @FindBy(css = ".alert.alert-success")
+        private WebElement messageContainer;
+
+        @FindBy(className = "close")
+        private WebElement closeMessage;
+
+        // *********Constructor*********
+        public ProductActionNotification() {
+            PageFactory.initElements(driver, this);
+        }
+
+        // *********Message Container*********
+        public WebElement getMessageContainer() {
+            return messageContainer;
+        }
+
+        public void clickMessageContainer() {
+            clickWebElement(getMessageContainer());
+        }
+
+        public String getMessageContainerText() {
+            return getWebElementText(getMessageContainer());
+        }
+
+        // *********Close Message*********
+        public WebElement getCloseMessage() {
+            return closeMessage;
+        }
+
+        public void clickCloseMessage() {
+            clickWebElement(getCloseMessage());
+        }
+
+    }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public final String ATTRIBUTE_VALUE = "value";
     //
     protected WebDriver driver;
-    //
-    //private WebElement currency;
-    //private WebElement myAccount
-    //private WebElement logo;
-    //private WebElement searchField;
-    //private WebElement searchButton;
-    //
+
     protected CurrencyComponent currencyComponent;
     protected AccountInComponent accountInComponent;
     protected AccountOutComponent accountOutComponent;
-    
+    protected ProductActionNotification productActionNotification;
+
+    // *********Web Elements*********
+
+    @FindBy(css = ".btn.btn-link.dropdown-toggle")
+    private WebElement currency;
+
+    @FindBy(css = "ul.list-inline li.dropdown a.dropdown-toggle")
+    private WebElement myAccount;
+
+    @FindBy(css = "#logo a")
+    private WebElement logo;
+
+    @FindBy(name = "search")
+    private WebElement searchField;
+
+    @FindBy(css = ".btn.btn-default.btn-lg")
+    private WebElement searchButton;
+
+    @FindBy(id = "wishlist-total")
+    private WebElement wishList;
+
+    @FindBy(css = ".dropdown-menu.dropdown-menu-right li")
+    private List<WebElement> myAccountItems;
+
+    //
+
+    // *********Constructor*********
     public AHeaderBlock(WebDriver driver) {
-        this.driver = driver; 
-        //currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
-        //myAccount = driver.findElement(By.cssSelector("ul.list-inline li.dropdown a.dropdown-toggle"));
-        //logo = driver.findElement(By.cssSelector("#logo a"));
-        //searchField = driver.findElement(By.name("search"));
-        //searchButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
-        //
-        //initWebElements();
-        verifyWebElements();
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
-    private void initWebElements() {
-        //currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
-        //myAccount = driver.findElement(By.cssSelector("ul.list-inline li.dropdown a.dropdown-toggle"));
-        //logo = driver.findElement(By.cssSelector("#logo a"));
-        //searchField = driver.findElement(By.name("search"));
-        //searchButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
-    }
-
-    private void verifyWebElements() {
-        getCurrency();
-        getMyAccount();
-        getSearchField();
-        getSearchButton();
-    }
-
-    // currency
+    // *********Currency*********
     public WebElement getCurrency() {
-        //return currency;
-        return driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
-    }
-
-    public String getCurrencyText() {
-        return getCurrency().getText();
+        return currency;
     }
 
     public void clickCurrency() {
-        getCurrency().click();
+        clickWebElement(getCurrency());
         currencyComponent = new CurrencyComponent();
     }
 
-    // myAccount
+    // *********My Account*********
     public WebElement getMyAccount() {
-        //return myAccount;
-        return driver.findElement(By.cssSelector("ul.list-inline li.dropdown a.dropdown-toggle"));
-    }
-
-    public String getMyAccountText() {
-        return getMyAccount().getText();
+        return myAccount;
     }
 
     public void clickMyAccount() {
-        //clickSearchField();
-        getMyAccount().click();
-        //accountInComponent = new AccountInComponent();
+        clickWebElement(getMyAccount());
+    }
+
+    public String getMyAccountText() {
+        return getWebElementText(getMyAccount());
     }
 
     public int countMyAccountItems() {
         clickSearchField();
-        getMyAccount().click();
-        return driver.findElements(By.cssSelector(".dropdown-menu.dropdown-menu-right li")).size();
+        clickMyAccount();
+        clickSearchField();
+        return myAccountItems.size();
     }
 
     public boolean isLogged() {
         return countMyAccountItems() != 2;
     }
 
-    // logo
+    // *********Logo*********
     public WebElement getLogo() {
-        //return logo;
-        return driver.findElement(By.cssSelector("#logo a"));
+        return logo;
     }
-    
+
     public void clickLogo() {
-        getLogo().click();
+        clickWebElement(getLogo());
     }
 
-    // searchField
+    // *********Search Field*********
     public WebElement getSearchField() {
-        //return searchField;
-        return driver.findElement(By.name("search"));
-    }
-
-    public String getSearchFieldText() {
-        return getSearchField().getAttribute(ATTRIBUTE_VALUE);
+        return searchField;
     }
 
     public void sendSearchFieldText(String text) {
-        getSearchField().sendKeys(text);
+        sendWebElementText(getSearchField(), text);
     }
 
     public void clearSearchField() {
-        getSearchField().clear();
+        clearWebElement(getSearchField());
     }
 
     public void clickSearchField() {
-        getSearchField().click();
+        clickWebElement(getSearchField());
     }
 
-    public void enterSearchField() {
-        getSearchField().sendKeys(Keys.ENTER);
+    public String getSearchFieldText() {
+        return getWebElementTextWithAttribute(getSearchField(), ATTRIBUTE_VALUE);
     }
 
-    public void submitSearchField() {
-        getSearchField().submit();
-    }
-
-    // searchButton
+    // *********Search Button*********
     public WebElement getSearchButton() {
-        //return searchButton;
-        return driver.findElement(By.cssSelector("button.btn.btn-default.btn-lg"));
+        return searchButton;
     }
- 
+
     public String getSearchButtonText() {
-        return getSearchButton().getText();
+        return getWebElementText(getSearchButton());
     }
 
     public void clickSearchButton() {
-        getSearchButton().click();
+        clickWebElement(getSearchButton());
     }
 
-    // Business Logic
+    // *********Wish List*********
+    public WebElement getWishList() {
+        return wishList;
+    }
+
+    public String getWishListText() {
+        return getWebElementText(getWishList());
+    }
+
+    public void clickWishList() {
+        clickWebElement(getWishList());
+    }
+
+    public int wishListAmount() {
+        return RegexUtils.extractFirstNumber(getWishListText());
+    }
+    
+    public ProductActionNotification getProductActionNotification() {
+        return this.productActionNotification;
+    }
+    
+    // *********Business Logic*********
 
     protected void chooseCurrency(Currencies currencyName) {
         clickCurrency();
         currencyComponent.clickCurrencyElementByName(currencyName);
     }
-    
+
     public HomePage gotoHomePage() {
         clickLogo();
         return new HomePage(driver);
+    }
+    
+    public WishListPage gotoWishListPage() {
+        clickWishList();
+        return new WishListPage(driver);
     }
 
     public SearchPage searchByProduct(String productName) {
         sendSearchFieldText(productName);
         clickSearchButton();
-        //submitSearchField();
-        //enterSearchField();
         return new SearchPage(driver);
     }
-    
+
     private void loadLoginPage(AHeaderBlock head) {
         head.clickSearchField();
         head.clickMyAccount();
         accountInComponent = new AccountInComponent();
         accountInComponent.clickLogin();
     }
-    
+
     public LoginPage gotoLoginPage() {
         if (isLogged()) {
             HomePage homePage = signoutToHomePage();
@@ -320,5 +398,15 @@ public abstract class AHeaderBlock {
         }
         return new HomePage(driver);
     }
+    
+    public String productActionNotificationText() {
+        productActionNotification = new ProductActionNotification();
+        return productActionNotification.getMessageContainerText();
+    } 
+    
+    public void productActionNotificationClose() {
+        productActionNotification = new ProductActionNotification();
+        productActionNotification.clickCloseMessage();
+    } 
 
 }

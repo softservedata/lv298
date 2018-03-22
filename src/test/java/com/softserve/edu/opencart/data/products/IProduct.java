@@ -6,13 +6,13 @@ import com.softserve.edu.opencart.data.Currencies;
 
 public interface IProduct {
 
-    public String getSearchKey();
+    String getSearchKey();
 
-    public String getName();
+    String getName();
 
-    public String getDescription();
+    String getDescription();
 
-    public Map<Enum<?>, Double> getPrices();
+    Map<Enum<?>, Double> getPrices();
 
     double getPriceByCurrencyName(Currencies currencyName);
 }

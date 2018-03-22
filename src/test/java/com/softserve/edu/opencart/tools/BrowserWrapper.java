@@ -111,6 +111,7 @@ public class BrowserWrapper {
         driver = currentBrowser.runBrowser(applicationSource);
         //
         // TODO Move to Search Class
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(applicationSource.getImplicitWaitTimeOut(), TimeUnit.SECONDS);
     }
 

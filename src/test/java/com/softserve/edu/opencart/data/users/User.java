@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.data.users;
 
+//*********Builder Pattern*********
 interface IFirstname {
     ILastname setFirstname(String firstname);
 }
@@ -46,16 +47,19 @@ interface ISubscribe {
 
 interface IUSerBuild {
     IUSerBuild setFax(String fax);
+
     IUSerBuild setCompany(String company);
+
     IUSerBuild setAddressAdditional(String addressAdditional);
-    //User build();
+
     IUser build();
 }
 
-public class User implements IFirstname, ILastname, IEmail, ITelephone,
-                             IAddressMain, ICity, IPostCode, ICountry,
-                             IState, IPassword, ISubscribe, IUSerBuild, IUser {
-
+public class User implements IFirstname, ILastname, IEmail, ITelephone, IAddressMain, ICity,
+                             IPostCode, ICountry, IState, IPassword, ISubscribe, IUSerBuild,
+                             IUser {
+    
+    //*********User Data*********
     private String firstname;
     private String lastname;
     private String email;
@@ -71,40 +75,15 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone,
     private String password;
     private boolean subscribe;
     
-//    public User(String firstname, String lastname,
-//            String email, String telephone, String fax, String company,
-//            String addressMain, String addressAdditional,
-//            String city, String postCode, String country, String state,
-//            String password, boolean subscribe) {
-//        this.firstname = firstname;
-//        this.lastname = lastname;
-//        this.email = email;
-//        this.telephone = telephone;
-//        this.fax = fax;
-//        this.company = company;
-//        this.addressMain = addressMain;
-//        this.addressAdditional = addressAdditional;
-//        this.city = city;
-//        this.postCode = postCode;
-//        this.country = country;
-//        this.state = state;
-//        this.password = password;
-//        this.subscribe = subscribe;
-//    }
-
-    //public User() {
+    // *********Constructor*********
     private User() {
     }
-    
-    //public static User get() {
+  
     public static IFirstname get() {
         return new User();
     }
-    
-    // setters
-    
-    //public void setFirstname(String firstname) {
-    //public User setFirstname(String firstname) {
+
+    // *********Setters*********
     public ILastname setFirstname(String firstname) {
         this.firstname = firstname;
         return this;
@@ -174,14 +153,12 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone,
         this.subscribe = subscribe;
         return this;
     }
-    
-    //public User build() {
+
     public IUser build() {
         return this;
     }
 
-    // getters
-    
+    // *********Getters*********
     public String getFirstname() {
         return firstname;
     }
@@ -237,5 +214,5 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone,
     public boolean isSubscribe() {
         return subscribe;
     }
-    
+
 }

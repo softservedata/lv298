@@ -20,18 +20,6 @@ import com.softserve.edu.opencart.pages.SearchPage;
 
 public class SmokeTest extends TestRunner {
 
-    //@Test
-    public void smoke1() throws Exception {
-        System.setProperty("webdriver.chrome.driver",
-                "C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        HomePage homePage = HomePage.load(driver, "http://atqc-shop.epizy.com");
-        homePage.sendSearchFieldText("mac");
-        homePage.clickSearchButton();
-        Thread.sleep(4000);
-        driver.quit();
-    }
 
     //@Test
     public void smoke2() throws Exception {
@@ -83,6 +71,7 @@ public class SmokeTest extends TestRunner {
                 .gotoLoginPage()
                 .successLogin(user);
         Thread.sleep(4000);
+         
         Assert.assertEquals(myAccountPage.getMyAccountLabelText(),
                 MyAccountPage.MY_ACCOUNT_LABEL_TEXT);
         HomePage homePage = myAccountPage.signoutToHomePage();
@@ -94,7 +83,7 @@ public class SmokeTest extends TestRunner {
     public Object[][] productCurrencyProvider() {
         return new Object[][] {
             { ProductRepository.macBook(),  Currencies.EURO },
-            { ProductRepository.macBook(),  Currencies.POUND_STERLING }
+            //{ ProductRepository.macBook(),  Currencies.POUND_STERLING }
         };
     }
 

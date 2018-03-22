@@ -9,7 +9,9 @@ import com.softserve.edu.opencart.data.Currencies;
 public final class HomePage extends AHeaderBlock {
 
     protected FeaturedBlock featuredBlock;
-
+    protected ProductActionNotification productActionNotification;
+    
+    // *********Constructor*********
     public HomePage(WebDriver driver) {
         super(driver);
         featuredBlock = new FeaturedBlock(driver);
@@ -17,24 +19,25 @@ public final class HomePage extends AHeaderBlock {
 
     public static HomePage load(WebDriver driver, String url) {
         driver.get(url);
+
         return new HomePage(driver);
     }
 
     public FeaturedBlock getFeaturedBlock() {
         return featuredBlock;
     }
-    
-    // TODO For BrowserTest class. Duplicate Code. Delete 
+
+    // TODO For BrowserTest class. Duplicate Code. Delete
     public List<String> getProductComponentTexts() {
         return getFeaturedBlock().getProductComponentTexts();
     }
-    
+
     // TODO For BrowserTest class. Duplicate Code. Delete
     public double getPriceAmountByProductName(String productName) {
         return getFeaturedBlock().getPriceAmountByProductName(productName);
-    }    
-    
-    // Business Logic
+    }
+
+    // *********Business Logic*********
 
     public HomePage selectCurrency(Currencies currencyName) {
         chooseCurrency(currencyName);
@@ -43,8 +46,9 @@ public final class HomePage extends AHeaderBlock {
 
     public HomePage addToWishListByProduct(String productName) { // TODO
         featuredBlock.clickAddToWishByProductName(productName);
-        //return this;
+        productActionNotification = new ProductActionNotification();
+        
         return new HomePage(driver);
     }
-    
+
 }

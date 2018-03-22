@@ -1,91 +1,99 @@
 package com.softserve.edu.opencart.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import com.softserve.edu.opencart.data.users.IUser;
 
 public class LoginPage extends ARightPanel {
 
+    // *********Web Elements*********
+    @FindBy(id = "input-email")
     private WebElement emailField;
+
+    @FindBy(id = "input-password")
     private WebElement passwordField;
+
+    @FindBy(css = "input.btn.btn-primary")
     private WebElement loginButton;
-    
+
+    // *********Constructor*********
     public LoginPage(WebDriver driver) {
         super(driver);
-        emailField = driver.findElement(By.id("input-email"));
-        passwordField = driver.findElement(By.id("input-password"));
-        loginButton = driver.findElement(By.cssSelector("input.btn.btn-primary"));
+        PageFactory.initElements(driver, this);
     }
 
-    // emailField
+    // *********Email Field*********
     public WebElement getEmailField() {
         return emailField;
     }
-
+    
     public String getEmailFieldText() {
-        return getEmailField().getAttribute(ATTRIBUTE_VALUE);
+        return getWebElementTextWithAttribute(getEmailField(), ATTRIBUTE_VALUE);
     }
 
     public void sendEmailFieldText(String text) {
-        getEmailField().sendKeys(text);
+        sendWebElementText(getEmailField(), text);
     }
 
     public void clearEmailField() {
-        getEmailField().clear();
+        clearWebElement(getEmailField());
     }
 
     public void clickEmailField() {
-        getEmailField().click();
+        clickWebElement(getEmailField());
     }
 
-    // passwordField
+    // *********Password Field*********
     public WebElement getPasswordField() {
         return passwordField;
     }
-
+    
     public String getPasswordFieldText() {
-        return getPasswordField().getAttribute(ATTRIBUTE_VALUE);
+        return getWebElementTextWithAttribute(getPasswordField(), ATTRIBUTE_VALUE);
     }
 
     public void sendPasswordFieldText(String text) {
-        getPasswordField().sendKeys(text);
+        sendWebElementText(getPasswordField(), text);
     }
 
     public void clearPasswordField() {
-        getPasswordField().clear();
+        clearWebElement(getPasswordField());
     }
 
     public void clickPasswordField() {
-        getPasswordField().click();
+        clickWebElement(getPasswordField());
     }
 
-    // loginButton
+    // *********Login Button********* 
     public WebElement getLoginButton() {
         return loginButton;
     }
-
-    public String getLoginButtonText() {
-        return getLoginButton().getAttribute(ATTRIBUTE_VALUE);
-    }
-
-    public void clickLoginButton() {
-        getLoginButton().click();
-    }
-
-    // Business Logic
     
+    public String getLoginButtonText() {
+        return getWebElementTextWithAttribute(getLoginButton(), ATTRIBUTE_VALUE);
+    }
+    
+    public void clickLoginButton() {
+        clickWebElement(getLoginButton());
+    }
+
+    // *********Business Logic*********
+
     private void fillLoginForm(IUser user) {
         clickEmailField();
-        clearEmailField();
+        clearEmailField(); 
         sendEmailFieldText(user.getEmail());
-        clickPasswordField();;
+      
+        clickPasswordField();
         clearPasswordField();
         sendPasswordFieldText(user.getPassword());
+        
         clickLoginButton();
     }
-    
+
     public MyAccountPage successLogin(IUser user) {
         fillLoginForm(user);
         return new MyAccountPage(driver);
@@ -96,5 +104,4 @@ public class LoginPage extends ARightPanel {
         return new LoginFailPage(driver);
     }
 
-    
 }

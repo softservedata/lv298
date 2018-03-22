@@ -50,8 +50,8 @@ public class Application {
         return instance;
     }
 
-    public static void remove() {
-        if (instance != null) {
+    public static void remove() {       
+        if (instance != null) {        
             // TODO Change for parallel work
             instance.getBrowser().quit();
             //instance.connectionManager().closeAllConnections();
@@ -127,6 +127,14 @@ public class Application {
         // return new HomePage(browser().getDriver());
         //return new HomePage();
         return HomePage.load(getBrowser().getDriver(), applicationSource.getBaseUrl());
+    }
+    
+    public WishListPage loadWishListPage() {
+        //getBrowser().openUrl(applicationSource.getBaseUrl());
+        // TODO Remove getBrowser().getDriver()
+        // return new HomePage(browser().getDriver());
+        //return new HomePage();
+        return WishListPage.load(getBrowser().getDriver());
     }
 
     // public LoginPage login() {

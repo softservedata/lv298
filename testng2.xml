@@ -11,16 +11,21 @@
 	<test verbose="5" name="Test1">
 		<parameter name="number" value="2" />
 		<classes>
-			<!-- <class name="com.softserve.edu.AppTest"> -->
-			<!-- <methods> -->
-			<!-- <include name="testApp1" /> -->
-			<!-- </methods> -->
-			<!-- </class> -->
+			<class name="com.softserve.edu.opencart.tests.AddToWishListTest">
+				<methods>
+					<include name="loginToHomePageTest" />
+					<include name="amountTest" />
+				<!-- 	<include name="successfulTextTest" /> -->
+					<include name="isInListTest" />	
+					<include name="removeFromListTest" />						
+				</methods>
+			</class>
+<!-- 
 			<class name="com.softserve.edu.opencart.tests.SmokeTest">
 				<methods>
 					<include name="smoke5Currency" />
 				</methods>
-			</class>
+			</class> -->
 		</classes>
 	</test> <!-- Test -->
 

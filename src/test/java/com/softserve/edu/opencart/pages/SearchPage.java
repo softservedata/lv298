@@ -7,7 +7,11 @@ import com.softserve.edu.opencart.data.Currencies;
 public class SearchPage extends AAdressBar {
 
     protected FeaturedBlock featuredBlock;
+    // *********Web Elements*********
 
+    //
+
+    // *********Constructor*********
     public SearchPage(WebDriver driver) {
         super(driver);
         featuredBlock = new FeaturedBlock(driver);
@@ -17,7 +21,7 @@ public class SearchPage extends AAdressBar {
         return featuredBlock;
     }
 
-    // Business Logic
+    // *********Business Logic*********
 
     public SearchPage selectCurrency(Currencies currencyName) {
         chooseCurrency(currencyName);
@@ -26,7 +30,6 @@ public class SearchPage extends AAdressBar {
 
     public SearchPage addToWishListByProduct(String productName) { // TODO
         featuredBlock.clickAddToWishByProductName(productName);
-        //return this;
         return new SearchPage(driver);
     }
 

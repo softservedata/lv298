@@ -8,31 +8,29 @@ import com.softserve.edu.opencart.tools.RegexUtils;
 public class ProductComponent {
 
     private WebElement productLayout;
-    //
-    // private WebElement name;
-    // private WebElement price;
-    // private WebElement addToCart;
-    // private WebElement addToWish;
 
+    // *********Locators*********
+    private String nameCss = "h4 a";
+    private String priceClassName = "price";
+    private String addToCartCss = ".fa.fa-shopping-cart";
+    private String addToWishCss = ".fa.fa-heart";
+
+    // *********Constructor*********
     public ProductComponent(WebElement productLayout) {
         this.productLayout = productLayout;
-        //
-        // Verify Web Elements
-        verifyWebElements();
+        initElements();
     }
 
-    private void verifyWebElements() {
-        // TODO Check, if Web Elements Exist
+    private void initElements() {
         getName();
         getPrice();
         getAddToCart();
         getAddToWish();
     }
 
-    // name
+    // *********Name*********
     public WebElement getName() {
-        // return name;
-        return productLayout.findElement(By.cssSelector("h4 a"));
+        return productLayout.findElement(By.cssSelector(nameCss));
     }
 
     public String getNameText() {
@@ -43,34 +41,31 @@ public class ProductComponent {
         getName().click();
     }
 
-    // price
+    // *********Price*********
     public WebElement getPrice() {
-        // return price;
-        return productLayout.findElement(By.cssSelector(".price"));
+        return productLayout.findElement(By.className(priceClassName));
     }
 
     public String getPriceText() {
         return getPrice().getText();
     }
 
-    // TODO
     public double getPriceAmount() {
         return RegexUtils.extractFirstDouble(getPriceText());
     }
 
-    // addToCart
+    // *********Add To Cart*********
     public WebElement getAddToCart() {
-        return productLayout.findElement(By.cssSelector(".fa.fa-shopping-cart"));
+        return productLayout.findElement(By.cssSelector(addToCartCss));
     }
 
     public void clickAddToCart() {
         getAddToCart().click();
     }
 
-    // addToWish
+    // *********Add To Wish*********
     public WebElement getAddToWish() {
-        // return currency;
-        return productLayout.findElement(By.cssSelector(".fa.fa-heart"));
+        return productLayout.findElement(By.cssSelector(addToWishCss));
     }
 
     public void clickAddToWish() {

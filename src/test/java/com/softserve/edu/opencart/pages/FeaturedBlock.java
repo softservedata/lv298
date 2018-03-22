@@ -11,7 +11,10 @@ public class FeaturedBlock {
 
     private WebDriver driver;
     protected List<ProductComponent> productComponents;
-
+    
+    // *********Web Elements*********
+    
+    // *********Constructor*********
     public FeaturedBlock(WebDriver driver) {
         this.driver = driver;
         initProductComponents();
@@ -24,6 +27,7 @@ public class FeaturedBlock {
         }
     }
 
+    // *********Product Components*********
     public List<ProductComponent> getProductComponents() {
         return productComponents;
     }

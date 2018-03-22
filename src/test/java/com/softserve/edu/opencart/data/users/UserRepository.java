@@ -3,7 +3,8 @@ package com.softserve.edu.opencart.data.users;
 public final class UserRepository {
     
     private static volatile UserRepository instance = null;
-
+    
+    // *********Constructor*********
     private UserRepository() {
     }
 
@@ -17,7 +18,8 @@ public final class UserRepository {
         }
         return instance;
     }
-
+    
+    // *********Repository*********
     public IUser defaultUser() {
         return customer();
     }
@@ -26,7 +28,7 @@ public final class UserRepository {
         return User.get()
                 .setFirstname("firstname")
                 .setLastname("lastname")
-                .setEmail("hahaha@gmail.com")
+                .setEmail("iwish@gmail.com")
                 .setTelephone("telephone")
                 .setAddressMain("addressMain")
                 .setCity("city")

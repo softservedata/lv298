@@ -1,33 +1,55 @@
 package com.softserve.edu.opencart.data.applications;
 
-public class ApplicationSource implements IApplicationSource {
+//*********Builder Pattern*********
+interface IBrowserName {
+    IDriverPath setBrowserName(String browserName);
+}
 
-    // Browser Data
+interface IDriverPath {
+    IImplicitWaitTimeOut setDriverPath(String driverPath);
+}
+
+interface IImplicitWaitTimeOut {
+    IBaseUrl setImplicitWaitTimeOut(long implicitWaitTimeOut);
+}
+
+interface IBaseUrl {
+    IApplicationSourceBuild setBaseUrl(String baseUrl);
+}
+
+interface IApplicationSourceBuild {
+    IApplicationSource build();
+}
+
+public class ApplicationSource implements IBrowserName, IDriverPath, IImplicitWaitTimeOut,
+                                        IBaseUrl,IApplicationSourceBuild,IApplicationSource {
+
+    //*********Browser Data*********
     private String browserName;
     private String driverPath;
 
     // private String browserPath;
     // private String defaulProfile;
     //
-    // Implicit and Explicit Waits
+    //*********Implicit and Explicit Waits*********
     private long implicitWaitTimeOut;
     //private long implicitLoadTimeOut;
     //private long implicitScriptTimeOut;
     //private long explicitTimeOut;
     //
-    // Localization Strategy
+    //*********Localization Strategy*********
     // private String language;
     //
-    // Search Strategy
+    //*********Search Strategy*********
     //private String searchStrategy;
     //
-    // Logger Strategy
+    //*********Logger Strategy*********
     // private String loggerStrategy;
     //
-    // Reporter Console Output
+    //*********Reporter Console Output*********
     //private boolean consoleOutput;
     //
-    // URLs
+    //*********URLs*********
     private String baseUrl;
     //private String userLoginUrl;
     //private String userLogoutUrl;
@@ -35,40 +57,45 @@ public class ApplicationSource implements IApplicationSource {
     //private String adminLoginUrl;
     //private String adminLogoutUrl;
     //
-    // Database Connection
+    //*********Database Connection*********
     //private String databaseUrl;
     //private String databaseLogin;
     //private String databasePassword;
 
-    // TODO Develop Builder
-    public ApplicationSource(String browserName, String driverPath,
-            long implicitWaitTimeOut, String baseUrl) {
-        this.browserName = browserName;
-        this.driverPath = driverPath;
-        this.implicitWaitTimeOut = implicitWaitTimeOut;
-        this.baseUrl = baseUrl;
+    // *********Constructor*********
+    private ApplicationSource() {       
     }
     
-    // setters
+    public static IBrowserName get () {
+        return new ApplicationSource();
+    }
     
-    public void setBrowserName(String browserName) {
+    //*********Setters********* 
+    public IDriverPath setBrowserName(String browserName) {
         this.browserName = browserName;
+        return this;
     }
 
-    public void setDriverPath(String driverPath) {
+    public IImplicitWaitTimeOut setDriverPath(String driverPath) {
         this.driverPath = driverPath;
+        return this;
     }
 
-    public void setImplicitWaitTimeOut(long implicitWaitTimeOut) {
+    public IBaseUrl setImplicitWaitTimeOut(long implicitWaitTimeOut) {
         this.implicitWaitTimeOut = implicitWaitTimeOut;
+        return this;
     }
 
-    public void setBaseUrl(String baseUrl) {
+    public IApplicationSourceBuild setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
+        return this;
+    }
+    
+    public IApplicationSource build () {
+        return this;
     }
 
-    // getters
-
+    //*********Getters********* 
     public String getBrowserName() {
         return browserName;
     }

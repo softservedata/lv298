@@ -9,6 +9,8 @@ public final class RegexUtils {
     // private final static String PATTERN_UNSIGNED_DOUBLE = "\\d+(\\.\\d+)*";
     private final static String PATTERN_UNSIGNED_DOUBLE = "\\d+\\.\\d+";
     private final static String EXTRACT_NUMBER_MESSAGE = "NumberFormatException for pattern =  %s text =  %s";
+    
+    private final static String PATTERN_SUCCESFULL_MESSAGE = "Success:.+!";
 
     private RegexUtils() {
     }
@@ -60,5 +62,18 @@ public final class RegexUtils {
         }
         return result;
     }
+    
+    public static String extractSuccesfullMessage(String text) {
+        String result = text;
+        Matcher matcher = Pattern.compile(PATTERN_SUCCESFULL_MESSAGE).matcher(text);
+        if (matcher.find()) {
+            result = text.substring(matcher.start(),matcher.end());
+        }
+        return result;
+    }
+    
+//    public static void main(String[] args) {
+//        System.out.println(extractSuccesfullMessage(" Success: You have modified your wish list! ×"));
+//    }
 
 }
