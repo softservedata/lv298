@@ -1,7 +1,5 @@
 package com.softserve.edu.opencart.tests;
 
-import static org.testng.Assert.assertEquals;
-
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -76,10 +74,7 @@ public class SmokeTest extends TestRunner {
                 .contains(product.getName()));
     }
 
-    @DataProvider
-    public Object[][] usersProvider() {
-        return new Object[][] { { UserRepository.get().customer() } };
-    }
+    
 
     //@Test(dataProvider = "usersProvider")
     public void smoke4Login(IUser user) throws Exception {
@@ -117,16 +112,31 @@ public class SmokeTest extends TestRunner {
         Thread.sleep(4000);
     }
 
+    @DataProvider
+    public Object[][] failUsersProvider() {
+        return new Object[][] { { UserRepository.get().customer() } };
+    }
     
+    @DataProvider
+    public Object[][] successUsersProvider() {
+        return new Object[][] { { UserRepository.get().nazar() } };
+    }
     
-    @Test(dataProvider = "usersProvider")
-    public void smokeRegistrationPage(IUser user) throws InterruptedException {
+    @Test(dataProvider = "failUsersProvider")
+    public void failRegistrationPage(IUser user) throws InterruptedException {
 	RegistrationPage registrationPage = Application.get().loadHomePage().gotoRegistrationPage();
-	FailRegistrationPage actual = registrationPage.registrationUser(user);
+	FailRegistrationPage actual = registrationPage.failRegistrationUser(user);
 	String expected = "Warning: E-Mail Address is already registered!";
 	Assert.assertEquals(actual.getErrorText(), expected);
 	Thread.sleep(4000);
     }
     
+    @Test(dataProvider = "successUsersProvider")
+    public void successRegistrationPage(IUser user) {
+	RegistrationPage registrationPage = Application.get().loadHomePage().gotoRegistrationPage();
+	SuccessRegistrationPage actual = registrationPage.successRegistrationUser(user);
+	String expected = "Your Account Has Been Created!";
+	Assert.assertEquals(actual.getSuccessfullRegistrationText(), expected);
+    }
     
 }

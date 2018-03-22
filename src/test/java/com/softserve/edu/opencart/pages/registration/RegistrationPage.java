@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.Select;
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.ARightPanel;
 import com.softserve.edu.opencart.tools.JavaScriptInjection;
-import com.softserve.edu.opencart.tools.Waiters;
 
 public class RegistrationPage extends ARightPanel {
 
@@ -255,7 +254,7 @@ public class RegistrationPage extends ARightPanel {
 	getContinueButton();
     }
 
-    public FailRegistrationPage registrationUser(IUser user) {
+    public RegistrationPage registrationUser(IUser user) {
 	sendTextToFirstNameField(user.getFirstname());
 	JavaScriptInjection.inject().scroll(driver, getFirstNameField());
 	sendTextToLastNameField(user.getLastname());
@@ -284,6 +283,16 @@ public class RegistrationPage extends ARightPanel {
 	selectSubscribe(user.isSubscribe());
 	clickAgreeCheckBox();
 	clickContinueButton();
+	return new RegistrationPage(driver);
+    }
+    
+    public FailRegistrationPage failRegistrationUser(IUser user) {
+	registrationUser(user);
 	return new FailRegistrationPage(driver);
+    }
+    
+    public SuccessRegistrationPage successRegistrationUser(IUser user) {
+	registrationUser(user);
+	return new SuccessRegistrationPage(driver);
     }
 }

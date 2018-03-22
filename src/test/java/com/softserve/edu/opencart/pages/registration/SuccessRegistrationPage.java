@@ -16,6 +16,6 @@ public class SuccessRegistrationPage extends RegistrationPage {
     }
     
     public String getSuccessfullRegistrationText() {
-	return "Your Account Has Been Created!";
+	return getSuccessfullRegistrationElement().getText();
     }
 }
