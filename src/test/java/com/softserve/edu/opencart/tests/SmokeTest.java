@@ -112,31 +112,6 @@ public class SmokeTest extends TestRunner {
         Thread.sleep(4000);
     }
 
-    @DataProvider
-    public Object[][] failUsersProvider() {
-        return new Object[][] { { UserRepository.get().customer() } };
-    }
-    
-    @DataProvider
-    public Object[][] successUsersProvider() {
-        return new Object[][] { { UserRepository.get().nazar() } };
-    }
-    
-    @Test(dataProvider = "failUsersProvider")
-    public void failRegistrationPage(IUser user) throws InterruptedException {
-	RegistrationPage registrationPage = Application.get().loadHomePage().gotoRegistrationPage();
-	FailRegistrationPage actual = registrationPage.failRegistrationUser(user);
-	String expected = "Warning: E-Mail Address is already registered!";
-	Assert.assertEquals(actual.getErrorText(), expected);
-	Thread.sleep(4000);
-    }
-    
-    @Test(dataProvider = "successUsersProvider")
-    public void successRegistrationPage(IUser user) {
-	RegistrationPage registrationPage = Application.get().loadHomePage().gotoRegistrationPage();
-	SuccessRegistrationPage actual = registrationPage.successRegistrationUser(user);
-	String expected = "Your Account Has Been Created!";
-	Assert.assertEquals(actual.getSuccessfullRegistrationText(), expected);
-    }
+
     
 }

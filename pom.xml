@@ -44,9 +44,9 @@
         <net.sourceforge.jtds.version>1.3.1</net.sourceforge.jtds.version>
         <mysql.connector.version>5.1.44</mysql.connector.version>
         <postgresql.connector.version>9.4-1206-jdbc41</postgresql.connector.version>
-        <database.connection>null</database.connection>
-        <database.login>null</database.login>
-        <database.password>null</database.password>
+        <!--    <database.connection>null</database.connection>
+            <database.login>null</database.login>
+            <database.password>null</database.password>  -->
         <!-- - - - - - Hibernate - - - - - -->
         <org.hibernate.version>5.2.2.Final</org.hibernate.version>
         <!-- <org.hibernate.version>5.1.3.Final</org.hibernate.version> -->
@@ -147,17 +147,18 @@
             <scope>runtime</scope>
         </dependency>
         <!-- - - - DB Access - - - -->
-        <!-- <dependency> -->
-        <!-- <groupId>com.microsoft.sqlserver</groupId> -->
-        <!-- <artifactId>mssql-jdbc</artifactId> -->
-        <!-- <version>6.2.2</version> -->
-        <!-- </dependency> -->
-        <!-- <dependency> -->
-        <!-- <groupId>com.microsoft.sqlserver</groupId> -->
-        <!-- <artifactId>sqljdbc4</artifactId> -->
-        <!-- <version>4.0</version> -->
-        <!-- <version>4.0.2206.100</version> -->
-        <!-- </dependency> -->
+        <!--<dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>6.2.2</version>
+
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>4.0</version>
+            <version>4.0.2206.100</version>
+        </dependency>-->
         <dependency>
             <groupId>net.sourceforge.jtds</groupId>
             <artifactId>jtds</artifactId>

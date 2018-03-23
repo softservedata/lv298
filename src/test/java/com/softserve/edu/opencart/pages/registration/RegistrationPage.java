@@ -1,13 +1,12 @@
 package com.softserve.edu.opencart.pages.registration;
 
+import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.pages.ARightPanel;
+import com.softserve.edu.opencart.tools.JavaScriptInjection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
-import com.softserve.edu.opencart.data.users.IUser;
-import com.softserve.edu.opencart.pages.ARightPanel;
-import com.softserve.edu.opencart.tools.JavaScriptInjection;
 
 public class RegistrationPage extends ARightPanel {
 
@@ -34,265 +33,323 @@ public class RegistrationPage extends ARightPanel {
     protected WebDriver driver;
 
     public RegistrationPage(WebDriver driver) {
-	super(driver);
-	this.driver = driver;
+        super(driver);
+        this.driver = driver;
     }
 
     // First name field;
     public WebElement getFirstNameField() {
-	return driver.findElement(By.name(FIELD_NAME_FIRST_NAME));
+        return driver.findElement(By.name(FIELD_NAME_FIRST_NAME));
+    }
+
+    public void scrollToFirstNameField() {
+        JavaScriptInjection.inject().scroll(driver, getFirstNameField());
     }
 
     public void sendTextToFirstNameField(String text) {
-	getFirstNameField().clear();
-	getFirstNameField().click();
-	getFirstNameField().sendKeys(text);
+        scrollToFirstNameField();
+        getFirstNameField().clear();
+        getFirstNameField().click();
+        getFirstNameField().sendKeys(text);
     }
 
     // Last name field;
     public WebElement getLastNameField() {
-	return driver.findElement(By.name(FIELD_NAME_LAST_NAME));
+        return driver.findElement(By.name(FIELD_NAME_LAST_NAME));
+    }
+
+    public void scrollToLastNameField() {
+        JavaScriptInjection.inject().scroll(driver, getLastNameField());
     }
 
     public void sendTextToLastNameField(String text) {
-	getLastNameField().clear();
-	getLastNameField().click();
-	getLastNameField().sendKeys(text);
+        scrollToLastNameField();
+        getLastNameField().clear();
+        getLastNameField().click();
+        getLastNameField().sendKeys(text);
     }
 
     // Email field
     public WebElement getEmailField() {
-	return driver.findElement(By.name(FIELD_NAME_EMAIL));
+        return driver.findElement(By.name(FIELD_NAME_EMAIL));
+    }
+
+    public void scrollToEmailField() {
+        JavaScriptInjection.inject().scroll(driver, getEmailField());
     }
 
     public void sendTextToEmailField(String text) {
-	getEmailField().clear();
-	getEmailField().click();
-	getEmailField().sendKeys(text);
+        scrollToEmailField();
+        getEmailField().clear();
+        getEmailField().click();
+        getEmailField().sendKeys(text);
     }
 
     // Telephone field
     public WebElement getTelephoneField() {
-	return driver.findElement(By.name(FIELD_NAME_TELEPHONE));
+        return driver.findElement(By.name(FIELD_NAME_TELEPHONE));
+    }
+
+    public void scrollToTelephoneField() {
+        JavaScriptInjection.inject().scroll(driver, getTelephoneField());
     }
 
     public void sendTextToTelephoneField(String text) {
-	getTelephoneField().clear();
-	getTelephoneField().click();
-	getTelephoneField().sendKeys(text);
+        scrollToTelephoneField();
+        getTelephoneField().clear();
+        getTelephoneField().click();
+        getTelephoneField().sendKeys(text);
     }
 
     // Fax Field
     public WebElement getFaxField() {
-	return driver.findElement(By.name(FIELD_NAME_FAX));
+        return driver.findElement(By.name(FIELD_NAME_FAX));
+    }
+
+    public void scrollToFaxField() {
+        JavaScriptInjection.inject().scroll(driver, getFaxField());
     }
 
     public void sendTextToFaxField(String text) {
-	getFaxField().clear();
-	getFaxField().click();
-	getFaxField().sendKeys(text);
+        scrollToFaxField();
+        getFaxField().clear();
+        getFaxField().click();
+        getFaxField().sendKeys(text);
     }
 
     // Company Field
     public WebElement getCompanyField() {
-	return driver.findElement(By.name(FIELD_NAME_COMPANY));
+        return driver.findElement(By.name(FIELD_NAME_COMPANY));
+    }
+
+    public void scrollToCompanyField() {
+        JavaScriptInjection.inject().scroll(driver, getCompanyField());
     }
 
     public void sendTextToCompanyField(String text) {
-	getCompanyField().clear();
-	getCompanyField().click();
-	getCompanyField().sendKeys(text);
+        scrollToCompanyField();
+        getCompanyField().clear();
+        getCompanyField().click();
+        getCompanyField().sendKeys(text);
     }
 
-    // Address 1 field
-    public WebElement getAddress1Field() {
-	return driver.findElement(By.name(FIELD_NAME_ADDRESS_1));
+    // Main address field
+    public WebElement getMainAddressField() {
+        return driver.findElement(By.name(FIELD_NAME_ADDRESS_1));
     }
 
-    public void sendTextToAddress1Field(String text) {
-	getAddress1Field().clear();
-	getAddress1Field().click();
-	getAddress1Field().sendKeys(text);
+    public void scrollToMainAddressField() {
+        JavaScriptInjection.inject().scroll(driver, getMainAddressField());
     }
 
-    // Address 2 field
-    public WebElement getAddress2Field() {
-	return driver.findElement(By.name(FIELD_NAME_ADDRESS_2));
+    public void sendTextToMainAddressField(String text) {
+        scrollToMainAddressField();
+        getMainAddressField().clear();
+        getMainAddressField().click();
+        getMainAddressField().sendKeys(text);
     }
 
-    public void sendTextToAddress2Field(String text) {
-	getAddress2Field().clear();
-	getAddress2Field().click();
-	getAddress2Field().sendKeys(text);
+    // Additional address field
+    public WebElement getAdditionalAddressField() {
+        return driver.findElement(By.name(FIELD_NAME_ADDRESS_2));
+    }
+
+    public void scrollToAdditionalAddressField() {
+        JavaScriptInjection.inject().scroll(driver, getMainAddressField());
+    }
+
+    public void sendTextToAdditionalAddressField(String text) {
+        scrollToAdditionalAddressField();
+        getAdditionalAddressField().clear();
+        getAdditionalAddressField().click();
+        getAdditionalAddressField().sendKeys(text);
     }
 
     // City Field
     public WebElement getCityField() {
-	return driver.findElement(By.name(FIELD_NAME_CITY));
+        return driver.findElement(By.name(FIELD_NAME_CITY));
+    }
+
+    public void scrollToCityField() {
+        JavaScriptInjection.inject().scroll(driver, getCityField());
     }
 
     public void sendTextToCityField(String text) {
-	getCityField().clear();
-	getCityField().click();
-	getCityField().sendKeys(text);
+        scrollToCityField();
+        getCityField().clear();
+        getCityField().click();
+        getCityField().sendKeys(text);
     }
 
     // Postcode field
     public WebElement getPostcodeField() {
-	return driver.findElement(By.name(FIELD_NAME_POSTCODE));
+        return driver.findElement(By.name(FIELD_NAME_POSTCODE));
+    }
+
+    public void scrollToPostcodeField() {
+        JavaScriptInjection.inject().scroll(driver, getPostcodeField());
     }
 
     public void sendTextToPostcodeField(String text) {
-	getPostcodeField().clear();
-	getPostcodeField().click();
-	getPostcodeField().sendKeys(text);
+        scrollToPostcodeField();
+        getPostcodeField().clear();
+        getPostcodeField().click();
+        getPostcodeField().sendKeys(text);
     }
 
     // Password field
     public WebElement getPasswordField() {
-	return driver.findElement(By.name(FIELD_NAME_PASSWORD));
+        return driver.findElement(By.name(FIELD_NAME_PASSWORD));
+    }
+
+    public void scrollToPasswordField() {
+        JavaScriptInjection.inject().scroll(driver, getPasswordField());
     }
 
     public void sendTextToPasswordField(String text) {
-	getPasswordField().clear();
-	getPasswordField().click();
-	getPasswordField().sendKeys(text);
+        scrollToPasswordField();
+        getPasswordField().clear();
+        getPasswordField().click();
+        getPasswordField().sendKeys(text);
     }
 
     // Password Confirm field
     public WebElement getPasswordConfirmField() {
-	return driver.findElement(By.name(FIELD_NAME_PASSWORD_CONFIRM));
+        return driver.findElement(By.name(FIELD_NAME_PASSWORD_CONFIRM));
+    }
+
+    public void scrollToPasswordConfirmField() {
+        JavaScriptInjection.inject().scroll(driver, getPasswordConfirmField());
     }
 
     public void sendTextToPasswordConfirmField(String text) {
-	getPasswordConfirmField().clear();
-	getPasswordConfirmField().click();
-	getPasswordConfirmField().sendKeys(text);
+        scrollToPasswordConfirmField();
+        getPasswordConfirmField().clear();
+        getPasswordConfirmField().click();
+        getPasswordConfirmField().sendKeys(text);
     }
 
     // Country Selector
     public WebElement getCountrySelector() {
-	return driver.findElement(By.name(SELECT_NAME_COUNTRY));
+        return driver.findElement(By.name(SELECT_NAME_COUNTRY));
     }
 
     public Select toSelectCountry() {
-	return new Select(getCountrySelector());
+        return new Select(getCountrySelector());
     }
 
     public void clickCountrySelector() {
-	getCountrySelector().click();
+        getCountrySelector().click();
     }
 
     public void selectCountryByValue(String country) {
-	toSelectCountry().selectByValue(country);
+        toSelectCountry().selectByValue(country);
     }
 
     // State Selector
     public WebElement getStateSelector() {
-	return driver.findElement(By.name(SELECT_NAME_REGION));
+        return driver.findElement(By.name(SELECT_NAME_REGION));
     }
 
     public Select toSelectStateSelector() {
-	return new Select(getStateSelector());
+        return new Select(getStateSelector());
     }
 
     public void clickStateSelector() {
-	getStateSelector().click();
+        getStateSelector().click();
     }
 
     public void selectStateByValue(String state) {
-	toSelectStateSelector().selectByValue(state);
+        toSelectStateSelector().selectByValue(state);
     }
 
     // Subscribe Radio Button
     public WebElement getSubscribeRadio() {
-	return driver.findElement(By.name(RADIO_NAME_SUBSCRIBE));
+        return driver.findElement(By.name(RADIO_NAME_SUBSCRIBE));
     }
 
     public void selectSubscribe(boolean isSubscribe) {
-	if (isSubscribe) {
-	    getSubscribeRadio().click();
-	}
+        if (isSubscribe) {
+            getSubscribeRadio().click();
+        }
     }
 
     // Agree Check Box
     public WebElement getAgreeCheckBox() {
-	return driver.findElement(By.name(CHECKBOX_NAME_AGREE));
+        return driver.findElement(By.name(CHECKBOX_NAME_AGREE));
     }
 
     public void clickAgreeCheckBox() {
-	getAgreeCheckBox().click();
+        getAgreeCheckBox().click();
     }
 
     // Continue Button
     public WebElement getContinueButton() {
-	return driver.findElement(By.cssSelector(BUTTON_CLASS_CONTINUE));
+        return driver.findElement(By.cssSelector(BUTTON_CLASS_CONTINUE));
     }
 
     public void clickContinueButton() {
-	getContinueButton().click();
+        getContinueButton().click();
     }
 
     // Test and BL
     public void verifyElements() {
-	getFirstNameField();
-	getLastNameField();
-	getEmailField();
-	getTelephoneField();
-	getFaxField();
-	getCompanyField();
-	getAddress1Field();
-	getAddress2Field();
-	getCityField();
-	getPostcodeField();
-	getPasswordField();
-	getPasswordConfirmField();
-	getCountrySelector();
-	getStateSelector();
-	getSubscribeRadio();
-	getAgreeCheckBox();
-	getContinueButton();
+        getFirstNameField();
+        getLastNameField();
+        getEmailField();
+        getTelephoneField();
+        getFaxField();
+        getCompanyField();
+        getMainAddressField();
+        getAdditionalAddressField();
+        getCityField();
+        getPostcodeField();
+        getPasswordField();
+        getPasswordConfirmField();
+        getCountrySelector();
+        getStateSelector();
+        getSubscribeRadio();
+        getAgreeCheckBox();
+        getContinueButton();
     }
 
     public RegistrationPage registrationUser(IUser user) {
-	sendTextToFirstNameField(user.getFirstname());
-	JavaScriptInjection.inject().scroll(driver, getFirstNameField());
-	sendTextToLastNameField(user.getLastname());
-	sendTextToEmailField(user.getEmail());
-	JavaScriptInjection.inject().scroll(driver, getTelephoneField());
-	sendTextToTelephoneField(user.getTelephone());
-	if (user.getFax() != null) {
-	    sendTextToFaxField(user.getFax());
-	}
-	if (user.getCompany() != null) {
-	    sendTextToCompanyField(user.getCompany());
-	}
-	sendTextToAddress1Field(user.getAddressMain());
-	if (user.getAddressAdditional() != null) {
-	    sendTextToAddress2Field(user.getAddressAdditional());
-	}
-	sendTextToCityField(user.getCity());
-	if (user.getPostCode() != null) {
-	    sendTextToPostcodeField(user.getPostCode());
-	}
-	selectCountryByValue(user.getCountry());
-	selectStateByValue(user.getState());
-	JavaScriptInjection.inject().scroll(driver, getPasswordField());
-	sendTextToPasswordField(user.getPassword());
-	sendTextToPasswordConfirmField(user.getPassword());
-	selectSubscribe(user.isSubscribe());
-	clickAgreeCheckBox();
-	clickContinueButton();
-	return new RegistrationPage(driver);
+        sendTextToFirstNameField(user.getFirstname());
+        sendTextToLastNameField(user.getLastname());
+        sendTextToEmailField(user.getEmail());
+        sendTextToTelephoneField(user.getTelephone());
+        if (user.getFax() != null) {
+            sendTextToFaxField(user.getFax());
+        }
+        if (user.getCompany() != null) {
+            sendTextToCompanyField(user.getCompany());
+        }
+        sendTextToMainAddressField(user.getAddressMain());
+        if (user.getAddressAdditional() != null) {
+            sendTextToAdditionalAddressField(user.getAddressAdditional());
+        }
+        sendTextToCityField(user.getCity());
+        if (user.getPostCode() != null) {
+            sendTextToPostcodeField(user.getPostCode());
+        }
+        selectCountryByValue(user.getCountry());
+        selectStateByValue(user.getState());
+
+        sendTextToPasswordField(user.getPassword());
+        sendTextToPasswordConfirmField(user.getPassword());
+        selectSubscribe(user.isSubscribe());
+        clickAgreeCheckBox();
+        clickContinueButton();
+        return new RegistrationPage(driver);
     }
-    
+
     public FailRegistrationPage failRegistrationUser(IUser user) {
-	registrationUser(user);
-	return new FailRegistrationPage(driver);
+        registrationUser(user);
+        return new FailRegistrationPage(driver);
     }
-    
+
     public SuccessRegistrationPage successRegistrationUser(IUser user) {
-	registrationUser(user);
-	return new SuccessRegistrationPage(driver);
+        registrationUser(user);
+        return new SuccessRegistrationPage(driver);
     }
 }

@@ -11,35 +11,35 @@ public class Application {
     private BrowserWrapper browser;
 
     private Application(IApplicationSource applicationSource) {
-	this.applicationSource = applicationSource;
+        this.applicationSource = applicationSource;
     }
 
     public static Application get() {
-	return get(null);
+        return get(null);
     }
 
     public static Application get(IApplicationSource applicationSource) {
-	if (instance == null) {
-	    synchronized (Application.class) {
-		if (instance == null) {
-		    if (applicationSource == null) {
-			applicationSource = ApplicationSourceRepository.defaultParameters();
-		    }
-		    instance = new Application(applicationSource);
-		    instance.initBrowser(applicationSource);
-		}
-	    }
-	}
-	return instance;
+        if (instance == null) {
+            synchronized (Application.class) {
+                if (instance == null) {
+                    if (applicationSource == null) {
+                        applicationSource = ApplicationSourceRepository.defaultParameters();
+                    }
+                    instance = new Application(applicationSource);
+                    instance.initBrowser(applicationSource);
+                }
+            }
+        }
+        return instance;
     }
 
     public static void remove() {
-	if (instance != null) {
-	    // TODO Change for parallel work
-	    instance.getBrowser().quit();
-	    // instance.connectionManager().closeAllConnections();
-	    instance = null;
-	}
+        if (instance != null) {
+            // TODO Change for parallel work
+            instance.getBrowser().quit();
+            // instance.connectionManager().closeAllConnections();
+            instance = null;
+        }
     }
 
     // getters
@@ -47,7 +47,7 @@ public class Application {
     // TODO Change for parallel work
     // TODO remove get
     public IApplicationSource getApplicationSource() {
-	return applicationSource;
+        return applicationSource;
     }
 
     // public CaptureUtils captureUtils() {
@@ -63,7 +63,7 @@ public class Application {
     // }
 
     public BrowserWrapper getBrowser() {
-	return browser;
+        return browser;
     }
 
     // public ISearch search() {
@@ -91,7 +91,7 @@ public class Application {
     // }
 
     private void initBrowser(IApplicationSource applicationSource) {
-	this.browser = new BrowserWrapper(applicationSource);
+        this.browser = new BrowserWrapper(applicationSource);
     }
 
     // private void initSearch(IApplicationSource applicationSource) {
@@ -105,9 +105,9 @@ public class Application {
     // Pages
 
     public HomePage loadHomePage() {
-	return HomePage.load(getBrowser().getDriver(), applicationSource.getBaseUrl());
+        return HomePage.load(getBrowser().getDriver(), applicationSource.getBaseUrl());
     }
-    
+
 
     // public LoginPage login() {
     // getBrowser().openUrl(applicationSource.getUserLoginUrl());
