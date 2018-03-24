@@ -6,39 +6,8 @@ public class ApplicationSource implements IApplicationSource {
     private String browserName;
     private String driverPath;
 
-    // private String browserPath;
-    // private String defaulProfile;
-    //
-    // Implicit and Explicit Waits
     private long implicitWaitTimeOut;
-    //private long implicitLoadTimeOut;
-    //private long implicitScriptTimeOut;
-    //private long explicitTimeOut;
-    //
-    // Localization Strategy
-    // private String language;
-    //
-    // Search Strategy
-    //private String searchStrategy;
-    //
-    // Logger Strategy
-    // private String loggerStrategy;
-    //
-    // Reporter Console Output
-    //private boolean consoleOutput;
-    //
-    // URLs
     private String baseUrl;
-    //private String userLoginUrl;
-    //private String userLogoutUrl;
-    //
-    //private String adminLoginUrl;
-    //private String adminLogoutUrl;
-    //
-    // Database Connection
-    //private String databaseUrl;
-    //private String databaseLogin;
-    //private String databasePassword;
 
     // TODO Develop Builder
     public ApplicationSource(String browserName, String driverPath,

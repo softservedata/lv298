@@ -6,12 +6,22 @@ public final class ApplicationSourceRepository {
     }
 
     public static IApplicationSource defaultParameters() {
-	return EpizyChrome();
+	return openCartChrome();
     }
 
-    public static IApplicationSource EpizyChrome() {
-	return new ApplicationSource("ChromeTemporary", // "ChromeProfile", // "ChromeTemporary", // "ChromeProfile",
-		"C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe", 10, "https://nazaronoc.000webhostapp.com/");
+    public static IApplicationSource openCartChrome() {
+	return new ApplicationSource(
+	        "ChromeTemporary", // "ChromeProfile", // "ChromeTemporary", // "ChromeProfile",
+    		"C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe",
+            10,
+            "https://nazaronoc.000webhostapp.com/");
     }
 
+    public static IApplicationSource openCartFirefox(){
+        return new ApplicationSource(
+                "Firefox",
+                "C:/Program Files/Mozilla Firefox/geckodriver.exe",
+                10,
+                "https://nazaronoc.000webhostapp.com/");
+    }
 }

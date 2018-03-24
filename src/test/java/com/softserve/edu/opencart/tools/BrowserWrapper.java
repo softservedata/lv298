@@ -17,6 +17,13 @@ public class BrowserWrapper {
         WebDriver getBrowser(IApplicationSource applicationSource);
     }
 
+    private static class FirefoxTemporary implements IBrowser{
+        public WebDriver getBrowser(IApplicationSource applicationSource) {
+            System.setProperty("webdriver.firefox.driver", applicationSource.getDriverPath());
+            return null;
+        }
+    }
+
     private static class ChromeTemporary implements IBrowser {
         public WebDriver getBrowser(IApplicationSource applicationSource) {
             System.setProperty("webdriver.chrome.driver",
@@ -56,6 +63,7 @@ public class BrowserWrapper {
 
     public static enum Browsers {
         DEFAULT_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
+        FIREFOX_TEMPORART("FirefoxTemporary", new FirefoxTemporary()),
         CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         CHROME_PROFILE("ChromeProfile", new ChromeProfile()),
         CHROME_WITHOUTUI("ChromeWithoutUI", new ChromeWithoutUI());

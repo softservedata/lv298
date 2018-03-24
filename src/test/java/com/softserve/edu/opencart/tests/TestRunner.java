@@ -18,15 +18,13 @@ public abstract class TestRunner {
     @BeforeClass
     public void beforeClass(ITestContext context) {
         System.out.println("@BeforeClass");
-        // TODO Read context
-        Application.get(ApplicationSourceRepository.EpizyChrome());
+        Application.get(ApplicationSourceRepository.openCartChrome());
     }
 
     
     @AfterClass(alwaysRun = true)
     public void afterClass() {
         System.out.println("@AfterClass");
-        //
         Application.remove();
     }
 
