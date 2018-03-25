@@ -73,40 +73,15 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone, IAddress
     private String password;
     private boolean subscribe;
 
-    // public User(String firstname, String lastname,
-    // String email, String telephone, String fax, String company,
-    // String addressMain, String addressAdditional,
-    // String city, String postCode, String country, String state,
-    // String password, boolean subscribe) {
-    // this.firstname = firstname;
-    // this.lastname = lastname;
-    // this.email = email;
-    // this.telephone = telephone;
-    // this.fax = fax;
-    // this.company = company;
-    // this.addressMain = addressMain;
-    // this.addressAdditional = addressAdditional;
-    // this.city = city;
-    // this.postCode = postCode;
-    // this.country = country;
-    // this.state = state;
-    // this.password = password;
-    // this.subscribe = subscribe;
-    // }
-
-    // public User() {
     private User() {
     }
 
-    // public static User get() {
     public static IFirstname get() {
 	return new User();
     }
 
     // setters
 
-    // public void setFirstname(String firstname) {
-    // public User setFirstname(String firstname) {
     public ILastname setFirstname(String firstname) {
 	this.firstname = firstname;
 	return this;

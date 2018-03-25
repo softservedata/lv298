@@ -1,43 +1,69 @@
 package com.softserve.edu.opencart.data.applications;
 
-public class ApplicationSource implements IApplicationSource {
+interface IBrowserName {
+    IDriverPath setBrowserName(String browserName);
+}
+
+interface IDriverPath {
+    IImplicitWaitTimeOut setDriverPath(String driverPath);
+}
+
+interface IImplicitWaitTimeOut {
+    IBaseUrl setImplicitWaitTimeOut(long implicitWaitTimeOut);
+}
+
+interface IBaseUrl {
+    IApplicationSourceBuilder setBaseUrl(String baseUrl);
+}
+
+interface IApplicationSourceBuilder {
+    IApplicationSource build();
+}
+
+
+public class ApplicationSource implements   IBrowserName, IDriverPath, IImplicitWaitTimeOut, IBaseUrl,
+                                            IApplicationSourceBuilder, IApplicationSource {
 
     // Browser Data
     private String browserName;
     private String driverPath;
-
     private long implicitWaitTimeOut;
     private String baseUrl;
 
     // TODO Develop Builder
-    public ApplicationSource(String browserName, String driverPath,
-            long implicitWaitTimeOut, String baseUrl) {
+    private ApplicationSource() {
+    }
+
+    public static IBrowserName get() {
+        return new ApplicationSource();
+    }
+
+    //Setters
+    public IDriverPath setBrowserName(String browserName) {
         this.browserName = browserName;
+        return this;
+    }
+
+    public IImplicitWaitTimeOut setDriverPath(String driverPath) {
         this.driverPath = driverPath;
+        return this;
+    }
+
+    public IBaseUrl setImplicitWaitTimeOut(long implicitWaitTimeOut) {
         this.implicitWaitTimeOut = implicitWaitTimeOut;
+        return this;
+    }
+
+    public IApplicationSourceBuilder setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
-    }
-    
-    // setters
-    
-    public void setBrowserName(String browserName) {
-        this.browserName = browserName;
+        return this;
     }
 
-    public void setDriverPath(String driverPath) {
-        this.driverPath = driverPath;
+    public IApplicationSource build() {
+        return this;
     }
 
-    public void setImplicitWaitTimeOut(long implicitWaitTimeOut) {
-        this.implicitWaitTimeOut = implicitWaitTimeOut;
-    }
-
-    public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
-
-    // getters
-
+    //GETTERS
     public String getBrowserName() {
         return browserName;
     }
@@ -53,5 +79,4 @@ public class ApplicationSource implements IApplicationSource {
     public String getBaseUrl() {
         return baseUrl;
     }
-
 }

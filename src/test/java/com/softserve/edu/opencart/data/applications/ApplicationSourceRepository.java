@@ -2,26 +2,42 @@ package com.softserve.edu.opencart.data.applications;
 
 public final class ApplicationSourceRepository {
 
+    private static volatile ApplicationSourceRepository instance = null;
+
     private ApplicationSourceRepository() {
     }
 
-    public static IApplicationSource defaultParameters() {
-	return openCartChrome();
+    public static ApplicationSourceRepository get() {
+        if (instance == null) {
+            synchronized (ApplicationSourceRepository.class) {
+                if (instance == null) {
+                    instance = new ApplicationSourceRepository();
+                }
+            }
+        }
+        return instance;
     }
 
-    public static IApplicationSource openCartChrome() {
-	return new ApplicationSource(
-	        "ChromeTemporary", // "ChromeProfile", // "ChromeTemporary", // "ChromeProfile",
-    		"C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe",
-            10,
-            "https://nazaronoc.000webhostapp.com/");
+    public IApplicationSource defaultSource() {
+        return openCartChrome();
     }
 
-    public static IApplicationSource openCartFirefox(){
-        return new ApplicationSource(
-                "Firefox",
-                "C:/Program Files/Mozilla Firefox/geckodriver.exe",
-                10,
-                "https://nazaronoc.000webhostapp.com/");
+    public IApplicationSource openCartChrome() {
+        return ApplicationSource.get()
+                .setBrowserName("ChromeTemporary")
+                .setDriverPath("C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe")
+                .setImplicitWaitTimeOut(10)
+                .setBaseUrl("https://nazaronoc.000webhostapp.com/")
+                .build();
+    }
+
+
+    public IApplicationSource openCartFirefox() {
+        return ApplicationSource.get()
+                .setBrowserName("FirefoxTemporary")
+                .setDriverPath("C:/Program Files/Mozilla Firefox/geckodriver.exe")
+                .setImplicitWaitTimeOut(10)
+                .setBaseUrl("https://nazaronoc.000webhostapp.com/")
+                .build();
     }
 }

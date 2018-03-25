@@ -23,7 +23,7 @@ public class Application {
             synchronized (Application.class) {
                 if (instance == null) {
                     if (applicationSource == null) {
-                        applicationSource = ApplicationSourceRepository.defaultParameters();
+                        applicationSource = ApplicationSourceRepository.get().defaultSource();
                     }
                     instance = new Application(applicationSource);
                     instance.initBrowser(applicationSource);
@@ -50,31 +50,9 @@ public class Application {
         return applicationSource;
     }
 
-    // public CaptureUtils captureUtils() {
-    // return captureUtils;
-    // }
-
-    // public ReporterWrapper reporter() {
-    // return reporter;
-    // }
-
-    // public FlexAssert flexAssert() {
-    // return flexAssert;
-    // }
-
     public BrowserWrapper getBrowser() {
         return browser;
     }
-
-    // public ISearch search() {
-    // return search;
-    // }
-
-    // public ConnectionManager connectionManager() {
-    // return connectionManager;
-    // }
-
-    // Initialization
 
     // TODO Change for parallel work
     // private void initCaptureUtils() {

@@ -18,7 +18,7 @@ public abstract class TestRunner {
     @BeforeClass
     public void beforeClass(ITestContext context) {
         System.out.println("@BeforeClass");
-        Application.get(ApplicationSourceRepository.openCartChrome());
+        Application.get(ApplicationSourceRepository.get().openCartChrome());
     }
 
     
