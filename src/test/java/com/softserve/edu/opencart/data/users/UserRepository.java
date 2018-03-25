@@ -40,6 +40,23 @@ public final class UserRepository {
                 .setFax("fax")
                 .build();
     }
+    
+    public IUser customer2() {
+        return User.get()
+                .setFirstname("firstname")
+                .setLastname("lastname")
+                .setEmail("hahaha@gmail.com")
+                .setTelephone("telephone")
+                .setAddressMain("addressMain")
+                .setCity("city")
+                .setPostCode("postCode")
+                .setCountry("country")
+                .setState("state")
+                .setPassword("qwerty")
+                .setSubscribe(true)
+                .setFax("fax")
+                .build();
+    }
 
     //public IUser admin() {}
     //public List<IUser> fromExcel() {}

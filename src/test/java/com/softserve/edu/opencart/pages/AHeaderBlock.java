@@ -3,43 +3,53 @@ package com.softserve.edu.opencart.pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.data.products.IProduct;
+import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.tools.RegexUtils;
 
 public abstract class AHeaderBlock {
 
+    //TODO develop WebElement Wrapper
     // *********Atomic operations*********
     public void clickWebElement(WebElement webElement) {
-        webElement.click();
+        webElement.click();        
     }
 
-    public void clearWebElement(WebElement webElement) {
+    public void clearWebElement(WebElement webElement) {       
         webElement.clear();
     }
 
-    public String getWebElementText(WebElement webElement) {
+    public String getWebElementText(WebElement webElement) {       
         return webElement.getText();
     }
 
-    public String getWebElementTextWithAttribute(WebElement webElement, String attribute) {
+    public String getWebElementTextWithAttribute(WebElement webElement, String attribute) {       
         return webElement.getAttribute(attribute);
     }
 
-    public void sendWebElementText(WebElement webElement, String text) {
+    public void sendWebElementText(WebElement webElement, String text) {       
         webElement.sendKeys(text);
     }
     //
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     private class CurrencyComponent {
-
+        
+        // *********Locators*********
+        private final String LIST_CURRENCY_ELEMENTS_CSS = "button.currency-select.btn.btn-link.btn-block";
+        
         // *********Web Elements*********
-        @FindBy(css = "button.currency-select.btn.btn-link.btn-block")
+        @FindBy(css = LIST_CURRENCY_ELEMENTS_CSS)
         private List<WebElement> currencyElements;
 
         // *********Constructor*********
@@ -85,11 +95,15 @@ public abstract class AHeaderBlock {
 
     private class AccountInComponent {
 
+        // *********Locators*********
+        //TODO make locators simpler
+        private final String BTN_REGISTER_XPATH = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/register')]";
+        private final String BTN_LOGIN_XPATH = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/login')]";
         // *********Web Elements*********
-        @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/register')]")
+        @FindBy(xpath = BTN_REGISTER_XPATH)
         private WebElement register;
 
-        @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/login')]")
+        @FindBy(xpath = BTN_LOGIN_XPATH)
         private WebElement login;
 
         // *********Constructor*********
@@ -128,11 +142,15 @@ public abstract class AHeaderBlock {
 
     private class AccountOutComponent {
 
+        // *********Locators*********
+        //TODO make locators simpler
+        private final String BTN_MY_ACCOUNT_LOGIN_XPATH = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/account')]";
+        private final String BTN_LOGOUT_XPATH = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/logout')]";
         // *********Web Elements*********
-        @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/account')]")
+        @FindBy(xpath = BTN_MY_ACCOUNT_LOGIN_XPATH)
         private WebElement myAccountLogin;
 
-        @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/logout')]")
+        @FindBy(xpath = BTN_LOGOUT_XPATH)
         private WebElement logout;
 
         // *********Constructor*********
@@ -168,17 +186,21 @@ public abstract class AHeaderBlock {
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    public class ProductActionNotification {
+    protected class ProductActionNotification {
 
+        // *********Locators*********
+        private final String BTN_CLOSE_CLASS_NAME = "close";
+        private final String DIV_MESSAGE_CONTAINER_CSS = ".alert.alert-success";
+        
         // *********Web Elements*********
-        @FindBy(css = ".alert.alert-success")
+        @FindBy(css = DIV_MESSAGE_CONTAINER_CSS)
         private WebElement messageContainer;
 
-        @FindBy(className = "close")
+        @FindBy(className = BTN_CLOSE_CLASS_NAME)
         private WebElement closeMessage;
 
         // *********Constructor*********
-        public ProductActionNotification() {
+        public ProductActionNotification() {           
             PageFactory.initElements(driver, this);
         }
 
@@ -207,36 +229,48 @@ public abstract class AHeaderBlock {
     }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+    // *********AHeaderBlock Fields********
     public final String ATTRIBUTE_VALUE = "value";
-    //
     protected WebDriver driver;
 
     protected CurrencyComponent currencyComponent;
     protected AccountInComponent accountInComponent;
     protected AccountOutComponent accountOutComponent;
     protected ProductActionNotification productActionNotification;
-
+ 
+    // *********AHeaderBlock Getters********
+    public ProductActionNotification getProductActionNotification() {
+        return productActionNotification;
+    }
+    // *********Locators*********
+    private final String BTN_CURRENCY_CSS = ".btn.btn-link.dropdown-toggle";
+    private final String BTN_MY_ACCOUNT_CSS = "ul.list-inline li.dropdown a.dropdown-toggle";
+    private final String ANCH_LOGO_CSS = "#logo a";
+    private final String INPUT_SEARCH_FIELD_NAME = "search";
+    private final String BTN_SEARCH_CSS = ".btn.btn-default.btn-lg";
+    private final String BTN_WISH_LIST_ID = "wishlist-total";
+    private final String LIST_MYACCOUNTITEMS_CSS = ".dropdown-menu.dropdown-menu-right li";
+   
     // *********Web Elements*********
-
-    @FindBy(css = ".btn.btn-link.dropdown-toggle")
+    @FindBy(css = BTN_CURRENCY_CSS)
     private WebElement currency;
 
-    @FindBy(css = "ul.list-inline li.dropdown a.dropdown-toggle")
+    @FindBy(css = BTN_MY_ACCOUNT_CSS)
     private WebElement myAccount;
 
-    @FindBy(css = "#logo a")
+    @FindBy(css = ANCH_LOGO_CSS)
     private WebElement logo;
 
-    @FindBy(name = "search")
+    @FindBy(name = INPUT_SEARCH_FIELD_NAME)
     private WebElement searchField;
 
-    @FindBy(css = ".btn.btn-default.btn-lg")
+    @FindBy(css = BTN_SEARCH_CSS)
     private WebElement searchButton;
 
-    @FindBy(id = "wishlist-total")
+    @FindBy(id = BTN_WISH_LIST_ID)
     private WebElement wishList;
 
-    @FindBy(css = ".dropdown-menu.dropdown-menu-right li")
+    @FindBy(css = LIST_MYACCOUNTITEMS_CSS)
     private List<WebElement> myAccountItems;
 
     //
@@ -340,13 +374,8 @@ public abstract class AHeaderBlock {
     public int wishListAmount() {
         return RegexUtils.extractFirstNumber(getWishListText());
     }
-    
-    public ProductActionNotification getProductActionNotification() {
-        return this.productActionNotification;
-    }
-    
+      
     // *********Business Logic*********
-
     protected void chooseCurrency(Currencies currencyName) {
         clickCurrency();
         currencyComponent.clickCurrencyElementByName(currencyName);
@@ -362,8 +391,8 @@ public abstract class AHeaderBlock {
         return new WishListPage(driver);
     }
 
-    public SearchPage searchByProduct(String productName) {
-        sendSearchFieldText(productName);
+    public SearchPage searchByProduct(IProduct product) {
+        sendSearchFieldText(product.getSearchKey());
         clickSearchButton();
         return new SearchPage(driver);
     }
@@ -384,7 +413,7 @@ public abstract class AHeaderBlock {
         }
         return new LoginPage(driver);
     }
-
+     
     public HomePage signoutToHomePage() {
         if (isLogged()) {
             clickSearchField();
@@ -399,14 +428,27 @@ public abstract class AHeaderBlock {
         return new HomePage(driver);
     }
     
-    public String productActionNotificationText() {
-        productActionNotification = new ProductActionNotification();
-        return productActionNotification.getMessageContainerText();
+    public HomePage loginToHomePage(IUser user) { 
+        return   signoutToHomePage()
+                .gotoLoginPage()
+                .successLogin(user)
+                .gotoHomePage();
+    }
+    
+    public boolean isWishListContainsProduct(IProduct product) {   
+        boolean rezult = false;
+        WishListPage wishListPage = this.gotoWishListPage();
+        rezult = wishListPage.isProductInList(product);
+        wishListPage.gotoHomePage();
+        return rezult;
+    }
+    
+    public String productActionNotificationText() {      
+        return getProductActionNotification().getMessageContainerText();
     } 
     
     public void productActionNotificationClose() {
-        productActionNotification = new ProductActionNotification();
-        productActionNotification.clickCloseMessage();
+        getProductActionNotification().clickCloseMessage();
     } 
 
 }

@@ -21,38 +21,11 @@ import com.softserve.edu.opencart.pages.SearchPage;
 public class SmokeTest extends TestRunner {
 
 
-    //@Test
-    public void smoke2() throws Exception {
-        System.setProperty("webdriver.chrome.driver",
-                "C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        //
-//        driver.get("http://atqc-shop.epizy.com");
-//        driver.navigate().refresh();
-//        Thread.sleep(2000);
-        //
-//        HomePage homePage = HomePage.load(driver, "http://atqc-shop.epizy.com");
-//        homePage = homePage.searchByProduct("mac");
-        //
-        SearchPage searchPage = HomePage
-                .load(driver, "http://oppencart.herokuapp.com/")
-                .searchByProduct("mac");
-        Thread.sleep(4000);
-        System.out.println("***"+searchPage.getFeaturedBlock().getProductComponentTexts());
-        Assert.assertTrue(searchPage.getFeaturedBlock().getProductComponentTexts().contains("MacBook"));
-        driver.quit();
-    }
-
-    @DataProvider
-    public Object[][] productsProvider() {
-        return new Object[][] { { ProductRepository.macBook() } };
-    }
-
+  
     //@Test(dataProvider = "productsProvider")
     public void smoke3TestRunner(IProduct product) throws Exception {
         SearchPage searchPage = Application.get().loadHomePage() 
-                .searchByProduct(product.getSearchKey());
+                .searchByProduct(product);
         Thread.sleep(4000);
         System.out.println("***" + searchPage.getFeaturedBlock().getProductComponentTexts());
         Assert.assertTrue(searchPage.getFeaturedBlock().getProductComponentTexts()
@@ -91,12 +64,12 @@ public class SmokeTest extends TestRunner {
     public void smoke5Currency(IProduct product, Currencies currencyName) throws Exception {
         SearchPage searchPage = Application.get().loadHomePage() 
                 .selectCurrency(currencyName)
-                .searchByProduct(product.getSearchKey());
+                .searchByProduct(product);
         Thread.sleep(4000);
         System.out.println("***" + searchPage.getFeaturedBlock().getProductComponentTexts());
         Assert.assertTrue(searchPage.getFeaturedBlock().getProductComponentTexts()
                 .contains(product.getName()));
-        Assert.assertEquals(searchPage.getFeaturedBlock().getPriceAmountByProductName(product.getName()),
+        Assert.assertEquals(searchPage.getFeaturedBlock().getPriceAmountByProduct(product),
                 product.getPriceByCurrencyName(currencyName));
         Thread.sleep(4000);
     }

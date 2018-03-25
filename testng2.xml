@@ -7,25 +7,28 @@
 	<!-- <parameter name="logouturl" value="http://registrator.herokuapp.com/logout"/> -->
 	<!-- <parameter name="browserName" value="chrome" /> -->
 
+	<listeners>
+		<listener class-name="com.softserve.edu.opencart.tools.DotTestListener" />
+		<listener
+			class-name="com.softserve.edu.opencart.tools.ScreenshotAtFailTestListener" />
+	</listeners>
 	<!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
 	<test verbose="5" name="Test1">
 		<parameter name="number" value="2" />
+
 		<classes>
-			<class name="com.softserve.edu.opencart.tests.AddToWishListTest">
+			<class name="com.softserve.edu.opencart.tests.WishListTest">
 				<methods>
-					<include name="loginToHomePageTest" />
-					<include name="amountTest" />
-				<!-- 	<include name="successfulTextTest" /> -->
-					<include name="isInListTest" />	
-					<include name="removeFromListTest" />						
+				<!-- 	<include name="loginToHomePageTest" /> -->
+					<include name="addRemoveTest" />
+					<!-- <include name="amountTest" />
+					<include name="successfulTextTest" />
+					<include name="isInListTest" /> -->
+
 				</methods>
 			</class>
-<!-- 
-			<class name="com.softserve.edu.opencart.tests.SmokeTest">
-				<methods>
-					<include name="smoke5Currency" />
-				</methods>
-			</class> -->
+
+
 		</classes>
 	</test> <!-- Test -->
 

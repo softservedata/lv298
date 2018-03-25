@@ -6,19 +6,20 @@ import org.openqa.selenium.WebElement;
 import com.softserve.edu.opencart.tools.RegexUtils;
 
 public class ProductComponent {
-
+    
+    // *********Fields*********
     private WebElement productLayout;
-
+    
     // *********Locators*********
-    private String nameCss = "h4 a";
-    private String priceClassName = "price";
-    private String addToCartCss = ".fa.fa-shopping-cart";
-    private String addToWishCss = ".fa.fa-heart";
+    private final String ANCH_PRODUCT_NAME_CSS = "div.caption a";
+    private final String P_PRICE_CLASS_NAME = "price";
+    private final String BTN_ADD_TO_CART_CSS = ".fa.fa-shopping-cart";
+    private final String BTN_ADD_TO_WISH_CSS = ".fa.fa-heart";
 
     // *********Constructor*********
     public ProductComponent(WebElement productLayout) {
-        this.productLayout = productLayout;
-        initElements();
+        this.productLayout = productLayout;    
+        initElements();    
     }
 
     private void initElements() {
@@ -29,8 +30,8 @@ public class ProductComponent {
     }
 
     // *********Name*********
-    public WebElement getName() {
-        return productLayout.findElement(By.cssSelector(nameCss));
+    public WebElement getName() {       
+       return productLayout.findElement(By.cssSelector(ANCH_PRODUCT_NAME_CSS));
     }
 
     public String getNameText() {
@@ -43,7 +44,7 @@ public class ProductComponent {
 
     // *********Price*********
     public WebElement getPrice() {
-        return productLayout.findElement(By.className(priceClassName));
+        return productLayout.findElement(By.className(P_PRICE_CLASS_NAME));
     }
 
     public String getPriceText() {
@@ -56,7 +57,7 @@ public class ProductComponent {
 
     // *********Add To Cart*********
     public WebElement getAddToCart() {
-        return productLayout.findElement(By.cssSelector(addToCartCss));
+        return productLayout.findElement(By.cssSelector(BTN_ADD_TO_CART_CSS));
     }
 
     public void clickAddToCart() {
@@ -65,7 +66,7 @@ public class ProductComponent {
 
     // *********Add To Wish*********
     public WebElement getAddToWish() {
-        return productLayout.findElement(By.cssSelector(addToWishCss));
+        return productLayout.findElement(By.cssSelector(BTN_ADD_TO_WISH_CSS));
     }
 
     public void clickAddToWish() {

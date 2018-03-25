@@ -7,27 +7,31 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.tools.RegexUtils;
 
 public class WishListPage extends ARightPanel {
 
+    // *********WishListPage Fields*********
     private final static String WISH_LIST_PAGE_URL = " http://setopencart.epizy.com/index.php?route=account/wishlist";
-    
+    protected List<ProductComponentInWishList> productComponents;
     private final String IN_STOCK = "instock";
-    private final String WISH_LIST_LAYOUT_CSS = "table.table.table-bordered.table-hover tbody tr";
-    private final String WISH_LIST_IS_EMPTY_CSS = "#content p";
+    private WebElement emptyWishListMessage = null;
+    
+    // *********WishListPage Locators*********
+    private final String DIV_WISH_LIST_LAYOUT_CSS = ".table-responsive tbody tr";
+    private final String P_WISH_LIST_IS_EMPTY_CSS = "#content p";
     
     private class ProductComponentInWishList {
 
         private WebElement productLayout;
-        // *********Locators*********
-        private String nameCss = "td.text-left a";
-        private String modelCss = "td.text-left ~ td.text-left";
-        private String stockCss = "td.text-left + td.text-right";
-        private String priceClassName = "price";
-        private String addToCartCss = ".fa.fa-shopping-cart";
-        private String removeFromWishCss = ".fa.fa-times";
-      
+        // *********ProductComponentInWishList Locators*********
+        private final String ANCH_NAME_CSS = "td.text-left a";
+        private final String TXT_MODEL_CSS = "td.text-left ~ td.text-left";
+        private final String TXT_STOCK_CSS = "td.text-left + td.text-right";
+        private final String P_PRICE_CLASS_NAME = "price";
+        private final String BTN_ADD_TO_CART_CSS = ".fa.fa-shopping-cart";
+        private final String BTN_REMOVE_FROM_LIST_CSS = ".fa.fa-times";
 
         // *********Constructor*********
         public ProductComponentInWishList(WebElement productLayout) {
@@ -46,7 +50,7 @@ public class WishListPage extends ARightPanel {
 
         // *********Name*********
         public WebElement getName() {
-            return productLayout.findElement(By.cssSelector(nameCss));
+            return productLayout.findElement(By.cssSelector(ANCH_NAME_CSS));
         }
 
         public String getNameText() {
@@ -59,7 +63,7 @@ public class WishListPage extends ARightPanel {
 
         // *********Model*********
         public WebElement getModel() {
-            return productLayout.findElement(By.cssSelector(modelCss));
+            return productLayout.findElement(By.cssSelector(TXT_MODEL_CSS));
         }
 
         public String getModelText() {
@@ -68,7 +72,7 @@ public class WishListPage extends ARightPanel {
 
         // *********Stock*********
         public WebElement getStock() {
-            return productLayout.findElement(By.cssSelector(stockCss));
+            return productLayout.findElement(By.cssSelector(TXT_STOCK_CSS));
         }
 
         public String getStockText() {
@@ -77,7 +81,7 @@ public class WishListPage extends ARightPanel {
 
         // *********Price*********
         public WebElement getPrice() {
-            return productLayout.findElement(By.className(priceClassName));
+            return productLayout.findElement(By.className(P_PRICE_CLASS_NAME));
         }
 
         public String getPriceText() {
@@ -91,7 +95,7 @@ public class WishListPage extends ARightPanel {
 
         // *********Add To Cart*********
         public WebElement getAddToCart() {
-            return productLayout.findElement(By.cssSelector(addToCartCss));
+            return productLayout.findElement(By.cssSelector(BTN_ADD_TO_CART_CSS));
         }
 
         public void clickAddToCart() {
@@ -100,7 +104,7 @@ public class WishListPage extends ARightPanel {
 
         // *********Remove From Wish List*********
         public WebElement getRemoveFromWishList() {
-            return productLayout.findElement(By.cssSelector(removeFromWishCss));
+            return productLayout.findElement(By.cssSelector(BTN_REMOVE_FROM_LIST_CSS));
         }
 
         public void clickRemoveFromWish() {
@@ -108,22 +112,30 @@ public class WishListPage extends ARightPanel {
         }
 
     }
-
-    protected List<ProductComponentInWishList> productComponents;
-    protected ProductActionNotification productActionNotification;
-    private WebElement emptyWishListMessage = null;
     
-    // *********Constructor*********
+    // *********Constructors*********
     public WishListPage(WebDriver driver) {
         super(driver);
         initProductComponents();
     }
     
-    public static WishListPage load(WebDriver driver) {
-        driver.get(WISH_LIST_PAGE_URL);
-        return new WishListPage(driver);
+    public WishListPage(WebDriver driver, boolean withMessage) {
+        super(driver);
+        initProductComponents();
+        if (withMessage) {
+            productActionNotification = new ProductActionNotification();
+        }
     }
-    //TODO 
+    
+    // *********Empty Wish List Message*********
+    public WebElement getEmptyWishListMessage() {
+        return driver.findElement(By.cssSelector(P_WISH_LIST_IS_EMPTY_CSS));
+    }
+    
+    public String getEmptyWishListMessageText() {
+        return getWebElementText(getEmptyWishListMessage());
+    }
+   
     public boolean isWishListEmpty() {  
         if (wishListAmount() == 0) {
             return true; 
@@ -133,28 +145,26 @@ public class WishListPage extends ARightPanel {
         }
     }
     
-    // *********Empty Wish List Message*********
-    public WebElement getEmptyWishListMessage() {
-        return driver.findElement(By.cssSelector(WISH_LIST_IS_EMPTY_CSS));
+    public boolean isProductInList(IProduct product) {  
+        if (isWishListEmpty()) {
+            return false; 
+        } else if (getProductComponentNames().contains(product.getName())){
+            
+            return true;
+        } else {
+            return false;
+        }
     }
-    
-    public String getEmptyWishListMessageText() {
-        return getWebElementText(getEmptyWishListMessage());
-    }
-    
-   
 
     private void initProductComponents() {
         if (!isWishListEmpty()) {
             productComponents = new ArrayList<ProductComponentInWishList>();
-            for (WebElement current : driver.findElements(By.cssSelector(WISH_LIST_LAYOUT_CSS))) {
+            for (WebElement current : driver.findElements(By.cssSelector(DIV_WISH_LIST_LAYOUT_CSS))) {
                 productComponents.add(new ProductComponentInWishList(current));
             }
             emptyWishListMessage = null;
         } else {
             getEmptyWishListMessage(); 
-             // TODO custom exception
-           // throw new RuntimeException("productComponents not found, list is empty");
         }
     }
 
@@ -182,55 +192,50 @@ public class WishListPage extends ARightPanel {
         return result;
     }
 
-    
-    public String getModelTextByProductName(String productName) {
-        return getProductComponentByName(productName).getModelText();
+    public String getModelTextByProduct(IProduct product) {
+        return getProductComponentByName(product.getName()).getModelText();
     }
     
-    public boolean isInWishListByProductName(String productName) {
+    public boolean isInWishListByProduct(IProduct product) {
         if(isWishListEmpty()) {
             return false;
         } else {
-            return getProductComponentNames().contains(productName);
+            return getProductComponentNames().contains(product.getName());
         }
     }
 
-    public boolean isInStockByProductName(String productName) {
-        if (getProductComponentByName(productName).getStockText().toLowerCase().trim().equals(IN_STOCK)) {
+    public boolean isInStockByProduct(IProduct product) {
+        if (getProductComponentByName(product.getName()).getStockText().toLowerCase().trim().equals(IN_STOCK)) {
             return true;
         } else {
             return false;
         }
     }
 
-    public String getPriceTextByProductName(String productName) {
-        return getProductComponentByName(productName).getPriceText();
+    public String getPriceTextByProduct(IProduct product) {
+        return getProductComponentByName(product.getName()).getPriceText();
     }
 
-    public double getPriceAmountByProductName(String productName) {
-        return getProductComponentByName(productName).getPriceAmount();
+    public double getPriceAmountByProduct(IProduct product) {
+        return getProductComponentByName(product.getName()).getPriceAmount();
     }
 
-    public void clickAddToCartByProductName(String productName) {
-        getProductComponentByName(productName).clickAddToCart();
+    public void clickAddToCartByProduct(IProduct product) {
+        getProductComponentByName(product.getName()).clickAddToCart();
     }
 
-    public void clickRemoveFromWishByProductName(String productName) {
-        getProductComponentByName(productName).clickRemoveFromWish();
+    public void clickRemoveFromWishByProduct(IProduct product) {
+        getProductComponentByName(product.getName()).clickRemoveFromWish();
     }
-    
 
     // *********Business Logic*********
-
-    public WishListPage removeFromWishListByProduct(String productName) { // TODO
-        clickRemoveFromWishByProductName(productName);
-        productActionNotification = new ProductActionNotification();
-        return new WishListPage(driver);
+    public WishListPage removeFromWishListByProduct(IProduct product) { 
+        clickRemoveFromWishByProduct(product);
+        return new WishListPage(driver, true);
     }
 
-    public WishListPage AddToCartByProductName(String productName) { // TODO
-        clickAddToCartByProductName(productName);
-        productActionNotification = new ProductActionNotification();
-        return new WishListPage(driver);
+    public WishListPage AddToCartByProduct(IProduct product) { 
+        clickAddToCartByProduct(product);
+        return new WishListPage(driver, true);
     }
 }

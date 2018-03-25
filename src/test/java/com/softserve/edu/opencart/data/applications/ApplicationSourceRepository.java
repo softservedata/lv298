@@ -30,6 +30,7 @@ public final class ApplicationSourceRepository {
                 .setDriverPath("C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe")
                 .setImplicitWaitTimeOut(10)
                 .setBaseUrl("http://setopencart.epizy.com")
+                //.setBaseUrl("http://atqc-shop.epizy.com")
                 .build();
     }
     
@@ -39,6 +40,7 @@ public final class ApplicationSourceRepository {
                 .setDriverPath("C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe")
                 .setImplicitWaitTimeOut(10)
                 .setBaseUrl("http://setopencart.epizy.com")
+                //.setBaseUrl("http://atqc-shop.epizy.com")
                 .build();
     }
     

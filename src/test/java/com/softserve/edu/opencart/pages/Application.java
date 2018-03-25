@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.pages;
 
+import org.openqa.selenium.WebDriver;
+
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
@@ -57,6 +59,10 @@ public class Application {
             //instance.connectionManager().closeAllConnections();
             instance = null;
         }
+    }
+    // TODO legal?
+    public static WebDriver driver() {           
+             return instance.getBrowser().getDriver();
     }
 
     // getters
@@ -129,13 +135,14 @@ public class Application {
         return HomePage.load(getBrowser().getDriver(), applicationSource.getBaseUrl());
     }
     
-    public WishListPage loadWishListPage() {
+    public HomePage refreshHomePage() {
         //getBrowser().openUrl(applicationSource.getBaseUrl());
         // TODO Remove getBrowser().getDriver()
         // return new HomePage(browser().getDriver());
         //return new HomePage();
-        return WishListPage.load(getBrowser().getDriver());
+        return HomePage.refresh(getBrowser().getDriver());
     }
+    
 
     // public LoginPage login() {
     // getBrowser().openUrl(applicationSource.getUserLoginUrl());

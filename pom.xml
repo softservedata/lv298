@@ -201,7 +201,7 @@
 		<!-- <version>${xerces.xercesImpl.version}</version> -->
 		<!-- </dependency> -->
 		<!-- - - - - - JSON - - - - - -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.core.version}</version>
@@ -210,7 +210,7 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>${google.gson.version}</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 
 	<build>

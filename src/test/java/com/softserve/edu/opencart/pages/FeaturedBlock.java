@@ -6,23 +6,27 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+
+import com.softserve.edu.opencart.data.products.IProduct;
 
 public class FeaturedBlock {
 
     private WebDriver driver;
     protected List<ProductComponent> productComponents;
     
-    // *********Web Elements*********
+    // *********Locators*********
+    private final String DIV_PRODUCT_LAYOUT_CLASS_NAME = "product-layout";
     
     // *********Constructor*********
-    public FeaturedBlock(WebDriver driver) {
+    public FeaturedBlock(WebDriver driver) {    
         this.driver = driver;
         initProductComponents();
     }
     
     private void initProductComponents() {
         productComponents = new ArrayList<ProductComponent>();
-        for (WebElement current : driver.findElements(By.cssSelector(".product-layout"))) {
+        for (WebElement current : driver.findElements(By.className(DIV_PRODUCT_LAYOUT_CLASS_NAME))) {
             productComponents.add(new ProductComponent(current));
         }
     }
@@ -55,20 +59,20 @@ public class FeaturedBlock {
         return result;
     }
 
-    public String getPriceTextByProductName(String productName) {
-        return getProductComponentByName(productName).getPriceText();
+    public String getPriceTextByProduct(IProduct product) {
+        return getProductComponentByName(product.getName()).getPriceText();
     }
 
-    public double getPriceAmountByProductName(String productName) {
-        return getProductComponentByName(productName).getPriceAmount();
+    public double getPriceAmountByProduct(IProduct product) {
+        return getProductComponentByName(product.getName()).getPriceAmount();
     }
 
-    public void clickAddToCartByProductName(String productName) {
-        getProductComponentByName(productName).clickAddToCart();
+    public void clickAddToCartByProduct(IProduct product) {
+        getProductComponentByName(product.getName()).clickAddToCart();
     }
 
-    public void clickAddToWishByProductName(String productName) {
-        getProductComponentByName(productName).clickAddToWish();
+    public void clickAddToWishByProduct(IProduct product) {  
+        getProductComponentByName(product.getName()).clickAddToWish();
     }
 
 }

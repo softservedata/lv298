@@ -18,11 +18,11 @@ public final class LiteralConstants {
         return "Success: You have added " + productName + " to your product comparison!";
     }
     
-    public static String modifyCompareSuccessMessage(String productName) {
+    public static String modifyCompareSuccessMessage() {
         return "Success: You have modified your product comparison!";
     }
     
-    public static String modifyWishListSuccessMessage(String productName) {
+    public static String modifyWishListSuccessMessage() {
         return "Success: You have modified your wish list!";
     }
 
