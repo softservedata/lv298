@@ -1,9 +1,12 @@
 package com.softserve.edu.opencart.tests;
 
+import static org.testng.Assert.assertTrue;
+
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.softserve.edu.App;
 import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.users.IUser;
@@ -133,7 +136,7 @@ public class WishListTest extends TestRunner {
     }
     
  // *********Remove Product To Wish List Success Notification Test*********
-    @Test(dataProvider = "userProductsProvider")
+  //  @Test(dataProvider = "userProductsProvider")
     public void removeFromListSuccessNotificationTest(IUser user, IProduct product) throws Exception {
         //boolean containsProduct = false;
 
@@ -161,6 +164,12 @@ public class WishListTest extends TestRunner {
             wishListPage.signoutToHomePage();
         }
 
+    }
+    
+    // *********Link to Login Page Test*********
+     @Test(dataProvider = "userProductsProvider")
+    public void linkToLoginPageTest(IProduct product) throws Exception {
+     
     }
 
     // *********Is in Wish List Test*********

@@ -8,7 +8,7 @@
 	<!-- <parameter name="browserName" value="chrome" /> -->
 
 	<listeners>
-		<listener class-name="com.softserve.edu.opencart.tools.DotTestListener" />
+		<!-- <listener class-name="com.softserve.edu.opencart.tools.DotTestListener" /> -->
 		<listener
 			class-name="com.softserve.edu.opencart.tools.ScreenshotAtFailTestListener" />
 	</listeners>
@@ -20,7 +20,9 @@
 			<class name="com.softserve.edu.opencart.tests.WishListTest">
 				<methods>
 				<!-- 	<include name="loginToHomePageTest" /> -->
-					<include name="addRemoveTest" />
+					<!-- <include name="addRemoveTest" /> -->
+					<include name="linkToLoginPageTest" />
+					
 					<!-- <include name="amountTest" />
 					<include name="successfulTextTest" />
 					<include name="isInListTest" /> -->

@@ -70,7 +70,7 @@ public class ScreenshotAtFailTestListener extends TestRunner implements ITestLis
     private void takeScreenShot(String testName) throws IOException {
         String currentTime = new SimpleDateFormat(TIME_TEMPLATE).format(new Date());
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("./"+testName+ "_" + currentTime + "_screenshot.png"));
+        FileUtils.copyFile(scrFile, new File("./ScreensOnFail/"+testName+ "_" + currentTime + "_screenshot.png"));
     }
  
 }

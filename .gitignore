@@ -44,7 +44,9 @@ hs_err_pid*
 /.checkstyle
 /reports/
 /.idea/
+/ScreensOnFail/
 *.iml
+*.eml
 
 # Multi Modules Project
 /**/.externalToolBuilders/
@@ -63,7 +65,8 @@ hs_err_pid*
 /**/af.reporting
 /**/.idea/
 /**/*.iml
-
+/**/*.eml
+/**/ScreensOnFail/
 # Ignore binary
 /.allure/
 *.bin
@@ -77,6 +80,8 @@ hs_err_pid*
 
 # Ignore Picture
 *.bmp
+*.png
+*.jpeg
 
 # Ignore doc/notes.txt, but not doc/info/arch.txt
 # doc/*.txt
