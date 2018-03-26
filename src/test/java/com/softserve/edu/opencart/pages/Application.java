@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.pages;
 
+import java.util.HashMap;
+
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
@@ -17,12 +19,14 @@ public class Application {
     //private ReporterWrapper reporter;
     //private FlexAssert flexAssert;
     private BrowserWrapper browser;
+    private HashMap<Long, BrowserWrapper> browsers;
     //private ISearch search;
     //private ConnectionManager connectionManager;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
         this.applicationSource = applicationSource;
+        browsers = new HashMap<>();
     }
 
     public static Application get() {
@@ -53,7 +57,17 @@ public class Application {
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
-            instance.getBrowser().quit();
+            //instance.getBrowser().quit();
+            //
+            for (Long key : instance.browsers.keySet()) {
+                BrowserWrapper browserWrapper = instance.browsers.get(key);
+                if (browserWrapper != null) {
+                    browserWrapper.quit();
+                    instance.browsers.put(key, null);
+                }
+   
+            }
+            //
             //instance.connectionManager().closeAllConnections();
             instance = null;
         }
@@ -80,7 +94,13 @@ public class Application {
 //    }
 
     public BrowserWrapper getBrowser() {
-        return browser;
+        BrowserWrapper browserWrapper = browsers.get(Thread.currentThread().getId());
+        if (browserWrapper == null) {
+            browserWrapper = new BrowserWrapper(applicationSource);
+            browsers.put(Thread.currentThread().getId(), browserWrapper);
+        }
+        return browserWrapper;
+        //return browser;
     }
 
 //    public ISearch search() {
@@ -108,7 +128,9 @@ public class Application {
 //    }
 
     private void initBrowser(IApplicationSource applicationSource) {
-        this.browser = new BrowserWrapper(applicationSource);
+        //this.browser = new BrowserWrapper(applicationSource);
+        BrowserWrapper browser = new BrowserWrapper(applicationSource);
+        browsers.put(Thread.currentThread().getId(), browser);
     }
 
 //    private void initSearch(IApplicationSource applicationSource) {

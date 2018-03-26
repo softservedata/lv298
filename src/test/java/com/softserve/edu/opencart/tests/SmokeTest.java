@@ -76,7 +76,7 @@ public class SmokeTest extends TestRunner {
         return new Object[][] { { UserRepository.get().customer() } };
     }
 
-    @Test(dataProvider = "usersProvider")
+    //@Test(dataProvider = "usersProvider")
     public void smoke4Login(IUser user) throws Exception {
         MyAccountPage myAccountPage = Application.get()
                 .loadHomePage() 
@@ -90,7 +90,7 @@ public class SmokeTest extends TestRunner {
         Assert.assertFalse(homePage.isLogged());
     }
     
-    @DataProvider
+    @DataProvider//(parallel = true)
     public Object[][] productCurrencyProvider() {
         return new Object[][] {
             { ProductRepository.macBook(),  Currencies.EURO },

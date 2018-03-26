@@ -10,9 +10,12 @@ public final class ApplicationSourceRepository {
     }
 
     public static IApplicationSource EpizyChrome() {
-        return new ApplicationSource("ChromeProfile", // "ChromeTemporary", // "ChromeProfile",
+        return new ApplicationSource("ChromeTemporary", // "ChromeTemporary", // "ChromeProfile",
                 "C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe",
-                10, "http://atqc-shop.epizy.com");
+                10, 
+                //"http://atqc-shop.epizy.com"
+                "http://nazaronoc.000webhostapp.com/"
+                );
     }
     
 }
