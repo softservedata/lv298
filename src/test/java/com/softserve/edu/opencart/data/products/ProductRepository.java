@@ -20,5 +20,15 @@ public final class ProductRepository {
                 "Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1",
                 macBookPrices);
     }
+    
+    public static IProduct iPhone() {
+        Map<Enum<?>, Double> iPhonePrices = new HashMap<>();
+        iPhonePrices.put(Currencies.EURO, 96.66);
+        iPhonePrices.put(Currencies.POUND_STERLING, 75.46);
+        iPhonePrices.put(Currencies.US_DOLLAR, 123.20);
+        return new Product("iPhone", "iPhone",
+                "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam",
+                iPhonePrices);
+    }
 
 }

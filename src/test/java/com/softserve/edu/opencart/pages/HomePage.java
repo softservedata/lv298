@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.data.products.IProduct;
 
 public final class HomePage extends AHeaderBlock {
 
@@ -14,12 +15,14 @@ public final class HomePage extends AHeaderBlock {
         super(driver);
         featuredBlock = new FeaturedBlock(driver);
     }
-//    public HomePage(WebDriver driver, boolean withMessage) {
-//        this.driver = driver;
-//        if(withMessage){
-//            notificationMessage = new NotificationMessage ();
-//        }
-//    }
+
+    public HomePage(WebDriver driver, boolean withMessage) {//TODO constructor for page with notification
+        super(driver);
+        featuredBlock = new FeaturedBlock(driver);
+        if (withMessage) {
+            notificationMessage = new NotificationMessage();
+        }
+    }
 
     public static HomePage load(WebDriver driver, String url) {
         driver.get(url);
@@ -29,6 +32,7 @@ public final class HomePage extends AHeaderBlock {
     public FeaturedBlock getFeaturedBlock() {
         return featuredBlock;
     }
+    
     
     // TODO For BrowserTest class. Duplicate Code. Delete 
     public List<String> getProductComponentTexts() {
@@ -49,19 +53,25 @@ public final class HomePage extends AHeaderBlock {
 
     public HomePage addToWishListByProduct(String productName) { // TODO product from test
         featuredBlock.clickAddToWishByProductName(productName);
-        NotificationMessage notificationMessage = new NotificationMessage();
+//        NotificationMessage notificationMessage = new NotificationMessage();
         //return this;
-        return new HomePage(driver);
+        return new HomePage(driver, true);
     }
-    
     
     public HomePage clickAddToCartByProductName(String productName) { // TODO product from test clickAddToCartByProduct
         featuredBlock.clickAddToCartByProductName(productName);
         //return this;
-        NotificationMessage notificationMessage = new NotificationMessage();
-        return new HomePage(driver);
+//        NotificationMessage notificationMessage = new NotificationMessage();
+        return new HomePage(driver, true);
     }
-    public HomePage clickAddToCartByProduct() {
-        return new HomePage(driver);
+    
+    public HomePage addToWishListByProduct(IProduct product) {
+        getFeaturedBlock().clickAddToWishByProduct(product);
+        return new HomePage(driver, true);
+    }
+    
+    public HomePage addToCartByProduct(IProduct product) {
+        getFeaturedBlock().clickAddToCartByProduct(product);
+        return new HomePage(driver, true);
     }
 }

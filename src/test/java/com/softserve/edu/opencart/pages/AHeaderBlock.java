@@ -9,15 +9,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.tools.RegexUtils;
+//import com.softserve.edu.opencart.pages.AHeaderBlock.ProductActionNotification;
 
 public abstract class AHeaderBlock {
 
 // ----------------------- notification message ------------
     public class NotificationMessage {//TODO
         private WebElement notifacation;
-
+        public static final String NOTIFACATION = ".alert.alert-success";
+        public static final String NOTIFACATION_CLOSE = ".alert.alert-success .close";
         public NotificationMessage() {
-            notifacation = driver.findElement(By.cssSelector(".alert.alert-success"));
+            notifacation = driver.findElement(By.cssSelector(NOTIFACATION));
         }
         
         public WebElement getNotificationMessage() {
@@ -33,7 +36,7 @@ public abstract class AHeaderBlock {
         }
         
         public void closeNotificationMessage() {
-            driver.findElement(By.cssSelector(".alert.alert-success .close")).click();
+            driver.findElement(By.cssSelector(NOTIFACATION_CLOSE)).click();
         }
     }
     
@@ -41,8 +44,7 @@ public abstract class AHeaderBlock {
     
     public class MiniProductCopmonentOfMinicartBtn {
         private WebElement productLayout;
-        
-//        private WebElement productLayout  = driver.findElement(By.cssSelector("table.table.table-striped tr"));
+        public static final String MINI_CART_TOTAL_PRICE = ".table.table-bordered tr:nth-child(4) > td:nth-child(2)";
         
         MiniProductCopmonentOfMinicartBtn(WebElement productLayout) {
             this.productLayout = productLayout;
@@ -52,23 +54,27 @@ public abstract class AHeaderBlock {
         public WebElement getName() {
             return productLayout.findElement(By.cssSelector(".text-left a"));
         }
+        public void deleteProduct() {
+            productLayout.findElement(By.cssSelector(".text-center button")).click();
+        }
         public String getNameText() {
             return getName().getText();
         }
         public void clickName() {
             getName().click();
         }
-        public void deleteProduct() {
-            productLayout.findElement(By.cssSelector(".text-center button")).click();
+        public String getTotalPrice() {
+            return driver.findElement(By.cssSelector(MINI_CART_TOTAL_PRICE)).getText();
         }
     }
-    public MiniProductCopmonentOfMinicartBtn miniProductCopmonentOfMinicartBtn;
-    
+
     
  // --------------------- mini cart component ----------
-    public static final String MINI_CART_PRODUCT = "table.table.table-striped tr";
     
     public class MiniCartComponent {
+        public static final String EMPTY_CART_MESSAGE = "Your shopping cart is empty!";
+        public static final String MINI_CART_PRODUCT = "table.table.table-striped tr";
+        
         protected List<MiniProductCopmonentOfMinicartBtn> miniProductCopmonentOfMinicartBtn;
         
         public MiniCartComponent() {
@@ -88,52 +94,12 @@ public abstract class AHeaderBlock {
         public List<MiniProductCopmonentOfMinicartBtn> getMiniProductCopmonentOfMinicartBtn() {
             return miniProductCopmonentOfMinicartBtn;
             
+        }
+        public boolean isCartEmpty() {
+            return driver.findElement(By.cssSelector(".dropdown-menu.pull-right li p")).getText().contains(EMPTY_CART_MESSAGE);
         }        
     }
     
-    
-    /*
-    public class MiniCartComponent {
-        
-        private List<WebElement> miniCartProductElements;
-        public MiniCartComponent() {
-            miniCartProductElements =
-             driver.findElements(By.cssSelector("table.table.table-striped tr"));
-        }
-        
-        public List<WebElement> getMiniCartProductElements() {
-            return miniCartProductElements;
-        }
-//        public int getMiniCartProductElementsNumber() {
-//            return miniCartProductElements.size();
-//        }
-        public void clickName(String productName) {
-            for (WebElement current : getMiniCartProductElements()) {
-                if (current.getText().toLowerCase().trim().contains(
-                        productName.toString().toLowerCase().trim())) {
-                    current.click();;
-                    break;
-                }
-            }
-        }
-        public WebElement getMiniCartElementByName(String productName) {
-            WebElement result = null;
-            for (WebElement current : getMiniCartProductElements()) {
-                if (current.getText().toLowerCase().trim().contains(
-                        productName.toString().toLowerCase().trim())) {
-                    result = current;
-                    break;
-                }
-            }
-            // TODO Develop Custom Exception. Use Constants
-            if (result == null) {
-                throw new RuntimeException("Product with this name not found");
-            }
-            return result;
-        }
-        
-    }
-    */
     
 // currency component
     private class CurrencyComponent {
@@ -263,19 +229,20 @@ public abstract class AHeaderBlock {
     
     public NotificationMessage notificationMessage; 
     
+    public MiniProductCopmonentOfMinicartBtn miniProductCopmonentOfMinicartBtn;
+    
     public String NotificationMessageText() {
         return notificationMessage.getNotificationMessageText();
     }
    
+    //======= getter for notification ===
+    public NotificationMessage getNotificationMessage() {
+        return notificationMessage;
+    }
+    
     public boolean isNotificationSuccess() {//TO DO if null = false
-        
-//        if(notificationMessage == null) {
-//            return false;
-//        } else {
-//            return notificationMessage.isSuccess();
-//        }
-        
         NotificationMessage notificationMessage = new NotificationMessage();
+//        return getNotificationMessage().isSuccess();
         return notificationMessage.isSuccess();
     }
     
@@ -342,7 +309,6 @@ public abstract class AHeaderBlock {
     }
     public void clickMiniCart() {//TODO
         getMiniCartBtn().click();
-//        miniProductCopmonentOfMinicartBtn = new MiniProductCopmonentOfMinicartBtn();
         miniCartComponent = new MiniCartComponent();
     }
  // *---------------getMiniCartComponent
@@ -457,6 +423,10 @@ public abstract class AHeaderBlock {
 
     //TODO Business Logic
     // Business Logic
+    public void getPriceAmountFromMiniCart() {
+//      return miniProductCopmonentOfMinicartBtn.getTotalPrice();
+      System.out.println(miniProductCopmonentOfMinicartBtn.getTotalPrice());
+  }
     
     public HomePage deleteAllProductFromCart() {
         for (MiniProductCopmonentOfMinicartBtn current : miniCartComponent.getMiniProductCopmonentOfMinicartBtn()) {
@@ -469,6 +439,9 @@ public abstract class AHeaderBlock {
         return miniCartComponent.miniProductCopmonentOfMinicartBtn.size();
     }
     
+    public boolean isMiniShoppingCartEmpty() {
+        return miniCartComponent.isCartEmpty();
+    }
     
     protected void chooseCurrency(Currencies currencyName) {
         clickCurrency();

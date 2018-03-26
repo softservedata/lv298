@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.data.products.IProduct;
+
 public class FeaturedBlock {
 
     private WebDriver driver;
@@ -65,6 +67,14 @@ public class FeaturedBlock {
 
     public void clickAddToWishByProductName(String productName) {
         getProductComponentByName(productName).clickAddToWish();
+    }
+    
+    public void clickAddToCartByProduct(IProduct product) {
+        getProductComponentByName(product.getName()).clickAddToCart();
+    }
+
+    public void clickAddToWishByProduct(IProduct product) {  
+        getProductComponentByName(product.getName()).clickAddToWish();
     }
 
 }

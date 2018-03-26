@@ -19,6 +19,7 @@
 			<class name="com.softserve.edu.opencart.tests.SmokeTest">
 				<methods>
 					<include name="smoke7" />
+					<include name="smoke8" />
 				</methods>
 			</class>
 		</classes>

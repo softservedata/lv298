@@ -5,7 +5,6 @@ import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 
 public class Application {
-
     // Use Singleton, Repository
     private static volatile Application instance;
     //
