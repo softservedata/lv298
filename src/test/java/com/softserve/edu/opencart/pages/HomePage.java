@@ -14,6 +14,12 @@ public final class HomePage extends AHeaderBlock {
         super(driver);
         featuredBlock = new FeaturedBlock(driver);
     }
+//    public HomePage(WebDriver driver, boolean withMessage) {
+//        this.driver = driver;
+//        if(withMessage){
+//            notificationMessage = new NotificationMessage ();
+//        }
+//    }
 
     public static HomePage load(WebDriver driver, String url) {
         driver.get(url);
@@ -41,7 +47,7 @@ public final class HomePage extends AHeaderBlock {
         return new HomePage(driver);
     }
 
-    public HomePage addToWishListByProduct(String productName) { // TODO
+    public HomePage addToWishListByProduct(String productName) { // TODO product from test
         featuredBlock.clickAddToWishByProductName(productName);
         NotificationMessage notificationMessage = new NotificationMessage();
         //return this;
@@ -49,10 +55,13 @@ public final class HomePage extends AHeaderBlock {
     }
     
     
-    public HomePage clickAddToCartByProductName(String productName) {
+    public HomePage clickAddToCartByProductName(String productName) { // TODO product from test clickAddToCartByProduct
         featuredBlock.clickAddToCartByProductName(productName);
         //return this;
         NotificationMessage notificationMessage = new NotificationMessage();
+        return new HomePage(driver);
+    }
+    public HomePage clickAddToCartByProduct() {
         return new HomePage(driver);
     }
 }

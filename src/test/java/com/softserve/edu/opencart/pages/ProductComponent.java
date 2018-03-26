@@ -63,8 +63,9 @@ public class ProductComponent {
         return productLayout.findElement(By.cssSelector(".fa.fa-shopping-cart"));
     }
 
-    public void clickAddToCart() {
+    public void clickAddToCart() {//TODO
         getAddToCart().click();
+//        NotificationMessage notificationMessage = new NotificationMessage();
     }
 
     // addToWish

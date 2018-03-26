@@ -17,6 +17,7 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.HomePage;
 import com.softserve.edu.opencart.pages.MyAccountPage;
 import com.softserve.edu.opencart.pages.SearchPage;
+import com.softserve.edu.opencart.tools.RegexUtils;
 
 public class SmokeTest extends TestRunner {
 
@@ -118,20 +119,40 @@ public class SmokeTest extends TestRunner {
     }
 
     @DataProvider
-    public Object[][] productProvider() {
+    public Object[][] productProvidersssss() {
         return new Object[][] { { ProductRepository.macBook() } };
     }
 
-     @Test
+    //@Test
     public void smoke6() throws Exception {
         HomePage homePage = Application.get().loadHomePage();
-        homePage.getFeaturedBlock().clickAddToCartByProductName("iPhone");
+        homePage.getFeaturedBlock().clickAddToCartByProductName("iPhone");//TODO object of product
+        Assert.assertTrue(homePage.isNotificationSuccess());
         Thread.sleep(2000);
         homePage.clickMiniCart();
         int expected = 1;
-        System.out.println(homePage.isNotificationSuccess());
-         Assert.assertTrue(homePage.isNotificationSuccess());
-        Assert.assertEquals(homePage.getNumbersOfProductInCart(), expected);
+        Assert.assertEquals(homePage.getMiniCartProductElementsNumber(), expected);
+        Thread.sleep(2000);
+    }
+    
+    @DataProvider
+    public Object[][] productProvider() {
+        return new Object[][] { { ProductRepository.macBook()} };
+    }
+    
+  @Test(dataProvider = "productProvider")
+    public void smoke7(IProduct product) throws Exception {
+        HomePage homePage = Application.get().loadHomePage();
+        homePage.getFeaturedBlock().clickAddToCartByProductName(product.getName());//TODO object of product
+//        homePage.getFeaturedBlock().clickAddToCartByProductName("iPhone");
+        Assert.assertTrue(homePage.isNotificationSuccess());
+        Thread.sleep(2000);
+        homePage.clickMiniCart();
+//        Thread.sleep(2000);
+        System.out.println(homePage.getMiniCartProductElementsNumber());
+        int expected = 1;
+        Assert.assertEquals(homePage.getMiniCartProductElementsNumber(), expected);
+        homePage.deleteAllProductFromCart();
         Thread.sleep(2000);
     }
 }

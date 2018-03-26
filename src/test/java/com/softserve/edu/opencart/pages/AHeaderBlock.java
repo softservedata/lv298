@@ -12,9 +12,8 @@ import com.softserve.edu.opencart.data.Currencies;
 
 public abstract class AHeaderBlock {
 
-    
 // ----------------------- notification message ------------
-    public class NotificationMessage {
+    public class NotificationMessage {//TODO
         private WebElement notifacation;
 
         public NotificationMessage() {
@@ -29,13 +28,7 @@ public abstract class AHeaderBlock {
             return notifacation.getText();
         }
         
-        public boolean isSuccess() {//TODO
-//            String note = notifacation.getAttribute("class");
-//            if(getNotificationMessageText().toLowerCase().contains("success")) {
-//                return true;
-//            } else {
-//                return false;
-//            }
+        public boolean isSuccess() {
             return notifacation.getAttribute("class").contains("alert-success");
         }
         
@@ -44,20 +37,63 @@ public abstract class AHeaderBlock {
         }
     }
     
-    protected NotificationMessage notificationMessage; 
+//TODO mini product component of MiniCart
     
-    public String NotificationMessageText() {
-        return notificationMessage.getNotificationMessageText();
+    public class MiniProductCopmonentOfMinicartBtn {
+        private WebElement productLayout;
+        
+//        private WebElement productLayout  = driver.findElement(By.cssSelector("table.table.table-striped tr"));
+        
+        MiniProductCopmonentOfMinicartBtn(WebElement productLayout) {
+            this.productLayout = productLayout;
+        }
+        //TODO selectors
+        
+        public WebElement getName() {
+            return productLayout.findElement(By.cssSelector(".text-left a"));
+        }
+        public String getNameText() {
+            return getName().getText();
+        }
+        public void clickName() {
+            getName().click();
+        }
+        public void deleteProduct() {
+            productLayout.findElement(By.cssSelector(".text-center button")).click();
+        }
     }
-   
-    public boolean isNotificationSuccess() {
-        NotificationMessage notificationMessage = new NotificationMessage();
-        return notificationMessage.isSuccess();
-    }
+    public MiniProductCopmonentOfMinicartBtn miniProductCopmonentOfMinicartBtn;
     
     
  // --------------------- mini cart component ----------
-    private class MiniCartComponent {
+    public static final String MINI_CART_PRODUCT = "table.table.table-striped tr";
+    
+    public class MiniCartComponent {
+        protected List<MiniProductCopmonentOfMinicartBtn> miniProductCopmonentOfMinicartBtn;
+        
+        public MiniCartComponent() {
+            initProductComponents();
+        }
+        private void initProductComponents() {
+            miniProductCopmonentOfMinicartBtn = new ArrayList<MiniProductCopmonentOfMinicartBtn>();
+            for (WebElement current : driver.findElements(By.cssSelector(MINI_CART_PRODUCT))) {
+                miniProductCopmonentOfMinicartBtn.add(new MiniProductCopmonentOfMinicartBtn(current));
+            }
+        }
+
+        public List<MiniProductCopmonentOfMinicartBtn> getProductComponents() {
+            return miniProductCopmonentOfMinicartBtn;
+        }
+
+        public List<MiniProductCopmonentOfMinicartBtn> getMiniProductCopmonentOfMinicartBtn() {
+            return miniProductCopmonentOfMinicartBtn;
+            
+        }        
+    }
+    
+    
+    /*
+    public class MiniCartComponent {
         
         private List<WebElement> miniCartProductElements;
         public MiniCartComponent() {
@@ -68,9 +104,9 @@ public abstract class AHeaderBlock {
         public List<WebElement> getMiniCartProductElements() {
             return miniCartProductElements;
         }
-        public int getMiniCartProductElementsNumber() {
-            return miniCartProductElements.size();
-        }
+//        public int getMiniCartProductElementsNumber() {
+//            return miniCartProductElements.size();
+//        }
         public void clickName(String productName) {
             for (WebElement current : getMiniCartProductElements()) {
                 if (current.getText().toLowerCase().trim().contains(
@@ -97,6 +133,7 @@ public abstract class AHeaderBlock {
         }
         
     }
+    */
     
 // currency component
     private class CurrencyComponent {
@@ -223,7 +260,26 @@ public abstract class AHeaderBlock {
             getLogout().click();
         }
     }
-
+    
+    public NotificationMessage notificationMessage; 
+    
+    public String NotificationMessageText() {
+        return notificationMessage.getNotificationMessageText();
+    }
+   
+    public boolean isNotificationSuccess() {//TO DO if null = false
+        
+//        if(notificationMessage == null) {
+//            return false;
+//        } else {
+//            return notificationMessage.isSuccess();
+//        }
+        
+        NotificationMessage notificationMessage = new NotificationMessage();
+        return notificationMessage.isSuccess();
+    }
+    
+    
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public final String ATTRIBUTE_VALUE = "value";
@@ -240,7 +296,7 @@ public abstract class AHeaderBlock {
     protected AccountInComponent accountInComponent;
     protected AccountOutComponent accountOutComponent;
 
-    protected MiniCartComponent miniCartComponent;
+    public MiniCartComponent miniCartComponent;
 //    protected NotificationMessage notificationMessage; 
 
     public AHeaderBlock(WebDriver driver) {
@@ -284,8 +340,9 @@ public abstract class AHeaderBlock {
       return driver.findElement(By.cssSelector(
               ".btn.btn-inverse.btn-block.btn-lg.dropdown-toggle"));
     }
-    public void clickMiniCart() {
+    public void clickMiniCart() {//TODO
         getMiniCartBtn().click();
+//        miniProductCopmonentOfMinicartBtn = new MiniProductCopmonentOfMinicartBtn();
         miniCartComponent = new MiniCartComponent();
     }
  // *---------------getMiniCartComponent
@@ -398,9 +455,18 @@ public abstract class AHeaderBlock {
         getSearchButton().click();
     }
 
+    //TODO Business Logic
     // Business Logic
-    public int getNumbersOfProductInCart() {//TODO
-        return miniCartComponent.getMiniCartProductElementsNumber();
+    
+    public HomePage deleteAllProductFromCart() {
+        for (MiniProductCopmonentOfMinicartBtn current : miniCartComponent.getMiniProductCopmonentOfMinicartBtn()) {
+            current.deleteProduct();
+        }
+        return new HomePage(driver);
+    }
+    
+    public int getMiniCartProductElementsNumber() {
+        return miniCartComponent.miniProductCopmonentOfMinicartBtn.size();
     }
     
     
