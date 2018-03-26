@@ -150,23 +150,11 @@ public abstract class AHeaderBlock {
     protected AccountOutComponent accountOutComponent;
     
     public AHeaderBlock(WebDriver driver) {
-        this.driver = driver; 
-        //currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
-        //myAccount = driver.findElement(By.cssSelector("ul.list-inline li.dropdown a.dropdown-toggle"));
-        //logo = driver.findElement(By.cssSelector("#logo a"));
-        //searchField = driver.findElement(By.name("search"));
-        //searchButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
-        //
-        //initWebElements();
+        this.driver = driver;
         verifyWebElements();
     }
 
     private void initWebElements() {
-        //currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
-        //myAccount = driver.findElement(By.cssSelector("ul.list-inline li.dropdown a.dropdown-toggle"));
-        //logo = driver.findElement(By.cssSelector("#logo a"));
-        //searchField = driver.findElement(By.name("search"));
-        //searchButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
     }
 
     private void verifyWebElements() {
@@ -178,7 +166,6 @@ public abstract class AHeaderBlock {
 
     // currency
     public WebElement getCurrency() {
-        //return currency;
         return driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
     }
 
@@ -219,7 +206,6 @@ public abstract class AHeaderBlock {
 
     // logo
     public WebElement getLogo() {
-        //return logo;
         return driver.findElement(By.cssSelector("#logo a"));
     }
     

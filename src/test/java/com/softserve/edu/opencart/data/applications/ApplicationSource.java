@@ -1,5 +1,8 @@
 package com.softserve.edu.opencart.data.applications;
 
+/*
+Application source builder realization through interfaces.
+ */
 interface IBrowserName {
     IDriverPath setBrowserName(String browserName);
 }
@@ -21,8 +24,8 @@ interface IApplicationSourceBuilder {
 }
 
 
-public class ApplicationSource implements   IBrowserName, IDriverPath, IImplicitWaitTimeOut, IBaseUrl,
-                                            IApplicationSourceBuilder, IApplicationSource {
+public class ApplicationSource implements IBrowserName, IDriverPath, IImplicitWaitTimeOut, IBaseUrl,
+        IApplicationSourceBuilder, IApplicationSource {
 
     // Browser Data
     private String browserName;
@@ -30,7 +33,6 @@ public class ApplicationSource implements   IBrowserName, IDriverPath, IImplicit
     private long implicitWaitTimeOut;
     private String baseUrl;
 
-    // TODO Develop Builder
     private ApplicationSource() {
     }
 

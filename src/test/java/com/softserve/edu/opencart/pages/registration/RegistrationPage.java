@@ -8,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+/**
+ * This class describe registration page object.
+ */
 public class RegistrationPage extends ARightPanel {
 
     private final String FIELD_NAME_FIRST_NAME = "firstname";
@@ -292,8 +295,12 @@ public class RegistrationPage extends ARightPanel {
         getContinueButton().click();
     }
 
-    // Test and BL
-    public void verifyElements() {
+    // Tests methods and Bussines logics.
+
+    /**
+     * Method for test, which allow us to verify if all items are present on the page.
+     */
+    public RegistrationPage verifyElements() {
         getFirstNameField();
         getLastNameField();
         getEmailField();
@@ -311,8 +318,14 @@ public class RegistrationPage extends ARightPanel {
         getSubscribeRadio();
         getAgreeCheckBox();
         getContinueButton();
+        return this;
     }
 
+    /**
+     *
+     * @param user data with information about user. All necessary fields on registration page may be filled.
+     * @return after click continue button create a new object of Registration page;
+     */
     public RegistrationPage registrationUser(IUser user) {
         sendTextToFirstNameField(user.getFirstname());
         sendTextToLastNameField(user.getLastname());
@@ -343,11 +356,22 @@ public class RegistrationPage extends ARightPanel {
         return new RegistrationPage(driver);
     }
 
+
+    /**
+     *
+     * @param user data with information about user. All necessary fields on registration page must be filled.
+     * @return after click continue button create a new object of Fail Registration page;
+     */
     public FailRegistrationPage failRegistrationUser(IUser user) {
         registrationUser(user);
         return new FailRegistrationPage(driver);
     }
 
+    /**
+     *
+     * @param user data with information about user. All necessary fields on registration page must be filled.
+     * @return after click continue button create a new object of Success Registration page;
+     */
     public SuccessRegistrationPage successRegistrationUser(IUser user) {
         registrationUser(user);
         return new SuccessRegistrationPage(driver);

@@ -12,9 +12,6 @@ import com.softserve.edu.opencart.pages.Application;
 
 public abstract class TestRunner {
 
-    // Use, if class Application is not singleton
-    // protected Application application;
-    
     @BeforeClass
     public void beforeClass(ITestContext context) {
         System.out.println("@BeforeClass");
@@ -33,9 +30,8 @@ public abstract class TestRunner {
         System.out.println("@BeforeMethod");
     }
 
-    @AfterMethod//(alwaysRun = true)
+    @AfterMethod
     public void afterMethod(ITestResult result) {
-        //Reporter.setCurrentTestResult(result);
         System.out.println("@AfterMethod");
     }
 

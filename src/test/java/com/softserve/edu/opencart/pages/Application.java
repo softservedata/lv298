@@ -5,7 +5,12 @@ import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 
 public class Application {
+
+    // Use Singleton, Repository
+
     private static volatile Application instance;
+
+    // Fields
 
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
@@ -23,7 +28,7 @@ public class Application {
             synchronized (Application.class) {
                 if (instance == null) {
                     if (applicationSource == null) {
-                        applicationSource = ApplicationSourceRepository.get().defaultSource();
+                        applicationSource = ApplicationSourceRepository.get().openCartChrome();
                     }
                     instance = new Application(applicationSource);
                     instance.initBrowser(applicationSource);
@@ -35,66 +40,30 @@ public class Application {
 
     public static void remove() {
         if (instance != null) {
-            // TODO Change for parallel work
             instance.getBrowser().quit();
-            // instance.connectionManager().closeAllConnections();
             instance = null;
         }
     }
 
     // getters
-
-    // TODO Change for parallel work
-    // TODO remove get
     public IApplicationSource getApplicationSource() {
         return applicationSource;
     }
+
 
     public BrowserWrapper getBrowser() {
         return browser;
     }
 
-    // TODO Change for parallel work
-    // private void initCaptureUtils() {
-    // // TODO Add parameters to applicationSource
-    // this.captureUtils = new CaptureUtils();
-    // }
-
-    // private void initReporter(IApplicationSource applicationSource) {
-    // this.reporter = new ReporterWrapper(applicationSource);
-    // }
-
-    // private void initFlexAssert() {
-    // this.flexAssert = new FlexAssert(reporter());
-    // }
-
     private void initBrowser(IApplicationSource applicationSource) {
         this.browser = new BrowserWrapper(applicationSource);
     }
-
-    // private void initSearch(IApplicationSource applicationSource) {
-    // this.search = new Search(applicationSource);
-    // }
-
-    // private void initConnectionManager(IApplicationSource applicationSource) {
-    // this.connectionManager = new ConnectionManager(applicationSource);
-    // }
-
     // Pages
 
     public HomePage loadHomePage() {
+        // TODO Remove getBrowser().getDriver()
         return HomePage.load(getBrowser().getDriver(), applicationSource.getBaseUrl());
     }
 
-
-    // public LoginPage login() {
-    // getBrowser().openUrl(applicationSource.getUserLoginUrl());
-    // return new LoginPage();
-    // }
-
-    // public LogoutPage logout() {
-    // getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-    // return new LogoutPage();
-    // }
 
 }

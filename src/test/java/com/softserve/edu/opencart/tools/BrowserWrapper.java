@@ -1,27 +1,19 @@
-
 package com.softserve.edu.opencart.tools;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
+import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import com.softserve.edu.opencart.data.applications.IApplicationSource;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class BrowserWrapper {
 
     private interface IBrowser {
         WebDriver getBrowser(IApplicationSource applicationSource);
-    }
-
-    private static class FirefoxTemporary implements IBrowser{
-        public WebDriver getBrowser(IApplicationSource applicationSource) {
-            System.setProperty("webdriver.firefox.driver", applicationSource.getDriverPath());
-            return null;
-        }
     }
 
     private static class ChromeTemporary implements IBrowser {
@@ -63,7 +55,6 @@ public class BrowserWrapper {
 
     public static enum Browsers {
         DEFAULT_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
-        FIREFOX_TEMPORART("FirefoxTemporary", new FirefoxTemporary()),
         CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         CHROME_PROFILE("ChromeProfile", new ChromeProfile()),
         CHROME_WITHOUTUI("ChromeWithoutUI", new ChromeWithoutUI());

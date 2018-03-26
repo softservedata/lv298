@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class SuccessRegistrationPage extends RegistrationPage {
+    private final String HEADER_ELEMENT_BY_TAG = "h1";
+    public static final String SUCCSESS_REGISTRATION_MESSAGE = "Your Account Has Been Created!";
 
     public SuccessRegistrationPage(WebDriver driver) {
         super(driver);
@@ -12,7 +14,7 @@ public class SuccessRegistrationPage extends RegistrationPage {
     }
 
     public WebElement getSuccessfullRegistrationElement() {
-        return driver.findElement(By.tagName("h1"));
+        return driver.findElement(By.tagName(HEADER_ELEMENT_BY_TAG));
     }
 
     public String getSuccessfullRegistrationText() {
