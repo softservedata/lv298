@@ -13,7 +13,7 @@ import com.softserve.edu.opencart.tools.RegexUtils;
 public class WishListPage extends ARightPanel {
 
     // *********WishListPage Fields*********
-    private final static String WISH_LIST_PAGE_URL = " http://setopencart.epizy.com/index.php?route=account/wishlist";
+    public final String URL = "http://setopencart.epizy.com/index.php?route=account/wishlist";
     protected List<ProductComponentInWishList> productComponents;
     private final String IN_STOCK = "instock";
     private WebElement emptyWishListMessage = null;

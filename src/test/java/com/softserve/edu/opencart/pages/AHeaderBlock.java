@@ -242,6 +242,9 @@ public abstract class AHeaderBlock {
     public ProductActionNotification getProductActionNotification() {
         return productActionNotification;
     }
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
     // *********Locators*********
     private final String BTN_CURRENCY_CSS = ".btn.btn-link.dropdown-toggle";
     private final String BTN_MY_ACCOUNT_CSS = "ul.list-inline li.dropdown a.dropdown-toggle";
@@ -389,6 +392,11 @@ public abstract class AHeaderBlock {
     public WishListPage gotoWishListPage() {
         clickWishList();
         return new WishListPage(driver);
+    }
+    
+    public LoginPage gotoWishListPageLogout() {
+        clickWishList();
+        return new LoginPage(driver);
     }
 
     public SearchPage searchByProduct(IProduct product) {
