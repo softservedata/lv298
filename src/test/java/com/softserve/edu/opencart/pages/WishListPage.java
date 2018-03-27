@@ -11,17 +11,6 @@ import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.tools.RegexUtils;
 
 public class WishListPage extends ARightPanel {
-
-    // *********WishListPage Fields*********
-    public final String URL = "http://setopencart.epizy.com/index.php?route=account/wishlist";
-    protected List<ProductComponentInWishList> productComponents;
-    private final String IN_STOCK = "instock";
-    private WebElement emptyWishListMessage = null;
-    
-    // *********WishListPage Locators*********
-    private final String DIV_WISH_LIST_LAYOUT_CSS = ".table-responsive tbody tr";
-    private final String P_WISH_LIST_IS_EMPTY_CSS = "#content p";
-    
     private class ProductComponentInWishList {
 
         private WebElement productLayout;
@@ -112,6 +101,17 @@ public class WishListPage extends ARightPanel {
         }
 
     }
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    // *********WishListPage Fields*********
+    public final String URL = "http://setopencart.epizy.com/index.php?route=account/wishlist";
+    private final String IN_STOCK = "instock";
+    
+    protected List<ProductComponentInWishList> productComponents;
+    
+    // *********WishListPage Locators*********
+    private final String DIV_WISH_LIST_LAYOUT_CSS = ".table-responsive tbody tr";
+    private final String P_WISH_LIST_IS_EMPTY_CSS = "#content p";
     
     // *********Constructors*********
     public WishListPage(WebDriver driver) {
@@ -140,7 +140,6 @@ public class WishListPage extends ARightPanel {
         if (wishListAmount() == 0) {
             return true; 
         } else {
-            
             return false;
         }
     }
@@ -162,7 +161,6 @@ public class WishListPage extends ARightPanel {
             for (WebElement current : driver.findElements(By.cssSelector(DIV_WISH_LIST_LAYOUT_CSS))) {
                 productComponents.add(new ProductComponentInWishList(current));
             }
-            emptyWishListMessage = null;
         } else {
             getEmptyWishListMessage(); 
         }

@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.products.IProduct;
-import com.softserve.edu.opencart.pages.AHeaderBlock.ProductActionNotification;
 
 public class SearchPage extends AAdressBar {
 

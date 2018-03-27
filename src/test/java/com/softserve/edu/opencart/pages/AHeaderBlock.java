@@ -3,14 +3,10 @@ package com.softserve.edu.opencart.pages;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.products.IProduct;
@@ -238,13 +234,7 @@ public abstract class AHeaderBlock {
     protected AccountOutComponent accountOutComponent;
     protected ProductActionNotification productActionNotification;
  
-    // *********AHeaderBlock Getters********
-    public ProductActionNotification getProductActionNotification() {
-        return productActionNotification;
-    }
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
-    }
+   
     // *********Locators*********
     private final String BTN_CURRENCY_CSS = ".btn.btn-link.dropdown-toggle";
     private final String BTN_MY_ACCOUNT_CSS = "ul.list-inline li.dropdown a.dropdown-toggle";
@@ -276,12 +266,18 @@ public abstract class AHeaderBlock {
     @FindBy(css = LIST_MYACCOUNTITEMS_CSS)
     private List<WebElement> myAccountItems;
 
-    //
-
     // *********Constructor*********
     public AHeaderBlock(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+    }
+    
+    // *********AHeaderBlock Getters********
+    public ProductActionNotification getProductActionNotification() {
+        return productActionNotification;
+    }
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 
     // *********Currency*********

@@ -8,15 +8,13 @@ import java.util.Date;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import com.softserve.edu.opencart.pages.Application;
-import com.softserve.edu.opencart.tests.TestRunner;
 
-public class ScreenshotAtFailTestListener extends TestRunner implements ITestListener {
+public class ScreenshotAtFailTestListener implements ITestListener {
     private final String TIME_TEMPLATE = "yyyy-MM-dd_HH-mm-ss";
     
     @Override
@@ -69,7 +67,8 @@ public class ScreenshotAtFailTestListener extends TestRunner implements ITestLis
     
     private void takeScreenShot(String testName) throws IOException {
         String currentTime = new SimpleDateFormat(TIME_TEMPLATE).format(new Date());
-        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        
+        File scrFile = ((TakesScreenshot)Application.get().driver()).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("./ScreensOnFail/"+testName+ "_" + currentTime + "_screenshot.png"));
     }
  

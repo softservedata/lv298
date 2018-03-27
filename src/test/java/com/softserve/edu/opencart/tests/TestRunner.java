@@ -1,6 +1,5 @@
 package com.softserve.edu.opencart.tests;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -12,7 +11,6 @@ import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.pages.Application;
 
 public abstract class TestRunner {
-    protected static WebDriver driver;
     // Use, if class Application is not singleton
     // protected Application application;
     
@@ -21,7 +19,6 @@ public abstract class TestRunner {
         System.out.println("@BeforeClass");
         // TODO Read context
         Application.get(ApplicationSourceRepository.EpizyChrome());
-        driver  = Application.driver();
     }
 
     

@@ -61,7 +61,7 @@ public class Application {
         }
     }
     // TODO legal?
-    public static WebDriver driver() {           
+    public  WebDriver driver() {           
              return instance.getBrowser().getDriver();
     }
 

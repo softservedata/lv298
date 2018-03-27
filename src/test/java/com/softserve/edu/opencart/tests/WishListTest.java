@@ -29,7 +29,7 @@ public class WishListTest extends TestRunner {
         return homePage;
     }
 
-    // *********Redirect to Login Page Test*********
+    //1 *********Redirect to Login Page Test*********
     @Test
     public void redirectToLoginPageTest() throws Exception {
         HomePage homePage = Application.get().loadHomePage().signoutToHomePage();
@@ -44,7 +44,7 @@ public class WishListTest extends TestRunner {
         return new Object[][] { new Object[] { UserRepository.get().customer() } };
     }
 
-    // *********Login Test*********
+    //2 *********Login Test*********
     @Test(dataProvider = "usersProvider")
     public void loginToWishListTest(IUser user) throws Exception {
         MyAccountPage myAccountPage = Application.get().loadHomePage().signoutToHomePage().gotoLoginPage()
@@ -57,17 +57,10 @@ public class WishListTest extends TestRunner {
         // *********Return Application To Its BeforeTest State*********
         wishListPage.signoutToHomePage();
     }
-
-    // @DataProvider
-    // public Object[][] productsProvider() {
-    // return new Object[][] { new Object[] { ProductRepository.macBook() } };
-    // }
-    //
     @DataProvider
     public Object[][] userProductsProvider() {
         return new Object[][] {
                 // new Object[] { UserRepository.get().customer(), ProductRepository.macBook() }
-
                 new Object[] { UserRepository.get().customer2(), ProductRepository.iPhone() } };
     }
 
@@ -76,21 +69,21 @@ public class WishListTest extends TestRunner {
         return new Object[][] { new Object[] { UserRepository.get().customer2(), ProductRepository.macBook() } };
     }
 
-    // ********Wish List Contains Product Test*********
-    @Test(dataProvider = "userWithoutProductsProvider")
+    //3 ********Wish List Contains Product Test*********
+    @Test(dataProvider = "userProductsProvider")
     public void containsProductTest(IUser user, IProduct product) throws Exception {
         loginAndCheckProductInList(user, product);
         Assert.assertTrue(containsProduct);
     }
 
-    // ********Wish List Does Not Contain Product*********
+    //4 ********Wish List Does Not Contain Product*********
     @Test(dataProvider = "userWithoutProductsProvider")
     public void doesNotContainProductTest(IUser user, IProduct product) throws Exception {
         loginAndCheckProductInList(user, product);
         Assert.assertFalse(containsProduct);
     }
 
-    // *********Add And Remove Product From Wish List Test*********
+    //5 *********Add And Remove Product From Wish List Test*********
     @Test(dataProvider = "userProductsProvider")
     public void addRemoveTest(IUser user, IProduct product) throws Exception {
         HomePage homePage = loginAndCheckProductInList(user, product);
@@ -115,16 +108,11 @@ public class WishListTest extends TestRunner {
         }
     }
 
-    // *********Amount Test*********
+    //6 *********Amount Test*********
     @Test(dataProvider = "userProductsProvider")
     public void amountTest(IUser user, IProduct product) throws Exception {
         int expected = 0;
-        // boolean containsProduct = false;
-
         HomePage homePage = loginAndCheckProductInList(user, product);
-        // HomePage homePage = Application.get().loadHomePage().loginToHomePage(user);
-        // containsProduct = homePage.isWishListContainsProduct(product);
-        // homePage = Application.get().refreshHomePage();
 
         if (containsProduct) {
             expected = homePage.wishListAmount();
@@ -132,7 +120,6 @@ public class WishListTest extends TestRunner {
             expected = homePage.wishListAmount() + 1;
         }
         Thread.sleep(1000);
-
         homePage.addToWishListByProduct(product);
         Thread.sleep(1000);
 
@@ -149,21 +136,18 @@ public class WishListTest extends TestRunner {
 
     }
 
-    // *********Add Product To Wish List Success Notification Test*********
+    //7 *********Add Product To Wish List Success Notification Test*********
     @Test(dataProvider = "userProductsProvider")
     public void addToListSuccessNotificationTest(IUser user, IProduct product) throws Exception {
-        // boolean containsProduct = false;
-
-        // HomePage homePage = Application.get().loadHomePage().loginToHomePage(user);
-        // containsProduct = homePage.isWishListContainsProduct(product);
         HomePage homePage = loginAndCheckProductInList(user, product);
+      
         Thread.sleep(1000);
-
         homePage = homePage.addToWishListByProduct(product);
         Thread.sleep(1000);
 
         Assert.assertEquals(RegexUtils.extractSuccesfullMessage(homePage.productActionNotificationText()),
                 LiteralConstants.addToWishListSuccessMessage(product.getName()));
+        
         Thread.sleep(1000);
         // *********Return Application To Its BeforeTest State*********
         if (!containsProduct) {
@@ -176,21 +160,20 @@ public class WishListTest extends TestRunner {
 
     }
 
-    // *********Remove Product To Wish List Success Notification Test*********
+    //8 *********Remove Product To Wish List Success Notification Test*********
     @Test(dataProvider = "userProductsProvider")
     public void removeFromListSuccessNotificationTest(IUser user, IProduct product) throws Exception {
-        // boolean containsProduct = false;
-
-        // HomePage homePage = Application.get().loadHomePage().loginToHomePage(user);
-        // containsProduct = homePage.isWishListContainsProduct(product);
         HomePage homePage = loginAndCheckProductInList(user, product);
+      
         Thread.sleep(1000);
-
         homePage = homePage.addToWishListByProduct(product);
         Thread.sleep(1000);
+        
         WishListPage wishListPage = homePage.gotoWishListPage();
-
+        
+        Thread.sleep(1000);
         wishListPage = wishListPage.removeFromWishListByProduct(product);
+        Thread.sleep(1000);
         Assert.assertEquals(RegexUtils.extractSuccesfullMessage(wishListPage.productActionNotificationText()),
                 LiteralConstants.modifyWishListSuccessMessage());
 
