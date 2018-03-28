@@ -93,13 +93,16 @@ public class SmokeTest extends TestRunner {
     @DataProvider//(parallel = true)
     public Object[][] productCurrencyProvider() {
         return new Object[][] {
-            { ProductRepository.macBook(),  Currencies.EURO },
+            //{ ProductRepository.macBook(),  Currencies.EURO },
             { ProductRepository.macBook(),  Currencies.POUND_STERLING }
         };
     }
 
     @Test(dataProvider = "productCurrencyProvider")
     public void smoke5Currency(IProduct product, Currencies currencyName) throws Exception {
+        logger.info("@Test start" 
+                    + " product Name = " + product.getName()
+                    + " currencyName = " + currencyName.toString());
         SearchPage searchPage = Application.get().loadHomePage() 
                 .selectCurrency(currencyName)
                 .searchByProduct(product.getSearchKey());
@@ -110,6 +113,7 @@ public class SmokeTest extends TestRunner {
         Assert.assertEquals(searchPage.getFeaturedBlock().getPriceAmountByProductName(product.getName()),
                 product.getPriceByCurrencyName(currencyName));
         Thread.sleep(4000);
+        logger.info("@Test done");
     }
 
 }

@@ -18,8 +18,10 @@ public class Application {
     //private CaptureUtils captureUtils;
     //private ReporterWrapper reporter;
     //private FlexAssert flexAssert;
-    private BrowserWrapper browser;
+    //
+    ////private BrowserWrapper browser;
     private HashMap<Long, BrowserWrapper> browsers;
+    //
     //private ISearch search;
     //private ConnectionManager connectionManager;
     // etc.
@@ -44,7 +46,7 @@ public class Application {
                     //instance.initCaptureUtils();
                     //instance.initReporter(applicationSource);
                     //instance.initFlexAssert();
-                    instance.initBrowser(applicationSource);
+                    ////instance.initBrowser(applicationSource);
                     //instance.initSearch(applicationSource);
                     // initAccessToDB();
                     //instance.initConnectionManager(applicationSource);

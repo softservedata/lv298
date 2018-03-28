@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.softserve.edu.opencart.data.Currencies;
 
@@ -134,6 +136,8 @@ public abstract class AHeaderBlock {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+    public static final Logger logger = LoggerFactory.getLogger(AHeaderBlock.class);
+    //
     public final String ATTRIBUTE_VALUE = "value";
     //
     protected WebDriver driver;

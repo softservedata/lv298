@@ -37,7 +37,9 @@ public final class HomePage extends AHeaderBlock {
     // Business Logic
 
     public HomePage selectCurrency(Currencies currencyName) {
+        logger.debug("start HomePage selectCurrency, currencyName = " + currencyName.toString());
         chooseCurrency(currencyName);
+        logger.debug("done HomePage selectCurrency");
         return new HomePage(driver);
     }
 
