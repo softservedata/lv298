@@ -7,11 +7,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class describe registration page object.
  */
 public class RegistrationPage extends ARightPanel {
+
+    public static final Logger logger = LoggerFactory.getLogger(RegistrationPage.class);
 
     private final String FIELD_NAME_FIRST_NAME = "firstname";
     private final String FIELD_NAME_LAST_NAME = "lastname";
@@ -327,6 +331,7 @@ public class RegistrationPage extends ARightPanel {
      * @return after click continue button create a new object of Registration page;
      */
     public RegistrationPage registrationUser(IUser user) {
+        logger.debug("Start Registration User");
         sendTextToFirstNameField(user.getFirstname());
         sendTextToLastNameField(user.getLastname());
         sendTextToEmailField(user.getEmail());
@@ -353,6 +358,9 @@ public class RegistrationPage extends ARightPanel {
         selectSubscribe(user.isSubscribe());
         clickAgreeCheckBox();
         clickContinueButton();
+
+        logger.debug("Done registration user");
+
         return new RegistrationPage(driver);
     }
 
@@ -364,6 +372,7 @@ public class RegistrationPage extends ARightPanel {
      */
     public FailRegistrationPage failRegistrationUser(IUser user) {
         registrationUser(user);
+        logger.debug("User has registered fail");
         return new FailRegistrationPage(driver);
     }
 
@@ -374,6 +383,7 @@ public class RegistrationPage extends ARightPanel {
      */
     public SuccessRegistrationPage successRegistrationUser(IUser user) {
         registrationUser(user);
+        logger.debug("User has registered successfull");
         return new SuccessRegistrationPage(driver);
     }
 }

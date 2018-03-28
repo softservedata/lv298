@@ -4,7 +4,6 @@
 <suite name="RegistrationPageTests">
     <!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
     <test name="Registration User">
-        <parameter name="number" value="2"/>
         <classes>
             <class name="com.softserve.edu.opencart.tests.registrationPage.UserRegistration">
                 <methods>

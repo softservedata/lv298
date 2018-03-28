@@ -30,6 +30,7 @@ public class UserRegistration extends TestRunner {
                 .failRegistrationUser(failUser)
                 .getErrorText();
         String expected = FailRegistrationPage.WRONG_EMAIL_MESSAGE;
+
         Assert.assertEquals(actual, expected);
     }
 
@@ -42,6 +43,7 @@ public class UserRegistration extends TestRunner {
                 .successRegistrationUser(successUser)
                 .getSuccessfullRegistrationText();
         String expeected = SuccessRegistrationPage.SUCCSESS_REGISTRATION_MESSAGE;
+
         Assert.assertEquals(actual, expeected);
 
         //Logout from created user profile

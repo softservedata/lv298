@@ -1,26 +1,25 @@
 package com.softserve.edu.opencart.pages;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.pages.registration.RegistrationPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.softserve.edu.opencart.data.Currencies;
-import com.softserve.edu.opencart.pages.registration.RegistrationPage;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AHeaderBlock {
 
     private class CurrencyComponent {
-        
+
         private List<WebElement> currencyElements;
-        
+
         public CurrencyComponent() {
             currencyElements = driver.findElements(By.cssSelector("button.currency-select.btn.btn-link.btn-block"));
         }
-        
+
         // currencyElements
         public List<WebElement> getCurrencyElements() {
             return currencyElements;
@@ -54,19 +53,19 @@ public abstract class AHeaderBlock {
             getCurrencyElementByName(currencyName).click();
         }
     }
-    
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     private class AccountInComponent {
-        
+
         private WebElement register;
         private WebElement login;
-        
+
         public AccountInComponent() {
             register = driver.findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/register')]"));
             login = driver.findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/login')]"));
         }
-        
+
         // register
         public WebElement getRegister() {
             return register;
@@ -97,15 +96,15 @@ public abstract class AHeaderBlock {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     private class AccountOutComponent {
-        
+
         private WebElement myAccountLogin;
         private WebElement logout;
-        
+
         public AccountOutComponent() {
             myAccountLogin = driver.findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/account')]"));
             logout = driver.findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/logout')]"));
         }
-        
+
         // myAccountLogin
         public WebElement getMyAccountLogin() {
             return myAccountLogin;
@@ -138,17 +137,12 @@ public abstract class AHeaderBlock {
     public final String ATTRIBUTE_VALUE = "value";
     //
     protected WebDriver driver;
-    //
-    //private WebElement currency;
-    //private WebElement myAccount
-    //private WebElement logo;
-    //private WebElement searchField;
-    //private WebElement searchButton;
-    //
+
     protected CurrencyComponent currencyComponent;
     protected AccountInComponent accountInComponent;
     protected AccountOutComponent accountOutComponent;
-    
+
+
     public AHeaderBlock(WebDriver driver) {
         this.driver = driver;
         verifyWebElements();
@@ -208,7 +202,7 @@ public abstract class AHeaderBlock {
     public WebElement getLogo() {
         return driver.findElement(By.cssSelector("#logo a"));
     }
-    
+
     public void clickLogo() {
         getLogo().click();
     }
@@ -248,7 +242,7 @@ public abstract class AHeaderBlock {
         //return searchButton;
         return driver.findElement(By.cssSelector("button.btn.btn-default.btn-lg"));
     }
- 
+
     public String getSearchButtonText() {
         return getSearchButton().getText();
     }
@@ -263,7 +257,7 @@ public abstract class AHeaderBlock {
         clickCurrency();
         currencyComponent.clickCurrencyElementByName(currencyName);
     }
-    
+
     public HomePage gotoHomePage() {
         clickLogo();
         return new HomePage(driver);
@@ -276,14 +270,14 @@ public abstract class AHeaderBlock {
         //enterSearchField();
         return new SearchPage(driver);
     }
-    
+
     private void loadLoginPage(AHeaderBlock head) {
         head.clickSearchField();
         head.clickMyAccount();
         accountInComponent = new AccountInComponent();
         accountInComponent.clickLogin();
     }
-    
+
     public LoginPage gotoLoginPage() {
         if (isLogged()) {
             HomePage homePage = signoutToHomePage();
@@ -293,22 +287,22 @@ public abstract class AHeaderBlock {
         }
         return new LoginPage(driver);
     }
-    
+
     public void loadRegistrationPage(AHeaderBlock head) {
-	head.clickSearchField();
-	head.clickMyAccount();
-	accountInComponent = new AccountInComponent();
+        head.clickSearchField();
+        head.clickMyAccount();
+        accountInComponent = new AccountInComponent();
         accountInComponent.clickRegister();
     }
-    
+
     public RegistrationPage gotoRegistrationPage() {
-	if (isLogged()) {
-	    HomePage homePage = signoutToHomePage();
-	    loadRegistrationPage(homePage);
-	}else {
-	    loadRegistrationPage(this);
-	}
-	return new RegistrationPage(driver);
+        if (isLogged()) {
+            HomePage homePage = signoutToHomePage();
+            loadRegistrationPage(homePage);
+        } else {
+            loadRegistrationPage(this);
+        }
+        return new RegistrationPage(driver);
     }
 
     public HomePage signoutToHomePage() {
