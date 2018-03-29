@@ -3,24 +3,26 @@
 
 <suite name="Suite1">
 
-	<!-- <parameter name="loginurl" value="http://registrator.herokuapp.com/login"/> -->
-	<!-- <parameter name="logouturl" value="http://registrator.herokuapp.com/logout"/> -->
-	<!-- <parameter name="browserName" value="chrome" /> -->
+	<parameter name="loginurl" value="http://registrator.herokuapp.com/login"/>
+	<parameter name="logouturl" value="http://registrator.herokuapp.com/logout"/>
+	<parameter name="browserName" value="chrome" />
 
 	<!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
-	<test verbose="5" name="Test1">
+	<test verbose="9" name="Test1">
 		<parameter name="number" value="2" />
 		<classes>
-			<!-- <class name="com.softserve.edu.AppTest"> -->
-			<!-- <methods> -->
-			<!-- <include name="testApp1" /> -->
-			<!-- </methods> -->
-			<!-- </class> -->
-			<class name="com.softserve.edu.opencart.tests.SmokeTest">
-				<methods>
-					<include name="smoke5Currency" />
-				</methods>
-			</class>
+		    <class name="com.softserve.edu.AllureTest" />
+<!-- 		    <class name="com.softserve.edu.AppTest" /> -->
+<!-- 			<class name="com.softserve.edu.AppTest"> -->
+<!-- 				<methods> -->
+<!-- 					<include name="testApp1" /> -->
+<!-- 				</methods> -->
+<!-- 			</class> -->
+<!-- 			<class name="com.softserve.edu.opencart.tests.SmokeTest"> -->
+<!-- 				<methods> -->
+<!-- 					<include name="smoke5Currency" /> -->
+<!-- 				</methods> -->
+<!-- 			</class> -->
 		</classes>
 	</test> <!-- Test -->
 
