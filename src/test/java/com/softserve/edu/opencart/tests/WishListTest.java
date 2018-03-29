@@ -39,9 +39,12 @@ public class WishListTest extends TestRunner {
     }
 
     //
-    @DataProvider
+    @DataProvider(parallel = true)
     public Object[][] usersProvider() {
-        return new Object[][] { new Object[] { UserRepository.get().customer() } };
+        return new Object[][] {
+                new Object[] { UserRepository.get().customer() }
+                //new Object[] { UserRepository.get().customer2() }
+        };
     }
 
     //2 *********Login Test*********
@@ -161,7 +164,7 @@ public class WishListTest extends TestRunner {
     }
 
     //8 *********Remove Product To Wish List Success Notification Test*********
-    @Test(dataProvider = "userProductsProvider")
+    //@Test(dataProvider = "userProductsProvider")
     public void removeFromListSuccessNotificationTest(IUser user, IProduct product) throws Exception {
         HomePage homePage = loginAndCheckProductInList(user, product);
       

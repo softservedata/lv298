@@ -6,6 +6,8 @@ import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 
+import java.util.HashMap;
+
 public class Application {
 
     // Use Singleton, Repository
@@ -18,13 +20,17 @@ public class Application {
     //private CaptureUtils captureUtils;
     //private ReporterWrapper reporter;
     //private FlexAssert flexAssert;
-    private BrowserWrapper browser;
+
+    ////private BrowserWrapper browser;
+    private HashMap<Long, BrowserWrapper> browsers;
+
     //private ISearch search;
     //private ConnectionManager connectionManager;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
         this.applicationSource = applicationSource;
+        browsers = new HashMap<>();
     }
 
     public static Application get() {
@@ -42,7 +48,7 @@ public class Application {
                     //instance.initCaptureUtils();
                     //instance.initReporter(applicationSource);
                     //instance.initFlexAssert();
-                    instance.initBrowser(applicationSource);
+                    ////instance.initBrowser(applicationSource);
                     //instance.initSearch(applicationSource);
                     // initAccessToDB();
                     //instance.initConnectionManager(applicationSource);
@@ -52,16 +58,25 @@ public class Application {
         return instance;
     }
 
-    public static void remove() {       
-        if (instance != null) {        
+    public static void remove() {
+        if (instance != null) {
             // TODO Change for parallel work
-            instance.getBrowser().quit();
+            //instance.getBrowser().quit();
+            //
+            for (Long key : instance.browsers.keySet()) {
+                BrowserWrapper browserWrapper = instance.browsers.get(key);
+                if (browserWrapper != null) {
+                    browserWrapper.quit();
+                    instance.browsers.put(key, null);
+                }
+
+            }
+            //
             //instance.connectionManager().closeAllConnections();
             instance = null;
         }
     }
-    // TODO legal?
-    public  WebDriver driver() {           
+    public  WebDriver driver() {
              return instance.getBrowser().getDriver();
     }
 
@@ -86,7 +101,13 @@ public class Application {
 //    }
 
     public BrowserWrapper getBrowser() {
-        return browser;
+        BrowserWrapper browserWrapper = browsers.get(Thread.currentThread().getId());
+        if (browserWrapper == null) {
+            browserWrapper = new BrowserWrapper(applicationSource);
+            browsers.put(Thread.currentThread().getId(), browserWrapper);
+        }
+        return browserWrapper;
+        //return browser;
     }
 
 //    public ISearch search() {
@@ -114,7 +135,9 @@ public class Application {
 //    }
 
     private void initBrowser(IApplicationSource applicationSource) {
-        this.browser = new BrowserWrapper(applicationSource);
+        //this.browser = new BrowserWrapper(applicationSource);
+        BrowserWrapper browser = new BrowserWrapper(applicationSource);
+        browsers.put(Thread.currentThread().getId(), browser);
     }
 
 //    private void initSearch(IApplicationSource applicationSource) {

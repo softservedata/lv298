@@ -12,6 +12,8 @@ import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.tools.RegexUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AHeaderBlock {
 
@@ -203,6 +205,8 @@ public abstract class AHeaderBlock {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // *********AHeaderBlock Fields********
+    public static final Logger logger = LoggerFactory.getLogger(AHeaderBlock.class);
+    //
     public final String ATTRIBUTE_VALUE = "value";
     protected WebDriver driver;
 

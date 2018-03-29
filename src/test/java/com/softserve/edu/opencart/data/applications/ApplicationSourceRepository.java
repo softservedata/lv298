@@ -26,22 +26,11 @@ public final class ApplicationSourceRepository {
 
     public static IApplicationSource EpizyChrome() {
         return ApplicationSource.get()
-                .setBrowserName("ChromeTemporary")
+                .setBrowserName("ChromeTemporary") //"ChromeProfile"
                 .setDriverPath("C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe")
                 .setImplicitWaitTimeOut(10)
                 .setBaseUrl("http://setopencart.epizy.com")
                 //.setBaseUrl("http://atqc-shop.epizy.com")
                 .build();
     }
-    
-    public static IApplicationSource EpizyChromeProfile() {
-        return ApplicationSource.get()
-                .setBrowserName("ChromeProfile")
-                .setDriverPath("C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe")
-                .setImplicitWaitTimeOut(10)
-                .setBaseUrl("http://setopencart.epizy.com")
-                //.setBaseUrl("http://atqc-shop.epizy.com")
-                .build();
-    }
-    
 }
