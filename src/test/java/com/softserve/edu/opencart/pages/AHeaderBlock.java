@@ -15,29 +15,6 @@ import com.softserve.edu.opencart.tools.RegexUtils;
 
 public abstract class AHeaderBlock {
 
-    //TODO develop WebElement Wrapper
-    // *********Atomic operations*********
-    public void clickWebElement(WebElement webElement) {
-        webElement.click();        
-    }
-
-    public void clearWebElement(WebElement webElement) {       
-        webElement.clear();
-    }
-
-    public String getWebElementText(WebElement webElement) {       
-        return webElement.getText();
-    }
-
-    public String getWebElementTextWithAttribute(WebElement webElement, String attribute) {       
-        return webElement.getAttribute(attribute);
-    }
-
-    public void sendWebElementText(WebElement webElement, String text) {       
-        webElement.sendKeys(text);
-    }
-    //
-
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     private class CurrencyComponent {
         
@@ -271,7 +248,29 @@ public abstract class AHeaderBlock {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    
+
+    //TODO develop WebElement Wrapper
+    // *********Atomic operations*********
+    public void clickWebElement(WebElement webElement) {
+        webElement.click();        
+    }
+
+    public void clearWebElement(WebElement webElement) {       
+        webElement.clear();
+    }
+
+    public String getWebElementText(WebElement webElement) {       
+        return webElement.getText();
+    }
+
+    public String getWebElementTextWithAttribute(WebElement webElement, String attribute) {       
+        return webElement.getAttribute(attribute);
+    }
+
+    public void sendWebElementText(WebElement webElement, String text) {       
+        webElement.sendKeys(text);
+    }
+    //
     // *********AHeaderBlock Getters********
     public ProductActionNotification getProductActionNotification() {
         return productActionNotification;
