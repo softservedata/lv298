@@ -2,6 +2,7 @@ package com.softserve.edu.opencart.tests;
 
 import static org.testng.Assert.assertEquals;
 
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -73,6 +74,7 @@ public class WishListTest extends TestRunner {
     }
 
     //3 ********Wish List Contains Product Test*********
+    @Description(value = "aksfkausfnkwqnfuqnwfuk")
     @Test(dataProvider = "userProductsProvider")
     public void containsProductTest(IUser user, IProduct product) throws Exception {
         loginAndCheckProductInList(user, product);
