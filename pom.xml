@@ -297,28 +297,28 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<id>post-test</id>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<phase>site</phase>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>exec-maven-plugin</artifactId> -->
+<!-- 				<version>1.6.0</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>post-test</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>exec</goal> -->
+<!-- 						</goals> -->
+<!-- 						<phase>site</phase> -->
 						<!-- <phase>test</phase> -->
-						<configuration>
+<!-- 						<configuration> -->
 <!-- 							<executable>allureServer.bat</executable> -->
 							<!-- <arguments> -->
 							<!-- <argument>exec-maven-plugin</argument> -->
 							<!-- <argument>1.6.0</argument> -->
 							<!-- </arguments> -->
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
 			<!-- - - - Echo - - - -->
 			<plugin>
