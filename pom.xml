@@ -320,12 +320,6 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>io.qameta.allure</groupId>
-				<artifactId>allure-maven</artifactId>
-				<version>2.9</version>
-			</plugin>
-
 			<!-- - - - Echo - - - -->
 			<plugin>
 				<groupId>com.github.ekryd.echo-maven-plugin</groupId>
@@ -367,5 +361,16 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<excludeDefaults>true</excludeDefaults>
+		<plugins>
+			<plugin>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-maven</artifactId>
+				<version>2.9</version>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>

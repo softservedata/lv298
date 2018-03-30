@@ -17,6 +17,8 @@ public class AllureTest {
                 + System.getProperty("surefire.reports.directory"));
         System.out.println("selenium-version = "
                 + System.getProperty("selenium-version"));
+        System.out.println("database-password = "
+                + System.getProperty("database-password"));
         Assert.assertTrue(true);
     }
     
