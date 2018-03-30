@@ -310,7 +310,7 @@
 						<phase>site</phase>
 						<!-- <phase>test</phase> -->
 						<configuration>
-							<executable>allureServer.bat</executable>
+<!-- 							<executable>allureServer.bat</executable> -->
 							<!-- <arguments> -->
 							<!-- <argument>exec-maven-plugin</argument> -->
 							<!-- <argument>1.6.0</argument> -->
