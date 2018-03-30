@@ -74,7 +74,6 @@ public class WishListTest extends TestRunner {
     }
 
     //3 ********Wish List Contains Product Test*********
-    @Description(value = "aksfkausfnkwqnfuqnwfuk")
     @Test(dataProvider = "userProductsProvider")
     public void containsProductTest(IUser user, IProduct product) throws Exception {
         loginAndCheckProductInList(user, product);
