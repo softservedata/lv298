@@ -8,10 +8,8 @@
 	<!-- <parameter name="browserName" value="chrome" /> -->
 
 	<listeners>
-		<!-- <listener class-name="com.softserve.edu.opencart.tools.DotTestListener" 
-			/> -->
 		<listener
-			class-name="com.softserve.edu.opencart.tools.ScreenshotAtFailTestListener" />
+			class-name="com.softserve.edu.opencart.listeners.ScreenshotAtFailTestListener" />
 	</listeners>
 	<!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
 	<test verbose="5" name="Test1">
