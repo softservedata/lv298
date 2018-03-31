@@ -30,7 +30,7 @@
         <testng.reports.directory>target/surefire-reports/test-output</testng.reports.directory>
         <jenkins.server>absent</jenkins.server>
         <!-- <allure.version>1.5.0</allure.version> -->
-        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+        <allure.results.directory>${project.build.directory}\allure-results</allure.results.directory>
         <allure-testng.version>2.0-BETA21</allure-testng.version>
         <allure-testng-adaptor.version>1.5.4</allure-testng-adaptor.version>
         <allure-attachments.version>2.0-BETA21</allure-attachments.version>
@@ -59,6 +59,14 @@
         <google.gson.version>2.8.2</google.gson.version>
     </properties>
 
+    <!-- <repositories> -->
+    <!-- <repository> -->
+    <!-- <id>ms-repo</id> -->
+    <!-- <name>Microsoft</name> -->
+    <!-- <url>http://clojars.org/repo/</url> -->
+    <!-- <url>https://mvnrepository.com/artifact/com.microsoft.azure/azure-storage</url> -->
+    <!-- </repository> -->
+    <!-- </repositories> -->
 
     <dependencies>
         <!-- - - - Test - - - -->
@@ -74,18 +82,25 @@
             <artifactId>selenium-server</artifactId>
             <version>${org.seleniumhq.selenium.version}</version>
         </dependency>
+        <!-- <dependency> -->
+        <!-- <groupId>org.seleniumhq.selenium</groupId> -->
+        <!-- <artifactId>htmlunit-driver</artifactId> -->
+        <!-- <version>${org.seleniumhq.selenium.htmlunit-driver}</version> -->
+        <!-- </dependency> -->
         <!-- - - - Reports - - - -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
             <!-- <scope>test</scope> -->
         </dependency>
+
         <!-- - - - Mock Object - - - -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -118,6 +133,7 @@
             <scope>runtime</scope>
         </dependency>
         <!-- - - - DB Access - - - -->
+
         <dependency>
             <groupId>net.sourceforge.jtds</groupId>
             <artifactId>jtds</artifactId>
@@ -144,12 +160,14 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${org.hibernate.version}</version>
         </dependency>
+
         <!-- - - - Read from Excel formats, etc. - - - -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>${org.apache.poi.version}</version>
         </dependency>
+
         <!-- - - - - - JSON - - - - - -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -190,7 +208,6 @@
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
                     <argLine>-Xms512m -Xmx1024m</argLine>
-                    <!-- <argLine>-Xms256m -Xmx512m</argLine> -->
                     <systemPropertyVariables>
                         <surefire.reports.directory>
                             ${testng.reports.directory}
@@ -219,6 +236,7 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
 
+
                     <systemProperties>
                         <property>
                             <name>allure.results.directory</name>
@@ -228,30 +246,6 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>post-test</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>site</phase>
-                        <!-- <phase>test</phase> -->
-                        <configuration>
-                            <executable>allureServer.bat</executable>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-maven</artifactId>
-                <version>2.9</version>
-            </plugin>
 
             <!-- - - - Echo - - - -->
             <plugin>
@@ -266,8 +260,7 @@
                         </goals>
                         <configuration>
                             <message>+++++Local Repository: ${settings.localRepository}</message>
-                            <!-- 							<message>+++++TestNG Version: ${org.testng.version}</message> -->
-                        </configuration>
+                       </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -278,7 +271,6 @@
                 <inherited>false</inherited>
                 <configuration>
                     <message>*****Project.build.directory: ${project.build.directory}</message>
-
                 </configuration>
                 <executions>
                     <execution>
@@ -291,5 +283,18 @@
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.9</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+
 
 </project>

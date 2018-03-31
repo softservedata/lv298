@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.data.applications;
 
+import com.softserve.edu.opencart.tools.BrowserWrapper;
+
 public final class ApplicationSourceRepository {
 
     private static volatile ApplicationSourceRepository instance = null;
@@ -36,6 +38,15 @@ public final class ApplicationSourceRepository {
         return ApplicationSource.get()
                 .setBrowserName("FirefoxTemporary")
                 .setDriverPath("C:/Program Files/Mozilla Firefox/geckodriver.exe")
+                .setImplicitWaitTimeOut(10)
+                .setBaseUrl("https://nazaronoc.000webhostapp.com/")
+                .build();
+    }
+
+    public IApplicationSource openCartWithoutUIChrome(){
+        return ApplicationSource.get()
+                .setBrowserName("ChromeWithoutUI")
+                .setDriverPath("C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe")
                 .setImplicitWaitTimeOut(10)
                 .setBaseUrl("https://nazaronoc.000webhostapp.com/")
                 .build();

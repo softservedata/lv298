@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages.registration;
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.ARightPanel;
 import com.softserve.edu.opencart.tools.JavaScriptInjection;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -52,7 +53,7 @@ public class RegistrationPage extends ARightPanel {
     public void scrollToFirstNameField() {
         JavaScriptInjection.inject().scroll(driver, getFirstNameField());
     }
-
+    @Step("Send text to First name field")
     public void sendTextToFirstNameField(String text) {
         scrollToFirstNameField();
         getFirstNameField().clear();
@@ -85,6 +86,7 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getEmailField());
     }
 
+    @Step("Send text to Email field")
     public void sendTextToEmailField(String text) {
         scrollToEmailField();
         getEmailField().clear();
@@ -101,6 +103,7 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getTelephoneField());
     }
 
+    @Step("Send text to Telephone field")
     public void sendTextToTelephoneField(String text) {
         scrollToTelephoneField();
         getTelephoneField().clear();
@@ -117,6 +120,7 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getFaxField());
     }
 
+    @Step("Send text to Fax field")
     public void sendTextToFaxField(String text) {
         scrollToFaxField();
         getFaxField().clear();
@@ -133,6 +137,7 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getCompanyField());
     }
 
+    @Step("Send text to Company field")
     public void sendTextToCompanyField(String text) {
         scrollToCompanyField();
         getCompanyField().clear();
@@ -149,6 +154,7 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getMainAddressField());
     }
 
+    @Step("Send text to Address 1 field")
     public void sendTextToMainAddressField(String text) {
         scrollToMainAddressField();
         getMainAddressField().clear();
@@ -165,6 +171,7 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getMainAddressField());
     }
 
+    @Step("Send text to Address 2 field")
     public void sendTextToAdditionalAddressField(String text) {
         scrollToAdditionalAddressField();
         getAdditionalAddressField().clear();
@@ -181,6 +188,7 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getCityField());
     }
 
+    @Step("Send text to City field")
     public void sendTextToCityField(String text) {
         scrollToCityField();
         getCityField().clear();
@@ -197,6 +205,7 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getPostcodeField());
     }
 
+    @Step("Send text to Postcode field")
     public void sendTextToPostcodeField(String text) {
         scrollToPostcodeField();
         getPostcodeField().clear();
@@ -213,6 +222,7 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getPasswordField());
     }
 
+    @Step("Send text to Password field")
     public void sendTextToPasswordField(String text) {
         scrollToPasswordField();
         getPasswordField().clear();
@@ -229,6 +239,8 @@ public class RegistrationPage extends ARightPanel {
         JavaScriptInjection.inject().scroll(driver, getPasswordConfirmField());
     }
 
+
+    @Step("Send text to Password confirm field")
     public void sendTextToPasswordConfirmField(String text) {
         scrollToPasswordConfirmField();
         getPasswordConfirmField().clear();
@@ -249,6 +261,8 @@ public class RegistrationPage extends ARightPanel {
         getCountrySelector().click();
     }
 
+
+    @Step("Select country")
     public void selectCountryByValue(String country) {
         toSelectCountry().selectByValue(country);
     }
@@ -262,10 +276,8 @@ public class RegistrationPage extends ARightPanel {
         return new Select(getStateSelector());
     }
 
-    public void clickStateSelector() {
-        getStateSelector().click();
-    }
 
+    @Step("Select state")
     public void selectStateByValue(String state) {
         toSelectStateSelector().selectByValue(state);
     }
@@ -275,6 +287,7 @@ public class RegistrationPage extends ARightPanel {
         return driver.findElement(By.name(RADIO_NAME_SUBSCRIBE));
     }
 
+    @Step("Select subscribe")
     public void selectSubscribe(boolean isSubscribe) {
         if (isSubscribe) {
             getSubscribeRadio().click();
@@ -286,6 +299,7 @@ public class RegistrationPage extends ARightPanel {
         return driver.findElement(By.name(CHECKBOX_NAME_AGREE));
     }
 
+    @Step("Click 'Agree' checkbox")
     public void clickAgreeCheckBox() {
         getAgreeCheckBox().click();
     }
@@ -295,6 +309,7 @@ public class RegistrationPage extends ARightPanel {
         return driver.findElement(By.cssSelector(BUTTON_CLASS_CONTINUE));
     }
 
+    @Step("Click 'Continue' button")
     public void clickContinueButton() {
         getContinueButton().click();
     }
