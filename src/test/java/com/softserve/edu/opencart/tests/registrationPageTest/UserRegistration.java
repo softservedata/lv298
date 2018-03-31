@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.tests.registrationPage;
+package com.softserve.edu.opencart.tests.registrationPageTest;
 
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.data.users.UserRepository;
@@ -23,6 +23,8 @@ public class UserRegistration extends TestRunner {
 
     @Test(dataProvider = "failUserProvider")
     public void failRegistrationUser(IUser failUser) {
+        logger.debug("Test failRegistrationUser STARTED");
+
         String actual = Application.get()
                 .loadHomePage()
                 .gotoRegistrationPage()
@@ -32,10 +34,13 @@ public class UserRegistration extends TestRunner {
         String expected = FailRegistrationPage.WRONG_EMAIL_MESSAGE;
 
         Assert.assertEquals(actual, expected);
+        logger.debug("Test failRegistrationUser FINISHED");
     }
 
     @Test(dataProvider = "successUserProvider")
     public void successRegistrationUser(IUser successUser) {
+        logger.debug("Test succesRegistrationUser STARTED");
+
         String actual = Application.get()
                 .loadHomePage()
                 .gotoRegistrationPage()
@@ -47,7 +52,8 @@ public class UserRegistration extends TestRunner {
         Assert.assertEquals(actual, expeected);
 
         //Logout from created user profile
-        Application.get().loadHomePage().signoutToHomePage();
-    }
 
+        Application.get().loadHomePage().signoutToHomePage();
+        logger.debug("Test successRegistrationUser FINISHED");
+    }
 }

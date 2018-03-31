@@ -5,7 +5,7 @@
     <!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
     <test name="Registration User">
         <classes>
-            <class name="com.softserve.edu.opencart.tests.registrationPage.UserRegistration">
+            <class name="com.softserve.edu.opencart.tests.registrationPageTest.UserRegistration">
                 <methods>
                     <include name="failRegistrationUser"/>
                     <include name="successRegistrationUser"/>

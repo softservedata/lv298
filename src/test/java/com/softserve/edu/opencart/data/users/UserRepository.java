@@ -73,4 +73,19 @@ public final class UserRepository {
                 .build();
     }
 
+    public IUser emptyUser(){
+        return User.get()
+                .setFirstname("")
+                .setLastname("")
+                .setEmail("")
+                .setTelephone("")
+                .setAddressMain("")
+                .setCity("")
+                .setPostCode("")
+                .setCountry("")
+                .setState("")
+                .setPassword("")
+                .setSubscribe(false)
+                .build();
+    }
 }

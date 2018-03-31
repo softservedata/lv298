@@ -372,7 +372,6 @@ public class RegistrationPage extends ARightPanel {
      */
     public FailRegistrationPage failRegistrationUser(IUser user) {
         registrationUser(user);
-        logger.debug("User has registered fail");
         return new FailRegistrationPage(driver);
     }
 
@@ -383,7 +382,6 @@ public class RegistrationPage extends ARightPanel {
      */
     public SuccessRegistrationPage successRegistrationUser(IUser user) {
         registrationUser(user);
-        logger.debug("User has registered successfull");
         return new SuccessRegistrationPage(driver);
     }
 }

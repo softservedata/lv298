@@ -30,15 +30,12 @@ public abstract class TestRunner {
 
     @BeforeMethod
     public void beforeMethod() {
-
         logger.debug("beforeMethod TestNG");
-        System.out.println("@BeforeMethod");
     }
 
     @AfterMethod
     public void afterMethod(ITestResult result) {
         logger.debug("afterMethod TestNG");
-        System.out.println("@AfterMethod");
     }
 
 }
