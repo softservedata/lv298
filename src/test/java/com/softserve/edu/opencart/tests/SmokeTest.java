@@ -1,9 +1,13 @@
 package com.softserve.edu.opencart.tests;
 
 import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.spi.LoggerFactory;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.slf4j.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -20,7 +24,9 @@ import com.softserve.edu.opencart.pages.SearchPage;
 import com.softserve.edu.opencart.tools.RegexUtils;
 
 public class SmokeTest extends TestRunner {
-
+    
+//    public static final Logger logger = LoggerFactory.getLogger(SmokeTest.class);
+    
     // @Test
     public void smoke1() throws Exception {
         System.setProperty("webdriver.chrome.driver",
@@ -153,8 +159,9 @@ public class SmokeTest extends TestRunner {
         Assert.assertEquals(homePage.getMiniCartProductElementsNumber(), expected);
         homePage.deleteAllProductFromCart();
         Thread.sleep(2000);
+//        logger.info("@Test done");
     }
-    @Test(dataProvider = "productProvider")
+    //@Test(dataProvider = "productProvider")
     public void smoke8(IProduct product) throws Exception {
         HomePage homePage = Application.get().loadHomePage();
         homePage.addToCartByProduct(product);
