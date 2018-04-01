@@ -2,8 +2,10 @@ package com.softserve.edu.opencart.tests;
 
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.spi.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import org.slf4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,6 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.softserve.edu.App;
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.ProductRepository;
@@ -25,7 +28,7 @@ import com.softserve.edu.opencart.tools.RegexUtils;
 
 public class SmokeTest extends TestRunner {
     
-//    public static final Logger logger = LoggerFactory.getLogger(SmokeTest.class);
+    public static final Logger logger = LoggerFactory.getLogger(SmokeTest.class);
     
     // @Test
     public void smoke1() throws Exception {
@@ -159,7 +162,6 @@ public class SmokeTest extends TestRunner {
         Assert.assertEquals(homePage.getMiniCartProductElementsNumber(), expected);
         homePage.deleteAllProductFromCart();
         Thread.sleep(2000);
-//        logger.info("@Test done");
     }
     //@Test(dataProvider = "productProvider")
     public void smoke8(IProduct product) throws Exception {
@@ -172,5 +174,6 @@ public class SmokeTest extends TestRunner {
         homePage.clickMiniCart();
         Assert.assertEquals(homePage.getMiniCartProductElementsNumber(), expected);
         Assert.assertTrue(homePage.isMiniShoppingCartEmpty());
+        
     }
 }

@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +10,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.tests.SmokeTest;
 import com.softserve.edu.opencart.tools.RegexUtils;
 //import com.softserve.edu.opencart.pages.AHeaderBlock.ProductActionNotification;
 
 public abstract class AHeaderBlock {
-
+    
 // ----------------------- notification message ------------
     public class NotificationMessage {//TODO
         private WebElement notifacation;
