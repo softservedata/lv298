@@ -21,7 +21,7 @@
         <jdk.compiler.version>1.8</jdk.compiler.version>
         <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
         <!-- - - - - - Test - - - - - -->
-        <org.testng.version>6.11</org.testng.version>
+        <org.testng.version>6.14.2</org.testng.version>
         <maven.surefire.plugin.version>2.20.1</maven.surefire.plugin.version>
         <!-- - - - - - Automation - - - - - -->
         <org.seleniumhq.selenium.version>3.11.0</org.seleniumhq.selenium.version>
@@ -253,7 +253,7 @@
                             <goal>install-drivers</goal>
                         </goals>
                         <!-- Uncomment for download automatically -->
-                        <phase>compile</phase>
+                        <phase>test-compile</phase>
                         <!-- 						<phase>test</phase> -->
                     </execution>
                 </executions>
@@ -359,8 +359,8 @@
                         <phase>site</phase>
                         <!-- <phase>test</phase> -->
                         <configuration>
-                            <executable>allureServer.bat</executable>
-                            <!-- <arguments> -->
+                           <!-- <executable>allureServer.bat</executable>
+                           --> <!-- <arguments> -->
                             <!-- <argument>exec-maven-plugin</argument> -->
                             <!-- <argument>1.6.0</argument> -->
                             <!-- </arguments> -->
