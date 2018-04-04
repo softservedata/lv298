@@ -1,8 +1,11 @@
 package com.softserve.edu.opencart.data.products;
 
-import java.util.Map;
-
 import com.softserve.edu.opencart.data.Currencies;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 //*********Builder Pattern*********
 interface ISearchKey {
@@ -18,52 +21,64 @@ interface IDescription {
 }
 
 interface IPrices {
-    IProductBuild setPrices(Map<Enum<?>, Double> prices);
+    IProductBuild setPrice(Currencies currency, Double price);
 }
 
-interface IProductBuild {
-    IProduct build();
+interface IProductBuild  extends  IPrices{
+    IProduct  buildProduct();
 }
 
-public class Product implements ISearchKey, IName, IDescription, IPrices, IProductBuild,
-                                IProduct {
+public final class Product implements ISearchKey, IName, IDescription, IPrices,
+                                                    IProductBuild, IProduct {
 
+    private static final int REQUIRED_COLUMN_NUMBER = 3;
     // *********Product Properties*********
     private String searchKey;
     private String name;
     private String description;
-    private Map<Enum<?>, Double> prices;
+    private Map<Enum<Currencies>, Double> prices;
 
     // *********Constructor*********
     private Product() {
+        this.prices = new HashMap<Enum<Currencies>, Double>();
     }
 
-    public static ISearchKey get() {
+    public static List<IProduct> getByList(List<List<String>> rows) {
+            	List<IProduct> result = new ArrayList<>();
+            	String node;
+            	for (List<String> currentRow : rows) {
+                		node = currentRow.get(REQUIRED_COLUMN_NUMBER);
+                	}
+           	return result;
+    }
+
+    public static ISearchKey get()
+    {
         return new Product();
     }
 
     // *********Setters*********
-    public IName setSearchKey(String searchKey) {
+    public IName setSearchKey(final String searchKey) {
         this.searchKey = searchKey;
         return this;
     }
 
-    public IDescription setName(String name) {
+    public IDescription setName(final String name) {
         this.name = name;
         return this;
     }
 
-    public IPrices setDescription(String description) {
+    public IPrices setDescription(final String description) {
         this.description = description;
         return this;
     }
 
-    public IProductBuild setPrices(Map<Enum<?>, Double> prices) {
-        this.prices = prices;
+    public IProductBuild setPrice(final Currencies currency, Double price) {
+        prices.put(currency, price);
         return this;
     }
 
-    public IProduct build() {
+    public IProduct buildProduct() {
         return this;
     }
 
@@ -80,11 +95,11 @@ public class Product implements ISearchKey, IName, IDescription, IPrices, IProdu
         return description;
     }
 
-    public Map<Enum<?>, Double> getPrices() {
+    public Map<Enum<Currencies>, Double> getPrices() {
         return prices;
     }
 
-    public double getPriceByCurrencyName(Currencies currencyName) {
+    public double getPriceByCurrencyName(final Currencies currencyName) {
         return getPrices().get(currencyName);
     }
 

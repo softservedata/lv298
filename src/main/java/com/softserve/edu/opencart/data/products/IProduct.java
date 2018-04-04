@@ -1,8 +1,8 @@
 package com.softserve.edu.opencart.data.products;
 
-import java.util.Map;
-
 import com.softserve.edu.opencart.data.Currencies;
+
+import java.util.Map;
 
 public interface IProduct {
 
@@ -12,7 +12,7 @@ public interface IProduct {
 
     String getDescription();
 
-    Map<Enum<?>, Double> getPrices();
+    Map<Enum<Currencies>, Double> getPrices();
 
     double getPriceByCurrencyName(Currencies currencyName);
 }

@@ -15,12 +15,12 @@ public class WishListPage extends ARightPanel {
 
         private WebElement productLayout;
         // *********ProductComponentInWishList Locators*********
-        private final String ANCH_NAME_CSS = "td.text-left a";
-        private final String TXT_MODEL_CSS = "td.text-left ~ td.text-left";
-        private final String TXT_STOCK_CSS = "td.text-left + td.text-right";
-        private final String P_PRICE_CLASS_NAME = "price";
-        private final String BTN_ADD_TO_CART_CSS = ".fa.fa-shopping-cart";
-        private final String BTN_REMOVE_FROM_LIST_CSS = ".fa.fa-times";
+        private static final String ANCH_NAME_CSS = "td.text-left a";
+        private static final String TXT_MODEL_CSS = "td.text-left ~ td.text-left";
+        private static final String TXT_STOCK_CSS = "td.text-left + td.text-right";
+        private static final String P_PRICE_CLASS_NAME = "price";
+        private static final String BTN_ADD_TO_CART_CSS = ".fa.fa-shopping-cart";
+        private static final String BTN_REMOVE_FROM_LIST_CSS = ".fa.fa-times";
 
         // *********Constructor*********
         public ProductComponentInWishList(WebElement productLayout) {
@@ -104,14 +104,14 @@ public class WishListPage extends ARightPanel {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // *********WishListPage Fields*********
-    public final String URL = "http://setopencart.epizy.com/index.php?route=account/wishlist";
-    private final String IN_STOCK = "instock";
+    public static final String URL = "http://setopencart.epizy.com/index.php?route=account/wishlist";
+    private static final String IN_STOCK = "instock";
     
     protected List<ProductComponentInWishList> productComponents;
     
     // *********WishListPage Locators*********
-    private final String DIV_WISH_LIST_LAYOUT_CSS = ".table-responsive tbody tr";
-    private final String P_WISH_LIST_IS_EMPTY_CSS = "#content p";
+    private static final String DIV_WISH_LIST_LAYOUT_CSS = ".table-responsive tbody tr";
+    private static final String P_WISH_LIST_IS_EMPTY_CSS = "#content p";
     
     // *********Constructors*********
     public WishListPage(WebDriver driver) {
@@ -137,27 +137,20 @@ public class WishListPage extends ARightPanel {
     }
    
     public boolean isWishListEmpty() {  
-        if (wishListAmount() == 0) {
-            return true; 
-        } else {
-            return false;
-        }
+        return (wishListAmount() == 0);
     }
     
     public boolean isProductInList(IProduct product) {  
         if (isWishListEmpty()) {
             return false; 
-        } else if (getProductComponentNames().contains(product.getName())){
-            
-            return true;
         } else {
-            return false;
+            return (getProductComponentNames().contains(product.getName()));
         }
     }
 
     private void initProductComponents() {
         if (!isWishListEmpty()) {
-            productComponents = new ArrayList<ProductComponentInWishList>();
+            productComponents = new ArrayList<>();
             for (WebElement current : driver.findElements(By.cssSelector(DIV_WISH_LIST_LAYOUT_CSS))) {
                 productComponents.add(new ProductComponentInWishList(current));
             }
@@ -203,11 +196,7 @@ public class WishListPage extends ARightPanel {
     }
 
     public boolean isInStockByProduct(IProduct product) {
-        if (getProductComponentByName(product.getName()).getStockText().toLowerCase().trim().equals(IN_STOCK)) {
-            return true;
-        } else {
-            return false;
-        }
+            return (getProductComponentByName(product.getName()).getStockText().toLowerCase().trim().equals(IN_STOCK));
     }
 
     public String getPriceTextByProduct(IProduct product) {
@@ -232,7 +221,7 @@ public class WishListPage extends ARightPanel {
         return new WishListPage(driver, true);
     }
 
-    public WishListPage AddToCartByProduct(IProduct product) { 
+    public WishListPage addToCartByProduct(IProduct product) {
         clickAddToCartByProduct(product);
         return new WishListPage(driver, true);
     }

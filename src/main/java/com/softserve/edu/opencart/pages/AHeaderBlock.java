@@ -1,28 +1,30 @@
 package com.softserve.edu.opencart.pages;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.tools.RegexUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AHeaderBlock {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+public abstract class AHeaderBlock {
     private class CurrencyComponent {
-        
+
         // *********Locators*********
-        private final String LIST_CURRENCY_ELEMENTS_CSS = "button.currency-select.btn.btn-link.btn-block";
-        
+        private static final String LIST_CURRENCY_ELEMENTS_CSS = "button" +
+                ".currency-select.btn.btn-link.btn-block";
+
         // *********Web Elements*********
         @FindBy(css = LIST_CURRENCY_ELEMENTS_CSS)
         private List<WebElement> currencyElements;
@@ -41,7 +43,8 @@ public abstract class AHeaderBlock {
             WebElement result = null;
             for (WebElement current : getCurrencyElements()) {
                 if (getWebElementText(current).toLowerCase().trim()
-                        .contains(currencyName.toString().toLowerCase().trim())) {
+                        .contains(currencyName.toString().toLowerCase().trim
+                                ())) {
                     result = current;
                     break;
                 }
@@ -65,15 +68,18 @@ public abstract class AHeaderBlock {
             clickWebElement(getCurrencyElementByName(currencyName));
         }
     }
-
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     private class AccountInComponent {
 
         // *********Locators*********
         //TODO make locators simpler
-        private final String BTN_REGISTER_XPATH = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/register')]";
-        private final String BTN_LOGIN_XPATH = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/login')]";
+        private static final String BTN_REGISTER_XPATH =
+                "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains" +
+                        "(@href,'route=account/register')]";
+        private static final String BTN_LOGIN_XPATH =
+                "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains" +
+                        "(@href,'route=account/login')]";
         // *********Web Elements*********
         @FindBy(xpath = BTN_REGISTER_XPATH)
         private WebElement register;
@@ -112,15 +118,18 @@ public abstract class AHeaderBlock {
             clickWebElement(getLogin());
         }
     }
-
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     private class AccountOutComponent {
 
         // *********Locators*********
         //TODO make locators simpler
-        private final String BTN_MY_ACCOUNT_LOGIN_XPATH = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/account')]";
-        private final String BTN_LOGOUT_XPATH = "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains(@href,'route=account/logout')]";
+        private static final String BTN_MY_ACCOUNT_LOGIN_XPATH =
+                "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains" +
+                        "(@href,'route=account/account')]";
+        private static final String BTN_LOGOUT_XPATH =
+                "//ul[@class='dropdown-menu dropdown-menu-right']//a[contains" +
+                        "(@href,'route=account/logout')]";
         // *********Web Elements*********
         @FindBy(xpath = BTN_MY_ACCOUNT_LOGIN_XPATH)
         private WebElement myAccountLogin;
@@ -164,9 +173,10 @@ public abstract class AHeaderBlock {
     protected class ProductActionNotification {
 
         // *********Locators*********
-        private final String BTN_CLOSE_CLASS_NAME = "close";
-        private final String DIV_MESSAGE_CONTAINER_CSS = ".alert.alert-success";
-        
+        private static final String BTN_CLOSE_CLASS_NAME = "close";
+        private static final String DIV_MESSAGE_CONTAINER_CSS = ".alert" +
+                ".alert-success";
+
         // *********Web Elements*********
         @FindBy(css = DIV_MESSAGE_CONTAINER_CSS)
         private WebElement messageContainer;
@@ -175,7 +185,7 @@ public abstract class AHeaderBlock {
         private WebElement closeMessage;
 
         // *********Constructor*********
-        public ProductActionNotification() {           
+        public ProductActionNotification() {
             PageFactory.initElements(driver, this);
         }
 
@@ -202,83 +212,113 @@ public abstract class AHeaderBlock {
         }
 
     }
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
     // *********AHeaderBlock Fields********
-    public static final Logger logger = LoggerFactory.getLogger(AHeaderBlock.class);
-    //
-    public final String ATTRIBUTE_VALUE = "value";
-    protected WebDriver driver;
+    public static final Logger LOGGER = LoggerFactory.getLogger(AHeaderBlock
+            .class);
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //
+    public static final String ATTRIBUTE_VALUE = "value";
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // *********Locators*********
+    private static final String BTN_CURRENCY_CSS = ".btn.btn-link"
+            +".dropdown-toggle";
+    private static final String BTN_MY_ACCOUNT_CSS = "ul.list-inline li"
+            +".dropdown a.dropdown-toggle";
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    private static final String ANCH_LOGO_CSS = "#logo a";
+    private static final String INPUT_SEARCH_FIELD_NAME = "search";
+    private static final String BTN_SEARCH_CSS = ".btn.btn-default.btn-lg";
+    private static final String BTN_WISH_LIST_ID = "wishlist-total";
+    private static final String LIST_MYACCOUNTITEMS_CSS = ".dropdown-menu"
+            +".dropdown-menu-right li";
+    protected WebDriver driver;
     protected CurrencyComponent currencyComponent;
     protected AccountInComponent accountInComponent;
     protected AccountOutComponent accountOutComponent;
     protected ProductActionNotification productActionNotification;
- 
-   
-    // *********Locators*********
-    private final String BTN_CURRENCY_CSS = ".btn.btn-link.dropdown-toggle";
-    private final String BTN_MY_ACCOUNT_CSS = "ul.list-inline li.dropdown a.dropdown-toggle";
-    private final String ANCH_LOGO_CSS = "#logo a";
-    private final String INPUT_SEARCH_FIELD_NAME = "search";
-    private final String BTN_SEARCH_CSS = ".btn.btn-default.btn-lg";
-    private final String BTN_WISH_LIST_ID = "wishlist-total";
-    private final String LIST_MYACCOUNTITEMS_CSS = ".dropdown-menu.dropdown-menu-right li";
-   
+
     // *********Web Elements*********
     @FindBy(css = BTN_CURRENCY_CSS)
     private WebElement currency;
-
     @FindBy(css = BTN_MY_ACCOUNT_CSS)
     private WebElement myAccount;
-
     @FindBy(css = ANCH_LOGO_CSS)
     private WebElement logo;
-
     @FindBy(name = INPUT_SEARCH_FIELD_NAME)
     private WebElement searchField;
-
     @FindBy(css = BTN_SEARCH_CSS)
     private WebElement searchButton;
-
     @FindBy(id = BTN_WISH_LIST_ID)
     private WebElement wishList;
-
     @FindBy(css = LIST_MYACCOUNTITEMS_CSS)
     private List<WebElement> myAccountItems;
 
     // *********Constructor*********
-    public AHeaderBlock(WebDriver driver) {
+    public AHeaderBlock(final WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
     //TODO develop WebElement Wrapper
     // *********Atomic operations*********
-    public void clickWebElement(WebElement webElement) {
-        webElement.click();        
+    public void scrollToWebElement(final WebElement webElement) {
+        WebDriverWait wait = new WebDriverWait(driver,10);
+
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("window.scrollTo("+webElement.getLocation().x+","+webElement.getLocation().y+")");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        /*
+
+        wait.until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver webDriver) {
+                System.out.println("Searching...");
+                return webElement != null;
+            }
+        });
+*/
+
     }
 
-    public void clearWebElement(WebElement webElement) {       
+    public void clickWebElement(final WebElement webElement) {
+        scrollToWebElement(webElement);
+        webElement.click();
+    }
+
+    public void clearWebElement(final WebElement webElement) {
+            scrollToWebElement(webElement);
         webElement.clear();
     }
 
-    public String getWebElementText(WebElement webElement) {       
+    public String getWebElementText(final WebElement webElement) {
+        scrollToWebElement(webElement);
         return webElement.getText();
     }
 
-    public String getWebElementTextWithAttribute(WebElement webElement, String attribute) {       
+    public String getWebElementTextWithAttribute(final WebElement webElement,
+                                                 final String attribute) {
+        scrollToWebElement(webElement);
         return webElement.getAttribute(attribute);
     }
 
-    public void sendWebElementText(WebElement webElement, String text) {       
+    public void sendWebElementText(final WebElement webElement, final String text) {
+        scrollToWebElement(webElement);
         webElement.sendKeys(text);
     }
+
     //
     // *********AHeaderBlock Getters********
     public ProductActionNotification getProductActionNotification() {
         return productActionNotification;
     }
+
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
@@ -344,7 +384,8 @@ public abstract class AHeaderBlock {
     }
 
     public String getSearchFieldText() {
-        return getWebElementTextWithAttribute(getSearchField(), ATTRIBUTE_VALUE);
+        return getWebElementTextWithAttribute(getSearchField(),
+                ATTRIBUTE_VALUE);
     }
 
     // *********Search Button*********
@@ -376,7 +417,7 @@ public abstract class AHeaderBlock {
     public int wishListAmount() {
         return RegexUtils.extractFirstNumber(getWishListText());
     }
-      
+
     // *********Business Logic*********
     protected void chooseCurrency(Currencies currencyName) {
         clickCurrency();
@@ -387,12 +428,12 @@ public abstract class AHeaderBlock {
         clickLogo();
         return new HomePage(driver);
     }
-    
+
     public WishListPage gotoWishListPage() {
         clickWishList();
         return new WishListPage(driver);
     }
-    
+
     public LoginPage gotoWishListPageLogout() {
         clickWishList();
         return new LoginPage(driver);
@@ -420,7 +461,7 @@ public abstract class AHeaderBlock {
         }
         return new LoginPage(driver);
     }
-     
+
     public HomePage signoutToHomePage() {
         if (isLogged()) {
             clickSearchField();
@@ -434,28 +475,31 @@ public abstract class AHeaderBlock {
         }
         return new HomePage(driver);
     }
-    
-    public HomePage loginToHomePage(IUser user) { 
-        return   signoutToHomePage()
+
+    public HomePage loginToHomePage(IUser user) {
+        return signoutToHomePage()
                 .gotoLoginPage()
                 .successLogin(user)
                 .gotoHomePage();
     }
-    
-    public boolean isWishListContainsProduct(IProduct product) {   
+
+    public boolean isWishListContainsProduct(IProduct product) {
         boolean rezult = false;
         WishListPage wishListPage = this.gotoWishListPage();
         rezult = wishListPage.isProductInList(product);
         wishListPage.gotoHomePage();
         return rezult;
     }
-    
-    public String productActionNotificationText() {      
+
+    public String productActionNotificationText() {
         return getProductActionNotification().getMessageContainerText();
-    } 
-    
+    }
+
     public void productActionNotificationClose() {
         getProductActionNotification().clickCloseMessage();
-    } 
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 }

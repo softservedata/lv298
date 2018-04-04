@@ -6,23 +6,28 @@ interface IBrowserName {
 }
 
 interface IDriverPath {
-    IImplicitWaitTimeOut setDriverPath(String driverPath);
-}
-
-interface IImplicitWaitTimeOut {
-    IBaseUrl setImplicitWaitTimeOut(long implicitWaitTimeOut);
+    IBaseUrl setDriverPath(String driverPath);
 }
 
 interface IBaseUrl {
     IApplicationSourceBuild setBaseUrl(String baseUrl);
 }
 
+/*interface IBaseUrl {
+    IImplicitWaitTimeOut setBaseUrl(String baseUrl);
+}
+
+interface IImplicitWaitTimeOut {
+    IApplicationSourceBuild setImplicitWaitTimeOut(long implicitWaitTimeOut);
+}*/
+
 interface IApplicationSourceBuild {
     IApplicationSource build();
 }
 
-public class ApplicationSource implements IBrowserName, IDriverPath, IImplicitWaitTimeOut,
-                                        IBaseUrl,IApplicationSourceBuild,IApplicationSource {
+public final class ApplicationSource implements IBrowserName, IDriverPath,
+                   IBaseUrl, IApplicationSourceBuild,// IImplicitWaitTimeOut,
+                                                        IApplicationSource {
 
     //*********Browser Data*********
     private String browserName;
@@ -63,39 +68,44 @@ public class ApplicationSource implements IBrowserName, IDriverPath, IImplicitWa
     //private String databasePassword;
 
     // *********Constructor*********
-    private ApplicationSource() {       
+    private ApplicationSource() {
     }
-    
-    public static IBrowserName get () {
+
+    public static IBrowserName get() {
         return new ApplicationSource();
     }
-    
-    //*********Setters********* 
-    public IDriverPath setBrowserName(String browserName) {
+    //*********Setters*********
+    public IDriverPath setBrowserName(final String browserName) {
         this.browserName = browserName;
         return this;
     }
 
-    public IImplicitWaitTimeOut setDriverPath(String driverPath) {
+    public IBaseUrl setDriverPath(final String driverPath) {
         this.driverPath = driverPath;
         return this;
     }
 
-    public IBaseUrl setImplicitWaitTimeOut(long implicitWaitTimeOut) {
-        this.implicitWaitTimeOut = implicitWaitTimeOut;
+   /* public IImplicitWaitTimeOut setBaseUrl(final String baseUrl) {
+        this.baseUrl = baseUrl;
         return this;
-    }
+    }*/
 
-    public IApplicationSourceBuild setBaseUrl(String baseUrl) {
+    public IApplicationSourceBuild setBaseUrl(final String baseUrl) {
         this.baseUrl = baseUrl;
         return this;
     }
-    
-    public IApplicationSource build () {
+
+  /*  public IApplicationSourceBuild setImplicitWaitTimeOut(final long implicitWaitTimeOut) {
+        this.implicitWaitTimeOut = implicitWaitTimeOut;
+        return this;
+    }*/
+
+
+
+    public IApplicationSource build() {
         return this;
     }
-
-    //*********Getters********* 
+    //*********Getters*********
     public String getBrowserName() {
         return browserName;
     }

@@ -1,9 +1,12 @@
 package com.softserve.edu.opencart.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import com.softserve.edu.opencart.tools.RegexUtils;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductComponent {
     
@@ -11,16 +14,17 @@ public class ProductComponent {
     private WebElement productLayout;
     
     // *********Locators*********
-    private final String ANCH_PRODUCT_NAME_CSS = "div.caption a";
-    private final String P_PRICE_CLASS_NAME = "price";
-    private final String BTN_ADD_TO_CART_CSS = ".fa.fa-shopping-cart";
-    private final String BTN_ADD_TO_WISH_CSS = ".fa.fa-heart";
+    private static final String ANCH_PRODUCT_NAME_CSS = "div.caption a";
+    private static final String P_PRICE_CLASS_NAME = "price";
+    private static final String BTN_ADD_TO_CART_CSS = ".fa.fa-shopping-cart";
+    private static final String BTN_ADD_TO_WISH_CSS = ".fa.fa-heart";
 
     // *********Constructor*********
     public ProductComponent(WebElement productLayout) {
         this.productLayout = productLayout;    
         initElements();    
     }
+
 
     private void initElements() {
         getName();
@@ -69,8 +73,9 @@ public class ProductComponent {
         return productLayout.findElement(By.cssSelector(BTN_ADD_TO_WISH_CSS));
     }
 
-    public void clickAddToWish() {
+    public void clickAddToWish()  {
         getAddToWish().click();
+
     }
 
 }

@@ -22,7 +22,6 @@ public class SmokeTest extends TestRunner {
     public void smoke3TestRunner(IProduct product) throws Exception {
         SearchPage searchPage = Application.get().loadHomePage() 
                 .searchByProduct(product);
-        Thread.sleep(4000);
         System.out.println("***" + searchPage.getFeaturedBlock().getProductComponentTexts());
         Assert.assertTrue(searchPage.getFeaturedBlock().getProductComponentTexts()
                 .contains(product.getName()));
@@ -39,12 +38,10 @@ public class SmokeTest extends TestRunner {
                 .loadHomePage() 
                 .gotoLoginPage()
                 .successLogin(user);
-        Thread.sleep(4000);
-         
+
         Assert.assertEquals(myAccountPage.getMyAccountLabelText(),
                 MyAccountPage.MY_ACCOUNT_LABEL_TEXT);
         HomePage homePage = myAccountPage.signoutToHomePage();
-        Thread.sleep(4000);
         Assert.assertFalse(homePage.isLogged());
     }
     
@@ -61,13 +58,11 @@ public class SmokeTest extends TestRunner {
         SearchPage searchPage = Application.get().loadHomePage() 
                 .selectCurrency(currencyName)
                 .searchByProduct(product);
-        Thread.sleep(4000);
         System.out.println("***" + searchPage.getFeaturedBlock().getProductComponentTexts());
         Assert.assertTrue(searchPage.getFeaturedBlock().getProductComponentTexts()
                 .contains(product.getName()));
         Assert.assertEquals(searchPage.getFeaturedBlock().getPriceAmountByProduct(product),
                 product.getPriceByCurrencyName(currencyName));
-        Thread.sleep(4000);
     }
 
 }

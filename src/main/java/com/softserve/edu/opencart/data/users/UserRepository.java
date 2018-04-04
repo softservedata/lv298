@@ -1,9 +1,9 @@
 package com.softserve.edu.opencart.data.users;
 
 public final class UserRepository {
-    
+
     private static volatile UserRepository instance = null;
-    
+
     // *********Constructor*********
     private UserRepository() {
     }
@@ -18,12 +18,12 @@ public final class UserRepository {
         }
         return instance;
     }
-    
+
     // *********Repository*********
     public IUser defaultUser() {
         return customer();
     }
-    
+
     public IUser customer() {
         return User.get()
                 .setFirstname("firstname")
@@ -40,7 +40,7 @@ public final class UserRepository {
                 .setFax("fax")
                 .build();
     }
-    
+
     public IUser customer2() {
         return User.get()
                 .setFirstname("firstname")

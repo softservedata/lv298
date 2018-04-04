@@ -76,6 +76,10 @@ public class Application {
             instance = null;
         }
     }
+    public void refresh()
+    {
+        instance.getBrowser().refreshPage();
+    }
     public  WebDriver driver() {
              return instance.getBrowser().getDriver();
     }

@@ -35,7 +35,8 @@ public class SearchPage extends AAdressBar {
         return new SearchPage(driver);
     }
 
-    public SearchPage addToWishListByProduct(IProduct product) { 
+    public SearchPage addToWishListByProduct(IProduct product) {
+        getFeaturedBlock().clickAddToWishByProduct(product);
         return new SearchPage(driver,true);
     }
 

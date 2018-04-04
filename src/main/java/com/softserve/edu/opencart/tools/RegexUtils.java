@@ -5,18 +5,18 @@ import java.util.regex.Pattern;
 
 public final class RegexUtils {
 
-    private final static String PATTERN_UNSIGNED_NUMBER = "\\d+";
+    private static final String PATTERN_UNSIGNED_NUMBER = "\\d+";
     // private final static String PATTERN_UNSIGNED_DOUBLE = "\\d+(\\.\\d+)*";
-    private final static String PATTERN_UNSIGNED_DOUBLE = "\\d+\\.\\d+";
-    private final static String EXTRACT_NUMBER_MESSAGE = "NumberFormatException for pattern =  %s text =  %s";
-    
-    private final static String PATTERN_SUCCESFULL_MESSAGE = "Success:.+!";
+    private static final String PATTERN_UNSIGNED_DOUBLE = "\\d+\\.\\d+";
+    private static final String EXTRACT_NUMBER_MESSAGE = "NumberFormatException for pattern =  %s text =  %s";
+
+    private static final String PATTERN_SUCCESFULL_MESSAGE = "Success:.+!";
 
     private RegexUtils() {
     }
 
     public static String extractFirstString(String pattern, String text) {
-        String result = new String();
+        String result = "";
         Matcher matcher = Pattern.compile(pattern).matcher(text);
         if (matcher.find()) {
             result = text.substring(matcher.start(), matcher.end());
@@ -62,18 +62,14 @@ public final class RegexUtils {
         }
         return result;
     }
-    
+
     public static String extractSuccesfullMessage(String text) {
         String result = text;
         Matcher matcher = Pattern.compile(PATTERN_SUCCESFULL_MESSAGE).matcher(text);
         if (matcher.find()) {
-            result = text.substring(matcher.start(),matcher.end());
+            result = text.substring(matcher.start(), matcher.end());
         }
         return result;
     }
-    
-//    public static void main(String[] args) {
-//        System.out.println(extractSuccesfullMessage(" Success: You have modified your wish list! ×"));
-//    }
 
 }

@@ -55,10 +55,10 @@ interface IUSerBuild {
     IUser build();
 }
 
-public class User implements IFirstname, ILastname, IEmail, ITelephone, IAddressMain, ICity,
-                             IPostCode, ICountry, IState, IPassword, ISubscribe, IUSerBuild,
-                             IUser {
-    
+public final class User implements IFirstname, ILastname, IEmail, ITelephone,
+        IAddressMain, ICity, IPostCode, ICountry, IState, IPassword,
+        ISubscribe, IUSerBuild, IUser {
+
     //*********User Data*********
     private String firstname;
     private String lastname;
@@ -74,82 +74,82 @@ public class User implements IFirstname, ILastname, IEmail, ITelephone, IAddress
     private String state;
     private String password;
     private boolean subscribe;
-    
+
     // *********Constructor*********
     private User() {
     }
-  
+
     public static IFirstname get() {
         return new User();
     }
 
     // *********Setters*********
-    public ILastname setFirstname(String firstname) {
+    public ILastname setFirstname(final String firstname) {
         this.firstname = firstname;
         return this;
     }
 
-    public IEmail setLastname(String lastname) {
+    public IEmail setLastname(final String lastname) {
         this.lastname = lastname;
         return this;
     }
 
-    public ITelephone setEmail(String email) {
+    public ITelephone setEmail(final String email) {
         this.email = email;
         return this;
     }
 
-    public IAddressMain setTelephone(String telephone) {
+    public IAddressMain setTelephone(final String telephone) {
         this.telephone = telephone;
         return this;
     }
 
-    public IUSerBuild setFax(String fax) {
+    public IUSerBuild setFax(final String fax) {
         this.fax = fax;
         return this;
     }
 
-    public IUSerBuild setCompany(String company) {
+    public IUSerBuild setCompany(final String company) {
         this.company = company;
         return this;
     }
 
-    public ICity setAddressMain(String addressMain) {
+    public ICity setAddressMain(final String addressMain) {
         this.addressMain = addressMain;
         return this;
     }
 
-    public IUSerBuild setAddressAdditional(String addressAdditional) {
+    public IUSerBuild setAddressAdditional(final String addressAdditional) {
         this.addressAdditional = addressAdditional;
         return this;
     }
 
-    public IPostCode setCity(String city) {
+    public IPostCode setCity(final String city) {
         this.city = city;
         return this;
     }
 
-    public ICountry setPostCode(String postCode) {
+    public ICountry setPostCode(final String postCode) {
         this.postCode = postCode;
         return this;
     }
 
-    public IState setCountry(String country) {
+    public IState setCountry(final String country) {
         this.country = country;
         return this;
     }
 
-    public IPassword setState(String state) {
+    public IPassword setState(final String state) {
         this.state = state;
         return this;
     }
 
-    public ISubscribe setPassword(String password) {
+    public ISubscribe setPassword(final String password) {
         this.password = password;
         return this;
     }
 
-    public IUSerBuild setSubscribe(boolean subscribe) {
+    public IUSerBuild setSubscribe(final boolean subscribe) {
         this.subscribe = subscribe;
         return this;
     }

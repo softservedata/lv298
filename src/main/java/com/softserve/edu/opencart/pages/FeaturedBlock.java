@@ -4,18 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.softserve.edu.opencart.data.products.IProduct;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FeaturedBlock {
 
     private WebDriver driver;
     protected List<ProductComponent> productComponents;
-    
+
     // *********Locators*********
-    private final String DIV_PRODUCT_LAYOUT_CLASS_NAME = "product-layout";
+    private static final String DIV_PRODUCT_LAYOUT_CLASS_NAME = "product-layout";
     
     // *********Constructor*********
     public FeaturedBlock(WebDriver driver) {    
@@ -24,7 +27,7 @@ public class FeaturedBlock {
     }
     
     private void initProductComponents() {
-        productComponents = new ArrayList<ProductComponent>();
+        productComponents = new ArrayList<>();
         for (WebElement current : driver.findElements(By.className(DIV_PRODUCT_LAYOUT_CLASS_NAME))) {
             productComponents.add(new ProductComponent(current));
         }
@@ -70,7 +73,7 @@ public class FeaturedBlock {
         getProductComponentByName(product.getName()).clickAddToCart();
     }
 
-    public void clickAddToWishByProduct(IProduct product) {  
+    public void clickAddToWishByProduct(IProduct product) {
         getProductComponentByName(product.getName()).clickAddToWish();
     }
 

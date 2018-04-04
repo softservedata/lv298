@@ -14,6 +14,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 
 public class BrowserWrapper {
+    private static final String FIREFOX_DRIVER = "webdriver.gecko.driver";
+    private static final String CHROME_DRIVER = "webdriver.chrome.driver";
 
     private interface IBrowser {
         WebDriver getBrowser(IApplicationSource applicationSource);
@@ -21,7 +23,7 @@ public class BrowserWrapper {
 
     private static class Firefox5xTemporary implements IBrowser {
         public WebDriver getBrowser(IApplicationSource applicationSource) {
-            System.setProperty("webdriver.gecko.driver",
+            System.setProperty(FIREFOX_DRIVER,
                     applicationSource.getDriverPath());
             return new FirefoxDriver();
         }
@@ -29,7 +31,7 @@ public class BrowserWrapper {
 
     private static class ChromeTemporary implements IBrowser {
         public WebDriver getBrowser(IApplicationSource applicationSource) {
-            System.setProperty("webdriver.chrome.driver",
+            System.setProperty(CHROME_DRIVER,
                     applicationSource.getDriverPath());
             return new ChromeDriver();
         }
@@ -37,7 +39,7 @@ public class BrowserWrapper {
 
     private static class ChromeProfile implements IBrowser {
         public WebDriver getBrowser(IApplicationSource applicationSource) {
-            System.setProperty("webdriver.chrome.driver",
+            System.setProperty(CHROME_DRIVER,
                     applicationSource.getDriverPath());
             String userProfile = System.getenv("HOMEPATH")
                     + "\\AppData\\Local\\Google\\Chrome\\User Data";
@@ -49,7 +51,7 @@ public class BrowserWrapper {
 
     private static class ChromeWithoutUI implements IBrowser {
         public WebDriver getBrowser(IApplicationSource applicationSource) {
-            System.setProperty("webdriver.chrome.driver",
+            System.setProperty(CHROME_DRIVER,
                     applicationSource.getDriverPath());
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless");
@@ -57,14 +59,13 @@ public class BrowserWrapper {
             options.addArguments("--ignore-certificate-errors");
             WebDriver driver = new ChromeDriver(options);
             driver.manage().window().maximize();
-            //System.out.println("\t\t\t*** ChromeWithoutUI: new ChromeDriver(options)");
             return driver;
         }
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    public static enum Browsers {
+    public enum Browsers {
         DEFAULT_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         FIREFOX5X_TEMPORARY("FireFox5xTemporary", new Firefox5xTemporary()),
         CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
@@ -107,7 +108,6 @@ public class BrowserWrapper {
                 break;
             }
         }
-        //System.out.println("\tBrowser Start. currentBrowser name = " + currentBrowser.toString());
         driver = currentBrowser.runBrowser(applicationSource);
         //
         // TODO Move to Search Class

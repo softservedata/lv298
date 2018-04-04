@@ -9,8 +9,7 @@ import com.softserve.edu.opencart.data.users.IUser;
 
 public class LoginPage extends ARightPanel {
 
-    public final String URL = "http://setopencart.epizy.com/index.php?route=account/login";
-    
+    public static final String URL = "http://setopencart.epizy.com/index.php?route=account/login";
     
     // *********Web Elements*********
     @FindBy(id = "input-email")
