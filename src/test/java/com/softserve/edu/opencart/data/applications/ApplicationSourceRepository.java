@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.data.applications;
 
+import com.softserve.edu.Sel;
+
 public final class ApplicationSourceRepository {
   
     private ApplicationSourceRepository() {
@@ -11,10 +13,11 @@ public final class ApplicationSourceRepository {
 
     public static IApplicationSource EpizyChrome() {
         return new ApplicationSource("ChromeTemporary", // "ChromeTemporary", // "ChromeProfile",
-                "C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe",
+        		ApplicationSourceRepository.class.getResource("/chromedriver-windows-32bit.exe").getPath().substring(1),
+                //"C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe",
                 10, 
-                //"http://atqc-shop.epizy.com"
-                "http://nazaronoc.000webhostapp.com/"
+                "http://atqc-shop.epizy.com"
+                //"http://nazaronoc.000webhostapp.com/"
                 );
     }
     

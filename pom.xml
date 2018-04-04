@@ -214,6 +214,14 @@
 	</dependencies>
 
 	<build>
+		<extensions>
+	      <extension>
+	        <groupId>kr.motd.maven</groupId>
+	        <artifactId>os-maven-plugin</artifactId>
+	        <version>1.5.0.Final</version>
+	      </extension>
+	    </extensions>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -233,6 +241,39 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.github.webdriverextensions</groupId>
+				<artifactId>webdriverextensions-maven-plugin</artifactId>
+				<version>3.1.3</version>
+				<executions>
+					<execution>
+						<id>pre-test</id>
+						<goals>
+							<goal>install-drivers</goal>
+						</goals>
+						<!-- Uncomment for download automatically -->
+						<phase>test-compile</phase>
+<!-- 						<phase>test</phase> -->
+					</execution>
+				</executions>
+				<configuration>
+					<installationDirectory>${project.build.directory}/test-classes</installationDirectory>
+<!-- 					<installationDirectory>${project.basedir}/src/test/resources</installationDirectory> -->
+					<keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
+        			<drivers>
+						<driver>
+							<name>chromedriver</name>
+							<platform>${os.detected.name}</platform>
+<!-- 							<platform>windows</platform> -->
+							<bit>32</bit>
+							<version>2.37</version>
+<!-- 							<url>https://chromedriver.storage.googleapis.com/2.37/chromedriver_win32.zip</url> -->
+						</driver>
+        			</drivers>
+        		</configuration>
+			</plugin>
+
 			<!-- - - - Unit Testing - - - -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -332,7 +373,9 @@
 							<goal>echo</goal>
 						</goals>
 						<configuration>
-							<message>+++++Local Repository: ${settings.localRepository}</message>
+							<message>+++++Operation System: ${os.detected.name}</message>
+<!-- 							<message>+++++Operation System: ${os.detected.classifier}</message> -->
+<!-- 							<message>+++++Local Repository: ${settings.localRepository}</message> -->
 <!-- 							<message>+++++TestNG Version: ${org.testng.version}</message> -->
 						</configuration>
 					</execution>
