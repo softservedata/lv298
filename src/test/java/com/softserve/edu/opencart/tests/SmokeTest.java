@@ -49,15 +49,6 @@ public class SmokeTest extends TestRunner {
                 "C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        //
-        // driver.get("http://atqc-shop.epizy.com");
-        // driver.navigate().refresh();
-        // Thread.sleep(2000);
-        //
-        // HomePage homePage = HomePage.load(driver,
-        // "http://atqc-shop.epizy.com");
-        // homePage = homePage.searchByProduct("mac");
-        //
         SearchPage searchPage = HomePage
                 .load(driver, "http://oppencart.herokuapp.com/")
                 .searchByProduct("mac");
