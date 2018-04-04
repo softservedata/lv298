@@ -6,6 +6,7 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.registration.FailRegistrationPage;
 import com.softserve.edu.opencart.pages.registration.SuccessRegistrationPage;
 import com.softserve.edu.opencart.tests.TestRunner;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
@@ -24,12 +25,15 @@ public class UserRegistration extends TestRunner {
         return new Object[][]{{UserRepository.get().successRegistrationUser()}};
     }
 
+
+    @Feature("Registration Page")
     @Test(dataProvider = "failUserProvider"
             ,priority = 5
             ,description = "Check if system will not registrate user with exist email")
     public void failRegistrationUser(IUser failUser) {
         logger.debug("Test failRegistrationUser STARTED");
         Reporter.log("<b>Test no1</b> " + Reporter.getCurrentTestResult());
+
         String actual = Application.get()
                 .loadHomePage()
                 .gotoRegistrationPage()
@@ -43,12 +47,13 @@ public class UserRegistration extends TestRunner {
         logger.debug("Test failRegistrationUser FINISHED");
     }
 
+    @Feature("Registration Page")
     @Test(dataProvider = "successUserProvider"
             ,priority = 5
             ,description = "Check if system will registrate new user")
     public void successRegistrationUser(IUser successUser) {
         logger.debug("Test succesRegistrationUser STARTED");
-        Reporter.log("Test" + Reporter.getCurrentTestResult());
+
         String actual = Application.get()
                 .loadHomePage()
                 .gotoRegistrationPage()
@@ -64,4 +69,6 @@ public class UserRegistration extends TestRunner {
         Application.get().loadHomePage().signoutToHomePage();
         logger.debug("Test successRegistrationUser FINISHED");
     }
+
+
 }

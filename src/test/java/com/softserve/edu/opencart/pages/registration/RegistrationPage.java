@@ -53,6 +53,7 @@ public class RegistrationPage extends ARightPanel {
     public void scrollToFirstNameField() {
         JavaScriptInjection.inject().scroll(driver, getFirstNameField());
     }
+
     @Step("Send text to First name field")
     public void sendTextToFirstNameField(String text) {
         scrollToFirstNameField();
@@ -282,6 +283,10 @@ public class RegistrationPage extends ARightPanel {
         toSelectStateSelector().selectByValue(state);
     }
 
+    public void scrollToStateSelector(){
+        JavaScriptInjection.inject().scroll(driver, getStateSelector());
+    }
+
     // Subscribe Radio Button
     public WebElement getSubscribeRadio() {
         return driver.findElement(By.name(RADIO_NAME_SUBSCRIBE));
@@ -299,8 +304,13 @@ public class RegistrationPage extends ARightPanel {
         return driver.findElement(By.name(CHECKBOX_NAME_AGREE));
     }
 
+    public void scrollToAgreeCheckBox() {
+        JavaScriptInjection.inject().scroll(driver, getAgreeCheckBox());
+    }
+
     @Step("Click 'Agree' checkbox")
     public void clickAgreeCheckBox() {
+        scrollToAgreeCheckBox();
         getAgreeCheckBox().click();
     }
 
@@ -308,9 +318,14 @@ public class RegistrationPage extends ARightPanel {
     public WebElement getContinueButton() {
         return driver.findElement(By.cssSelector(BUTTON_CLASS_CONTINUE));
     }
+    public void scrollToContinueButton() {
+        JavaScriptInjection.inject().scroll(driver, getContinueButton());
+    }
 
     @Step("Click 'Continue' button")
-    public void clickContinueButton() {
+    public void clickContinueButton()
+    {
+        scrollToContinueButton();
         getContinueButton().click();
     }
 
@@ -341,7 +356,6 @@ public class RegistrationPage extends ARightPanel {
     }
 
     /**
-     *
      * @param user data with information about user. All necessary fields on registration page may be filled.
      * @return after click continue button create a new object of Registration page;
      */
@@ -379,9 +393,14 @@ public class RegistrationPage extends ARightPanel {
         return new RegistrationPage(driver);
     }
 
+    public RegistrationPage FillFieldsEmptyDataRegistrationPage() {
+        clickAgreeCheckBox();
+        clickContinueButton();
+        return new RegistrationPage(driver);
+    }
+
 
     /**
-     *
      * @param user data with information about user. All necessary fields on registration page must be filled.
      * @return after click continue button create a new object of Fail Registration page;
      */
@@ -391,12 +410,20 @@ public class RegistrationPage extends ARightPanel {
     }
 
     /**
-     *
      * @param user data with information about user. All necessary fields on registration page must be filled.
      * @return after click continue button create a new object of Success Registration page;
      */
     public SuccessRegistrationPage successRegistrationUser(IUser user) {
         registrationUser(user);
         return new SuccessRegistrationPage(driver);
+    }
+
+    /**
+     *
+     * @return after click continue button create a new object of Empty Fields Registration Page;
+     */
+    public EmptyFieldsRegistrationPage emptyFieldsRegistrationPage() {
+        FillFieldsEmptyDataRegistrationPage();
+        return new EmptyFieldsRegistrationPage(driver);
     }
 }

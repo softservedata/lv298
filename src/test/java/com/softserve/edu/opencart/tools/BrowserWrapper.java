@@ -6,6 +6,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -51,10 +53,34 @@ public class BrowserWrapper {
         }
     }
 
+    private static class FirefoxTemporary implements IBrowser {
+        public WebDriver getBrowser(IApplicationSource applicationSource) {
+            System.setProperty("webdriver.gecko.driver",
+                    applicationSource.getDriverPath());
+            return new FirefoxDriver();
+        }
+    }
+
+    private static class FirefoxWithoutUI implements IBrowser {
+        public WebDriver getBrowser(IApplicationSource applicationSource) {
+            System.setProperty("webdriver.gecko.driver",
+                    applicationSource.getDriverPath());
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--headless");
+            options.addArguments("--no-proxy-server");
+            options.addArguments("--ignore-certificate-errors");
+            WebDriver driver = new FirefoxDriver(options);
+            driver.manage().window().maximize();
+            return driver;
+        }
+    }
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public static enum Browsers {
         DEFAULT_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
+        FIREFOX_TEMPORARY("FirefoxTemporary", new FirefoxTemporary()),
+        FIREFOX_WITHOUT_UI("FirefoxWithoutUI", new FirefoxWithoutUI()),
         CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         CHROME_PROFILE("ChromeProfile", new ChromeProfile()),
         CHROME_WITHOUTUI("ChromeWithoutUI", new ChromeWithoutUI());

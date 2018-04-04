@@ -21,7 +21,7 @@
         <jdk.compiler.version>1.8</jdk.compiler.version>
         <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
         <!-- - - - - - Test - - - - - -->
-        <org.testng.version>6.14.2</org.testng.version>
+        <org.testng.version>6.11</org.testng.version>
         <maven.surefire.plugin.version>2.20.1</maven.surefire.plugin.version>
         <!-- - - - - - Automation - - - - - -->
         <org.seleniumhq.selenium.version>3.11.0</org.seleniumhq.selenium.version>
@@ -30,7 +30,7 @@
         <testng.reports.directory>target/surefire-reports/test-output</testng.reports.directory>
         <jenkins.server>absent</jenkins.server>
         <!-- <allure.version>1.5.0</allure.version> -->
-        <allure.results.directory>${project.build.directory}\allure-results</allure.results.directory>
+        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
         <allure-testng.version>2.0-BETA21</allure-testng.version>
         <allure-testng-adaptor.version>1.5.4</allure-testng-adaptor.version>
         <allure-attachments.version>2.0-BETA21</allure-attachments.version>
@@ -93,14 +93,28 @@
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
         </dependency>
-
+        <!-- <dependency> -->
+        <!-- <groupId>ru.yandex.qatools.allure</groupId> -->
+        <!-- <artifactId>allure-testng-adaptor</artifactId> -->
+        <!-- <version>${allure-testng-adaptor.version}</version> -->
+        <!-- </dependency> -->
+        <!-- <dependency> -->
+        <!-- <groupId>io.qameta.allure</groupId> -->
+        <!-- <artifactId>allure-attachments</artifactId> -->
+        <!-- <version>${allure-attachments.version}</version> -->
+        <!-- </dependency> -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
             <!-- <scope>test</scope> -->
         </dependency>
-
+        <!-- <dependency> -->
+        <!-- <groupId>org.hamcrest</groupId> -->
+        <!-- <artifactId>hamcrest-all</artifactId> -->
+        <!-- <version>1.3</version> -->
+        <!-- <scope>test</scope> -->
+        <!-- </dependency> -->
         <!-- - - - Mock Object - - - -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -133,7 +147,17 @@
             <scope>runtime</scope>
         </dependency>
         <!-- - - - DB Access - - - -->
-
+        <!-- <dependency> -->
+        <!-- <groupId>com.microsoft.sqlserver</groupId> -->
+        <!-- <artifactId>mssql-jdbc</artifactId> -->
+        <!-- <version>6.2.2</version> -->
+        <!-- </dependency> -->
+        <!-- <dependency> -->
+        <!-- <groupId>com.microsoft.sqlserver</groupId> -->
+        <!-- <artifactId>sqljdbc4</artifactId> -->
+        <!-- <version>4.0</version> -->
+        <!-- <version>4.0.2206.100</version> -->
+        <!-- </dependency> -->
         <dependency>
             <groupId>net.sourceforge.jtds</groupId>
             <artifactId>jtds</artifactId>
@@ -160,14 +184,22 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${org.hibernate.version}</version>
         </dependency>
-
+        <!-- <dependency> -->
+        <!-- <groupId>org.hibernate</groupId> -->
+        <!-- <artifactId>hibernate-validator</artifactId> -->
+        <!-- <version>${org.hibernate.validator}</version> -->
+        <!-- </dependency> -->
         <!-- - - - Read from Excel formats, etc. - - - -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>${org.apache.poi.version}</version>
         </dependency>
-
+        <!-- <dependency> -->
+        <!-- <groupId>xerces</groupId> -->
+        <!-- <artifactId>xercesImpl</artifactId> -->
+        <!-- <version>${xerces.xercesImpl.version}</version> -->
+        <!-- </dependency> -->
         <!-- - - - - - JSON - - - - - -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -182,6 +214,14 @@
     </dependencies>
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.5.0.Final</version>
+            </extension>
+        </extensions>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -201,6 +241,47 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.github.webdriverextensions</groupId>
+                <artifactId>webdriverextensions-maven-plugin</artifactId>
+                <version>3.1.3</version>
+                <executions>
+                    <execution>
+                        <id>pre-test</id>
+                        <goals>
+                            <goal>install-drivers</goal>
+                        </goals>
+                        <!-- Uncomment for download automatically -->
+                        <phase>compile</phase>
+                        <!-- 						<phase>test</phase> -->
+                    </execution>
+                </executions>
+                <configuration>
+                    <installationDirectory>${project.build.directory}/test-classes</installationDirectory>
+                    <!-- 					<installationDirectory>${project.basedir}/src/test/resources</installationDirectory> -->
+                    <keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
+                    <drivers>
+                        <driver>
+                            <name>chromedriver</name>
+                            <platform>${os.detected.name}</platform>
+                            <!-- 							<platform>windows</platform> -->
+                            <bit>32</bit>
+                            <version>2.37</version>
+                            <!-- 							<url>https://chromedriver.storage.googleapis.com/2.37/chromedriver_win32.zip</url> -->
+                        </driver>
+                        <driver>
+                            <name>geckodriver</name>
+                            <platform>${os.detected.name}</platform>
+                            <!-- 							<platform>windows</platform> -->
+                            <bit>64</bit>
+                            <version>0.20.0</version>
+                            <!-- 							<url>https://chromedriver.storage.googleapis.com/2.37/chromedriver_win32.zip</url> -->
+                        </driver>
+                    </drivers>
+                </configuration>
+            </plugin>
+
             <!-- - - - Unit Testing - - - -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -208,6 +289,7 @@
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
                     <argLine>-Xms512m -Xmx1024m</argLine>
+                    <!-- <argLine>-Xms256m -Xmx512m</argLine> -->
                     <systemPropertyVariables>
                         <surefire.reports.directory>
                             ${testng.reports.directory}
@@ -229,23 +311,63 @@
                         </database-password>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng2.xml</suiteXmlFile>
+                        <suiteXmlFile>testRP.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <reportsDirectory>${testng.reports.directory}</reportsDirectory>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
 
+                    <!-- <properties> -->
+                    <!-- <property> -->
+                    <!-- <name>usedefaultlisteners</name> -->
+                    <!-- <value>false</value> -->
+                    <!-- </property> -->
+                    <!-- <property> -->
+                    <!-- <name>listener</name> -->
+                    <!-- <value>ru.yandex.qatools.allure.testng.AllureTestListener</value> -->
+                    <!-- </property> -->
+                    <!-- </properties> -->
 
                     <systemProperties>
                         <property>
                             <name>allure.results.directory</name>
                             <value>${allure.results.directory}</value>
                         </property>
+                        <!-- <property> -->
+                        <!-- <name>allure.link.issue.pattern</name> -->
+                        <!-- <value>${issues.tracker}</value> -->
+                        <!-- </property> -->
+                        <!-- <property> -->
+                        <!-- <name>allure.link.tms.pattern</name> -->
+                        <!-- <value>${tms}</value> -->
+                        <!-- </property> -->
                     </systemProperties>
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>post-test</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>site</phase>
+                        <!-- <phase>test</phase> -->
+                        <configuration>
+                            <executable>allureServer.bat</executable>
+                            <!-- <arguments> -->
+                            <!-- <argument>exec-maven-plugin</argument> -->
+                            <!-- <argument>1.6.0</argument> -->
+                            <!-- </arguments> -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <!-- - - - Echo - - - -->
             <plugin>
@@ -259,8 +381,11 @@
                             <goal>echo</goal>
                         </goals>
                         <configuration>
-                            <message>+++++Local Repository: ${settings.localRepository}</message>
-                       </configuration>
+                            <message>+++++Operation System: ${os.detected.name}</message>
+                            <!-- 							<message>+++++Operation System: ${os.detected.classifier}</message> -->
+                            <!-- 							<message>+++++Local Repository: ${settings.localRepository}</message> -->
+                            <!-- 							<message>+++++TestNG Version: ${org.testng.version}</message> -->
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -270,6 +395,8 @@
                 <version>1.0.0</version>
                 <inherited>false</inherited>
                 <configuration>
+                    <!-- 					<message>*****ArtifactId: ${project.artifactId}</message> -->
+                    <!-- 					<message>*****Local Repository: ${settings.localRepository}</message> -->
                     <message>*****Project.build.directory: ${project.build.directory}</message>
                 </configuration>
                 <executions>
@@ -294,7 +421,4 @@
             </plugin>
         </plugins>
     </reporting>
-
-
-
 </project>

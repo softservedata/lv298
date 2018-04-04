@@ -3,6 +3,9 @@ package com.softserve.edu.opencart.data.applications;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 
 public final class ApplicationSourceRepository {
+    final String BASE_URL = "https://nazaronoc.000webhostapp.com/";
+    final String CHROME_WINDOWS_DRIVER_RELATIVE_PATH = "/chromedriver-windows-32bit.exe";
+    final String FIREFOX_WINDOWS_DRIVER_RELATIVE_PATH ="/geckodriver-windows-64bit.exe";
 
     private static volatile ApplicationSourceRepository instance = null;
 
@@ -27,9 +30,11 @@ public final class ApplicationSourceRepository {
     public IApplicationSource openCartChrome() {
         return ApplicationSource.get()
                 .setBrowserName("ChromeTemporary")
-                .setDriverPath("C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe")
+                .setDriverPath(ApplicationSourceRepository.class.getResource(CHROME_WINDOWS_DRIVER_RELATIVE_PATH)
+                        .getPath()
+                        .substring(1))
                 .setImplicitWaitTimeOut(10)
-                .setBaseUrl("https://nazaronoc.000webhostapp.com/")
+                .setBaseUrl(BASE_URL)
                 .build();
     }
 
@@ -37,18 +42,22 @@ public final class ApplicationSourceRepository {
     public IApplicationSource openCartFirefox() {
         return ApplicationSource.get()
                 .setBrowserName("FirefoxTemporary")
-                .setDriverPath("C:/Program Files/Mozilla Firefox/geckodriver.exe")
+                .setDriverPath(ApplicationSourceRepository.class.getResource(FIREFOX_WINDOWS_DRIVER_RELATIVE_PATH)
+                        .getPath()
+                        .substring(1))
                 .setImplicitWaitTimeOut(10)
-                .setBaseUrl("https://nazaronoc.000webhostapp.com/")
+                .setBaseUrl(BASE_URL)
                 .build();
     }
 
     public IApplicationSource openCartWithoutUIChrome(){
         return ApplicationSource.get()
                 .setBrowserName("ChromeWithoutUI")
-                .setDriverPath("C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe")
+                .setDriverPath(ApplicationSourceRepository.class.getResource(CHROME_WINDOWS_DRIVER_RELATIVE_PATH)
+                        .getPath()
+                        .substring(1))
                 .setImplicitWaitTimeOut(10)
-                .setBaseUrl("https://nazaronoc.000webhostapp.com/")
+                .setBaseUrl(BASE_URL)
                 .build();
     }
 

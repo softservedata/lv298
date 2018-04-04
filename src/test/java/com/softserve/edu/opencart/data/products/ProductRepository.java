@@ -9,8 +9,8 @@ public final class ProductRepository {
 
     private ProductRepository() {
     }
-    
-    // TODO Use Builder
+
+/*    // TODO Use Builder
     public static IProduct macBook() {
         Map<Enum<?>, Double> macBookPrices = new HashMap<>();
         macBookPrices.put(Currencies.EURO, 560.94);
@@ -18,7 +18,9 @@ public final class ProductRepository {
         macBookPrices.put(Currencies.US_DOLLAR, 602.00);
         return new Product("mac", "MacBook",
                 "Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1",
-                macBookPrices);
-    }
+                macBookPrices)
+                .buildProduct();
 
+
+    }*/
 }

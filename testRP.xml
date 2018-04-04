@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="RegistrationPageTests">
+    <!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
+    <test name="Registration Page">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.registrationPageTest.UserRegistration">
+                <methods>
+                    <include name="failRegistrationUser"/>
+                    <include name="successRegistrationUser"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.registrationPageTest.EmptyFieldsWarningMessages">
+                <methods>
+                    <include name="Check if first name wrong message is appear"/>
+                    <include name="Check if Last Name Wrong Message is appear"/>
+                    <include name="Check if E-mail Wrong Message is appear"/>
+                    <include name="Check if Telephone Wrong Message is appear"/>
+                    <include name="Check if Main Address Wrong Message is appear"/>
+                    <include name="Check if City Wrong Message is appear"/>
+                    <include name="Check if Postcode Wrong Message is appear"/>
+                    <include name="Check if State Wrong Message is appear"/>
+                    <include name="Check if Password WrongMessage is appear"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite> 

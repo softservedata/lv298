@@ -1,31 +1,35 @@
 package com.softserve.edu.opencart.tests;
 
+import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+import com.softserve.edu.opencart.pages.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
-import org.testng.Reporter;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
-import com.softserve.edu.opencart.pages.Application;
+import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
+import org.testng.internal.thread.ThreadTimeoutException;
 
 public abstract class TestRunner {
+    final private String NEW_LINE_SYMBHOL = "\n";
+    final private String TAB_SYMBHOL = "\t";
+
+
     public static final Logger logger = LoggerFactory.getLogger(TestRunner.class);
     protected SoftAssert softAssert;
 
 
-    @BeforeClass
+    @BeforeSuite
     public void beforeClass(ITestContext context) {
         logger.debug("beforeClass TestNG");
         Application.get(ApplicationSourceRepository.get().openCartWithoutUIChrome());
     }
 
-    
-    @AfterClass(alwaysRun = true)
+
+    @AfterSuite(alwaysRun = true)
     public void afterClass() {
         logger.debug("afterClass TestNG");
         Application.remove();
@@ -36,10 +40,25 @@ public abstract class TestRunner {
         logger.debug("beforeMethod TestNG");
     }
 
-    @AfterMethod
-    public void afterMethod(ITestResult result) {
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult) {
         logger.debug("afterMethod TestNG");
-
+        logger.debug(testResult.getName() + testResult.getStatus());
+        String message = NEW_LINE_SYMBHOL;
+        if (testResult.getStatus() == ITestResult.SUCCESS) {
+            message = message + "PASSED:" + testResult.getName()
+                    + "TIME: " + (testResult.getEndMillis() - testResult.getStartMillis());
+        } else {
+            message = message + "FAILED: " + testResult.getName();
+            Throwable throwable = testResult.getThrowable();
+            if (throwable != null) {
+                message = message + NEW_LINE_SYMBHOL + throwable.toString();
+                if (!(throwable instanceof ThreadTimeoutException)) {
+                    for (StackTraceElement e : throwable.getStackTrace()) {
+                        message = message + NEW_LINE_SYMBHOL + TAB_SYMBHOL + e.toString();
+                    }
+                }
+            }
+        }
     }
-
 }
