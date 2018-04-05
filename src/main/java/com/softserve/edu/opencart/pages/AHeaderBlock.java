@@ -270,21 +270,13 @@ public abstract class AHeaderBlock {
 
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("window.scrollTo("+webElement.getLocation().x+","+webElement.getLocation().y+")");
+
+        //Wait after scroll
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        /*
-
-        wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver webDriver) {
-                System.out.println("Searching...");
-                return webElement != null;
-            }
-        });
-*/
-
     }
 
     public void clickWebElement(final WebElement webElement) {
@@ -293,7 +285,7 @@ public abstract class AHeaderBlock {
     }
 
     public void clearWebElement(final WebElement webElement) {
-            scrollToWebElement(webElement);
+        scrollToWebElement(webElement);
         webElement.clear();
     }
 
@@ -313,7 +305,6 @@ public abstract class AHeaderBlock {
         webElement.sendKeys(text);
     }
 
-    //
     // *********AHeaderBlock Getters********
     public ProductActionNotification getProductActionNotification() {
         return productActionNotification;
