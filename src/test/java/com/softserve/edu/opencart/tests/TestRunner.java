@@ -19,25 +19,24 @@ public abstract class TestRunner {
 
 
     public static final Logger logger = LoggerFactory.getLogger(TestRunner.class);
-    protected SoftAssert softAssert;
 
 
     @BeforeSuite
     public void beforeClass(ITestContext context) {
-        logger.debug("beforeClass TestNG");
+        logger.debug("Before Suite TestNG");
         Application.get(ApplicationSourceRepository.get().openCartWithoutUIChrome());
     }
 
 
     @AfterSuite(alwaysRun = true)
     public void afterClass() {
-        logger.debug("afterClass TestNG");
+        logger.debug("After Suite TestNG");
         Application.remove();
     }
 
     @BeforeMethod
     public void beforeMethod() {
-        logger.debug("beforeMethod TestNG");
+        logger.debug("Before Method TestNG");
     }
 
     @AfterMethod(alwaysRun = true)

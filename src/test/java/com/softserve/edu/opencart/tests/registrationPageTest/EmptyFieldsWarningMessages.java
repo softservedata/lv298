@@ -11,11 +11,12 @@ public class EmptyFieldsWarningMessages extends TestRunner {
     private EmptyFieldsRegistrationPage emptyFieldsRegistrationPage;
 
     @BeforeClass
-    public void setUP() {
+    public void beforeClass() {
+        logger.debug("Before Class EmptyFieldsRegistrationPage");
         emptyFieldsRegistrationPage = Application.get().loadHomePage().gotoRegistrationPage().emptyFieldsRegistrationPage();
     }
 
-    @Test(testName = "Check if First Name Wrong Message is approve",
+    @Test(testName = "Check if First Name Wrong Message is appear",
             description = "Check if first name wrong message is appear",
             priority = 1)
     public void checkErrorMessageNearFirstNameField() {
