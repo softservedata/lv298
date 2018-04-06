@@ -5,12 +5,18 @@ import java.util.regex.Pattern;
 
 public final class RegexUtils {
 
+    private final static String DOUBLE_UI_SEPARATOR = ",";
     private final static String PATTERN_UNSIGNED_NUMBER = "\\d+";
     // private final static String PATTERN_UNSIGNED_DOUBLE = "\\d+(\\.\\d+)*";
-    private final static String PATTERN_UNSIGNED_DOUBLE = "\\d+\\.\\d+";
+    private final static String PATTERN_UNSIGNED_DOUBLE = "\\d+(,\\d+)*\\.\\d+";
     private final static String EXTRACT_NUMBER_MESSAGE = "NumberFormatException for pattern =  %s text =  %s";
 
     private RegexUtils() {
+    }
+
+    public static boolean isTextMatches(String pattern, String text) {
+        Matcher matcher = Pattern.compile(pattern).matcher(text);
+        return matcher.matches();
     }
 
     public static String extractFirstString(String pattern, String text) {
@@ -42,7 +48,7 @@ public final class RegexUtils {
         String extractText = extractFirstString(PATTERN_UNSIGNED_DOUBLE, text);
         if (!extractText.isEmpty()) {
             try {
-                result = Double.parseDouble(extractText);
+                result = Double.parseDouble(commaRemover(extractText));
 
             } catch (NumberFormatException e) {
                 // TODO Develop Custom Exception
@@ -52,6 +58,10 @@ public final class RegexUtils {
         return result;
     }
 
+    public static boolean isDoubleMatches(String text) {
+    	return isTextMatches(PATTERN_UNSIGNED_DOUBLE, text);
+    }
+
     public static String extractPathWithoutServer(String pattern, String text) {
         String result = text;
         Matcher matcher = Pattern.compile(pattern).matcher(text);
@@ -59,6 +69,10 @@ public final class RegexUtils {
             result = text.substring(matcher.end() - 1);
         }
         return result;
+    }
+
+    private static String commaRemover(String text) {
+    	return text.replaceAll(DOUBLE_UI_SEPARATOR, new String());
     }
 
 }

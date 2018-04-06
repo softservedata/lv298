@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.tools.RegexUtils;
 
 interface ISearchKey {
 	IName setSearchKey(String searchKey);
@@ -17,18 +18,26 @@ interface IName {
 
 interface IDescription {
 	IPrice setDescription(String description);
+	IPartialProduct setDescriptionNext(String description);
 }
 
-interface IPrice {
+interface IPartialProduct {
 	IBuild setPrice(Currencies currency, Double price);
+}
+
+interface IPrice extends IPartialProduct {
+	// IBuild setPrice(Currencies currency, Double price);
 }
 
 interface IBuild extends IPrice {
 	IProduct buildProduct();
 }
 
-public class Product implements ISearchKey, IName, IDescription,
+public class Product implements ISearchKey, IName, IDescription, IPartialProduct,
 								IPrice, IBuild, IProduct {
+	private static final int REQUIRED_COLUMN_SEARCH_KEY = 0;
+	private static final int REQUIRED_COLUMN_NAME = 1;
+	private static final int REQUIRED_COLUMN_DESCRIPTION = 2;
 	private static final int REQUIRED_COLUMN_NUMBER = 3;
 
     private String searchKey;
@@ -50,9 +59,32 @@ public class Product implements ISearchKey, IName, IDescription,
 
     public static List<IProduct> getByList(List<List<String>> rows) {
     	List<IProduct> result = new ArrayList<>();
+    	Map<Integer, Currencies> currencies = new HashMap<>();
     	String node;
     	for (List<String> currentRow : rows) {
     		node = currentRow.get(REQUIRED_COLUMN_NUMBER);
+    		if (RegexUtils.isDoubleMatches(node)) {
+    			IPartialProduct partialProduct = Product.get()
+        		.setSearchKey(currentRow.get(REQUIRED_COLUMN_SEARCH_KEY))
+        		.setName(currentRow.get(REQUIRED_COLUMN_NAME))
+        		.setDescriptionNext(currentRow.get(REQUIRED_COLUMN_DESCRIPTION));
+    			//
+    			for (int i = REQUIRED_COLUMN_NUMBER; i < currentRow.size(); i++) {
+    				partialProduct = partialProduct.setPrice(currencies.get(i),
+    						RegexUtils.extractFirstDouble(currentRow.get(i)));  
+    			}
+    			result.add(((IBuild)partialProduct).buildProduct());
+    		} else {
+				for (int i = REQUIRED_COLUMN_NUMBER; i < currentRow.size(); i++) {
+    				for (Currencies currency : Currencies.values()) {
+    					if (currentRow.get(i).toLowerCase().equals(
+    							currency.name().toLowerCase())) {
+    						currencies.put(i, currency);
+    						continue;
+    					}
+    				}
+    			}
+    		}
     	}
     	return result;
     }
@@ -77,6 +109,11 @@ public class Product implements ISearchKey, IName, IDescription,
         this.description = description;
         return this;
     }
+
+	public IPartialProduct setDescriptionNext(String description) {
+        this.description = description;
+        return this;
+	}
 
     public IBuild setPrice(Currencies currency, Double price) {
     	prices.put(currency, price);

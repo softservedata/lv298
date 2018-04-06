@@ -17,6 +17,7 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.HomePage;
 import com.softserve.edu.opencart.pages.MyAccountPage;
 import com.softserve.edu.opencart.pages.SearchPage;
+import com.softserve.edu.opencart.tools.ListUtils;
 
 public class SmokeTest extends TestRunner {
 
@@ -98,7 +99,19 @@ public class SmokeTest extends TestRunner {
         };
     }
 
-    @Test(dataProvider = "productCurrencyProvider")
+    @DataProvider//(parallel = true)
+    public Object[][] productCurrencyProviderFromCsv() {
+        return ListUtils.toMultiArray(ProductRepository.fromCsvProducts(), Currencies.POUND_STERLING);
+    }
+
+    @DataProvider//(parallel = true)
+    public Object[][] productCurrencyProviderFromExcel() {
+        return ListUtils.toMultiArray(ProductRepository.fromExcelProducts(), Currencies.EURO);
+    }
+
+    //@Test(dataProvider = "productCurrencyProvider")
+    //@Test(dataProvider = "productCurrencyProviderFromCsv")
+    @Test(dataProvider = "productCurrencyProviderFromExcel")
     public void smoke5Currency(IProduct product, Currencies currencyName) throws Exception {
         logger.info("@Test start" 
                     + " product Name = " + product.getName()

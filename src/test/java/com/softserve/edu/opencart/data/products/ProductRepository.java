@@ -1,9 +1,10 @@
 package com.softserve.edu.opencart.data.products;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.tools.CSVReader;
+import com.softserve.edu.opencart.tools.ExcelReader;
 
 public final class ProductRepository {
 
@@ -32,6 +33,20 @@ public final class ProductRepository {
         		.buildProduct();
     }
 
-    //public List<IProduct> fromExcelProducts() {}
+    public static List<IProduct> fromCsvProducts() {
+    	return fromCsvProducts("products.csv");
+    }
     
+    public static List<IProduct> fromCsvProducts(String filename) {
+    	return Product.getByList(new CSVReader(filename).getAllCells());
+    }
+
+    public static List<IProduct> fromExcelProducts() {
+    	return fromExcelProducts("products.xlsx");
+    }
+
+    public static List<IProduct> fromExcelProducts(String filename) {
+    	return Product.getByList(new ExcelReader(filename).getAllCells());
+    }
+
 }
