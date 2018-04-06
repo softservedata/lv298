@@ -18,6 +18,7 @@ public final class CSVReader implements IExternalReader {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+	private final String PATH_SEPARATOR = "/";
 	private final String CSV_SPLIT_BY = ";";
 	//private IRowFactory rowFactory; 
 	private String filename;
@@ -25,7 +26,7 @@ public final class CSVReader implements IExternalReader {
 	
 	public CSVReader(String filename) {
 	    this.filename = filename;
-	    this.path = this.getClass().getResource(filename).getPath().substring(1);
+	    this.path = this.getClass().getResource(PATH_SEPARATOR + filename).getPath().substring(1);
 	    System.out.println("***PATH = " + path);
 	    //this.rowFactory = new CSVFactory();
 	}

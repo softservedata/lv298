@@ -12,7 +12,7 @@ public interface IProduct {
 
     String getDescription();
 
-    Map<Enum<Currencies>, Double> getPrices();
+    Map<Currencies, Double> getPrices();
 
     double getPriceByCurrencyName(Currencies currencyName);
 }

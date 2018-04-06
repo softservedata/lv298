@@ -1,13 +1,17 @@
 package com.softserve.edu.opencart.data.products;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.tools.CSVReader;
+import com.softserve.edu.opencart.tools.ExcelReader;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class ProductRepository {
 
     private static volatile ProductRepository instance = null;
+    private static volatile  Map<Currencies, Double> prices;
 
     // *********Constructor*********
     private ProductRepository() {
@@ -25,19 +29,25 @@ public final class ProductRepository {
     }
 
     public static IProduct macBook() {
+        prices = new HashMap<>();
+        prices.put(Currencies.EURO,472.33);
+        prices.put(Currencies.POUND_STERLING, 368.73);
+        prices.put(Currencies.US_DOLLAR, 602.00);
         return Product.get()
                 .setSearchKey("mac")
                 .setName("MacBook")
                 .setDescription("Intel Core 2 Duo processor Powered by an "
                         + "Intel Core 2 Duo processor at speeds up to "
                         + "2.1")
-                .setPrice(Currencies.EURO,472.33)
-                .setPrice(Currencies.POUND_STERLING, 368.73)
-                .setPrice(Currencies.US_DOLLAR, 602.00)
+                .setPrice(prices)
                 .buildProduct();
     }
 
     public static IProduct iPhone() {
+        prices = new HashMap<>();
+        prices.put(Currencies.EURO,96.66);
+        prices.put(Currencies.POUND_STERLING, 75.46);
+        prices.put(Currencies.US_DOLLAR, 123.20);
               return Product.get()
                 .setSearchKey("iphone")
                 .setName("iPhone")
@@ -49,50 +59,25 @@ public final class ProductRepository {
                         + "Mac, or Internet service. And it lets you "
                         + "select and listen to voicemail messages in whatever "
                         + "order you want just like email.")
-                .setPrice(Currencies.EURO,96.66)
-                .setPrice(Currencies.POUND_STERLING, 75.46)
-                .setPrice(Currencies.US_DOLLAR, 123.20)
+                .setPrice(prices)
                 .buildProduct();
     }
 
-    public static IProduct appleCinema() {
-        return Product.get()
-                .setSearchKey("applecinema")
-                .setName("Apple Cinema 30\"")
-                .setDescription("The 30-inch Apple Cinema HD Display delivers"
-                        + " an amazing 2560 x 1600 pixel resolution"
-                        + ". Designed specifically for the creative "
-                        + "professional, this display provides more space for "
-                        + "easier access to all the tools and palettes needed "
-                        + "to edit, format and composite your work. "
-                        + "Combine this display with a Mac Pro, MacBook Pro, or"
-                        + " PowerMac G5 and there's no limit to "
-                        + "what you can achieve. ")
-                .setPrice(Currencies.EURO,86.31)
-                .setPrice(Currencies.POUND_STERLING, 67.38)
-                .setPrice(Currencies.US_DOLLAR, 110.00)
-                .buildProduct();
+
+    public static List<IProduct> fromCsvProducts() {
+        return fromCsvProducts("products.csv");
     }
 
-    public static IProduct canonEOS5D() {
-        return Product.get()
-                .setSearchKey("canoneos")
-                .setName("Canon EOS 5D")
-                .setDescription("Canon's press material for the EOS 5D states"
-                        + " that it 'defines (a) new D-SLR "
-                        + "category', while we're not typically too concerned "
-                        + "with marketing talk this particular "
-                        + "statement is clearly pretty accurate. The EOS 5D is "
-                        + "unlike any previous digital SLR in that "
-                        + "it combines a full-frame (35 mm sized) high "
-                        + "resolution sensor (12.8 megapixels) with a "
-                        + "relatively compact body (slightly larger than the "
-                        + "EOS 20D, although in your hand it feels "
-                        + "noticeably 'chunkier').")
-                .setPrice(Currencies.EURO,76.89)
-                .setPrice(Currencies.POUND_STERLING, 60.03)
-                .setPrice(Currencies.US_DOLLAR, 98.00)
-                .buildProduct();
+    public static List<IProduct> fromCsvProducts(String filename) {
+        return Product.getByList(new CSVReader(filename).getAllCells());
+    }
+
+    public static List<IProduct> fromExcelProducts() {
+        return fromExcelProducts("products.xlsx");
+    }
+
+    public static List<IProduct> fromExcelProducts(String filename) {
+        return Product.getByList(new ExcelReader(filename).getAllCells());
     }
 
     // *********Repository*********

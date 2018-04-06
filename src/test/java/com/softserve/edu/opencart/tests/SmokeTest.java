@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests;
 
+import com.softserve.edu.opencart.tools.ListUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -53,16 +54,33 @@ public class SmokeTest extends TestRunner {
         };
     }
 
-    @Test(dataProvider = "productCurrencyProvider")
+    @DataProvider//(parallel = true)
+    public Object[][] productCurrencyProviderFromCsv() {
+        return ListUtils.toMultiArray(ProductRepository.fromCsvProducts(), Currencies.POUND_STERLING);
+    }
+
+    @DataProvider//(parallel = true)
+    public Object[][] productCurrencyProviderFromExcel() {
+        return ListUtils.toMultiArray(ProductRepository.fromExcelProducts(), Currencies.EURO);
+    }
+
+//    @Test(dataProvider = "productCurrencyProviderFromCsv")
+    @Test(dataProvider = "productCurrencyProviderFromExcel")
     public void smoke5Currency(IProduct product, Currencies currencyName) throws Exception {
-        SearchPage searchPage = Application.get().loadHomePage() 
+        logger.info("@Test start"
+                + " product Name = " + product.getName()
+                + " currencyName = " + currencyName.toString());
+        SearchPage searchPage = Application.get().loadHomePage()
                 .selectCurrency(currencyName)
                 .searchByProduct(product);
+        Thread.sleep(1000);
         System.out.println("***" + searchPage.getFeaturedBlock().getProductComponentTexts());
         Assert.assertTrue(searchPage.getFeaturedBlock().getProductComponentTexts()
                 .contains(product.getName()));
         Assert.assertEquals(searchPage.getFeaturedBlock().getPriceAmountByProduct(product),
                 product.getPriceByCurrencyName(currencyName));
+        Thread.sleep(1000);
+        logger.info("@Test done");
     }
 
 }
