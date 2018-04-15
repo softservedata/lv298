@@ -74,8 +74,9 @@ public class SmokeTest extends TestRunner {
     }
 
 //    @Test(dataProvider = "productCurrencyProviderFromCsv")
+//    @Test(dataProvider = "productCurrencyProviderFromExcel")
     @Test(dataProvider = "productCurrencyProviderFromDb")
-  //  @Test(dataProvider = "productCurrencyProviderFromExcel")
+
     public void smoke5Currency(IProduct product, Currencies currencyName) throws Exception {
         logger.info("@Test start"
                 + " product Name = " + product.getName()

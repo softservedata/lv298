@@ -26,6 +26,8 @@ public class DbReader {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 //    private IRowFactory rowFactory;
+    private final int firstColunm = 2;
+
     private String URL;
     private String username;
     private String password;
@@ -42,6 +44,7 @@ public class DbReader {
     }
 */
     public List<List<String>> getAllRecords()throws SQLException {
+
         List<List<String>> allRecords = new ArrayList<List<String>>();
         List<String> columns = new ArrayList<String>();
         List<String> records = new ArrayList<String>();
@@ -61,14 +64,14 @@ public class DbReader {
                     //ResultSet rs = st.executeQuery("select * from Roles");
                     //
                     int columnCount = rs.getMetaData().getColumnCount();
-                    for (int i = 2; i <= columnCount; i++) {
+                    for (int i = firstColunm; i <= columnCount; i++) {
                         columns.add(rs.getMetaData().getColumnName(i));
                     }
                     allRecords.add(columns);
                     int recordCount = 0;
                     while (rs.next()) {
                         recordCount++;
-                        for (int i = 2; i <= columnCount; i++) {
+                        for (int i = firstColunm; i <= columnCount; i++) {
                             records.add(rs.getString(i));
                         }
                     }
