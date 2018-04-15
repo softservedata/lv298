@@ -266,14 +266,13 @@ public abstract class AHeaderBlock {
     //TODO develop WebElement Wrapper
     // *********Atomic operations*********
     public void scrollToWebElement(final WebElement webElement) {
-        WebDriverWait wait = new WebDriverWait(driver,10);
 
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("window.scrollTo("+webElement.getLocation().x+","+webElement.getLocation().y+")");
 
         //Wait after scroll
         try {
-            Thread.sleep(500);
+            Thread.sleep(300);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

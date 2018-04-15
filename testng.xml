@@ -19,7 +19,7 @@
 			<class name="com.softserve.edu.opencart.tests.WishListTest">
 				<methods>
 					<include name="redirectToLoginPageTest" />
-				<!--	<include name="loginToWishListTest" />
+					<include name="loginToWishListTest" />
 					
 					<include name="containsProductTest" />
 					<include name="doesNotContainProductTest" />
@@ -28,10 +28,9 @@
 					<include name="amountTest" />
 					
 					<include name="addToListSuccessNotificationTest" />
-					<include name="removeFromListSuccessNotificationTest" />-->
+					<include name="removeFromListSuccessNotificationTest" />
 				</methods>
 			</class>
-
 
 		</classes>
 	</test> <!-- Test -->

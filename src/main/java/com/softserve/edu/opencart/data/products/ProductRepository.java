@@ -2,8 +2,10 @@ package com.softserve.edu.opencart.data.products;
 
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.tools.CSVReader;
+import com.softserve.edu.opencart.tools.DbReader;
 import com.softserve.edu.opencart.tools.ExcelReader;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +80,10 @@ public final class ProductRepository {
 
     public static List<IProduct> fromExcelProducts(String filename) {
         return Product.getByList(new ExcelReader(filename).getAllCells());
+    }
+
+    public static List<IProduct> fromDbProducts(String URL,String username,String password) throws SQLException {
+        return Product.getByList(new DbReader(URL,username,password).getAllRecords());
     }
 
     // *********Repository*********

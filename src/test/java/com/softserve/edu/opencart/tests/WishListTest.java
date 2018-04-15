@@ -11,6 +11,7 @@ import com.softserve.edu.opencart.tools.RegexUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import static org.testng.Assert.assertEquals;
 
@@ -35,7 +36,7 @@ public class WishListTest extends TestRunner {
                 .signoutToHomePage();
         LoginPage loginPage = homePage.gotoWishListPageLogout();
 
-        assertEquals(loginPage.getCurrentUrl(), loginPage.URL);
+        assertEquals(loginPage.getCurrentUrl(), LoginPage.URL);
     }
 
     //
@@ -56,7 +57,7 @@ public class WishListTest extends TestRunner {
                 .successLogin(user);
         WishListPage wishListPage = myAccountPage.gotoWishListPage();
 
-        assertEquals(wishListPage.getCurrentUrl(), wishListPage.URL);
+        assertEquals(wishListPage.getCurrentUrl(), WishListPage.URL);
 
         // *********Return Application To Its BeforeTest State*********
         wishListPage.signoutToHomePage();
@@ -119,8 +120,8 @@ public class WishListTest extends TestRunner {
     //6 *********Amount Test*********
     @Test(dataProvider = "userProductsProvider")
     @JiraTicket(type = "test", name = "LVSET-58")
-    public void amountTest(IUser user, IProduct product) throws Exception {
-        int expected = 0;
+    public void amountTest(IUser user, IProduct product) {
+        int expected;
         HomePage homePage = loginAndCheckProductInList(user, product);
 
         if (containsProduct) {
@@ -143,62 +144,36 @@ public class WishListTest extends TestRunner {
 
     }
 
-    //7 *********Add Product To Wish List Success Notification Test*********
+    //7 *********Add And Remove Product From Wish List Success Notification Test*********
     @JiraTicket(type = "test", name = "LVSET-59")
     @Test(dataProvider = "userProductsProvider")
     public void addToListSuccessNotificationTest(IUser user, IProduct
             product) {
+        SoftAssert softAssertion= new SoftAssert();
         HomePage homePage = loginAndCheckProductInList(user, product);
 
         homePage = homePage.addToWishListByProduct(product);
 
-        Assert.assertEquals(RegexUtils.extractSuccesfullMessage(homePage
+        softAssertion.assertEquals(RegexUtils.extractSuccesfullMessage(homePage
                         .productActionNotificationText()),
                 LiteralConstants.addToWishListSuccessMessage(product.getName
                         ()));
-
-        // *********Return Application To Its BeforeTest State*********
-        if (!containsProduct) {
-            WishListPage wishListPage = homePage.gotoWishListPage();
-            wishListPage = wishListPage.removeFromWishListByProduct(product);
-            wishListPage.signoutToHomePage();
-        } else {
-            homePage.signoutToHomePage();
-        }
-
-    }
-
-    //TODO colaborate with Add Product To Wish List Success Notification Test
-    //8 *********Remove Product To Wish List Success Notification Test*********
-    //@Test(dataProvider = "userProductsProvider")
-    public void removeFromListSuccessNotificationTest(IUser user, IProduct
-            product) throws Exception {
-        HomePage homePage = loginAndCheckProductInList(user, product);
-
-//        Thread.sleep(1000);
-        homePage = homePage.addToWishListByProduct(product);
-//        Thread.sleep(1000);
-
         WishListPage wishListPage = homePage.gotoWishListPage();
-
-//        Thread.sleep(1000);
         wishListPage = wishListPage.removeFromWishListByProduct(product);
-//        Thread.sleep(1000);
-        Assert.assertEquals(RegexUtils.extractSuccesfullMessage(wishListPage
+        softAssertion.assertEquals(RegexUtils.extractSuccesfullMessage(wishListPage
                         .productActionNotificationText()),
                 LiteralConstants.MODIFY_WISH_LIST_SUCCESS_MESSAGE);
 
         // *********Return Application To Its BeforeTest State*********
         if (containsProduct) {
             homePage = wishListPage.gotoHomePage();
-//            Thread.sleep(1000);
             homePage = homePage.addToWishListByProduct(product);
-//            Thread.sleep(1000);
             homePage.signoutToHomePage();
         } else {
             wishListPage.signoutToHomePage();
         }
 
+        softAssertion.assertAll();
     }
 
 }

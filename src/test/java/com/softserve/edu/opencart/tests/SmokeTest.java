@@ -15,9 +15,13 @@ import com.softserve.edu.opencart.pages.HomePage;
 import com.softserve.edu.opencart.pages.MyAccountPage;
 import com.softserve.edu.opencart.pages.SearchPage;
 
+import java.sql.SQLException;
+
 public class SmokeTest extends TestRunner {
 
-
+    String URL = "jdbc:mysql://192.168.0.108:3306/opencart";
+    String username = "svehetc";
+    String ps = "Lv298_Set";
   
     //@Test(dataProvider = "productsProvider")
     public void smoke3TestRunner(IProduct product) throws Exception {
@@ -64,8 +68,14 @@ public class SmokeTest extends TestRunner {
         return ListUtils.toMultiArray(ProductRepository.fromExcelProducts(), Currencies.EURO);
     }
 
+    @DataProvider//(parallel = true)
+    public Object[][] productCurrencyProviderFromDb() throws SQLException {
+        return ListUtils.toMultiArray(ProductRepository.fromDbProducts(URL,username,ps), Currencies.EURO);
+    }
+
 //    @Test(dataProvider = "productCurrencyProviderFromCsv")
-    @Test(dataProvider = "productCurrencyProviderFromExcel")
+    @Test(dataProvider = "productCurrencyProviderFromDb")
+  //  @Test(dataProvider = "productCurrencyProviderFromExcel")
     public void smoke5Currency(IProduct product, Currencies currencyName) throws Exception {
         logger.info("@Test start"
                 + " product Name = " + product.getName()
