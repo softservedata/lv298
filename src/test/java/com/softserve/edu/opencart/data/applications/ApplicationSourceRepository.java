@@ -3,7 +3,8 @@ package com.softserve.edu.opencart.data.applications;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 
 public final class ApplicationSourceRepository {
-    final String BASE_URL = "https://nazaronoc.000webhostapp.com/";
+    final String BASE_URL = "http://172.16.83.225/";
+    //final String BASE_URL = "https://nazaronoc.000webhostapp.com/";
     final String CHROME_WINDOWS_DRIVER_RELATIVE_PATH = "/chromedriver-windows-32bit.exe";
     final String FIREFOX_WINDOWS_DRIVER_RELATIVE_PATH ="/geckodriver-windows-64bit.exe";
 

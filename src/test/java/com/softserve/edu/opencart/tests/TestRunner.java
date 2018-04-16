@@ -36,13 +36,11 @@ public abstract class TestRunner {
 
     @BeforeMethod
     public void beforeMethod() {
-        logger.debug("Before Method TestNG");
+
     }
 
     @AfterMethod(alwaysRun = true)
     public void afterMethod(ITestResult testResult) {
-        logger.debug("afterMethod TestNG");
-        logger.debug(testResult.getName() + testResult.getStatus());
         String message = NEW_LINE_SYMBHOL;
         if (testResult.getStatus() == ITestResult.SUCCESS) {
             message = message + "PASSED:" + testResult.getName()
@@ -59,5 +57,6 @@ public abstract class TestRunner {
                 }
             }
         }
+        logger.debug(message);
     }
 }

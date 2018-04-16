@@ -57,6 +57,8 @@
         <!-- - - - - - JSON - - - - - -->
         <jackson.core.version>2.9.2</jackson.core.version>
         <google.gson.version>2.8.2</google.gson.version>
+        <!-- Docker -->
+        <docker.version>1.0.0</docker.version>
     </properties>
 
     <!-- <repositories> -->
@@ -288,7 +290,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
-                    <argLine>-Xms512m -Xmx1024m</argLine>
+                    <argLine>-Xms256m -Xmx512m</argLine>
                     <!-- <argLine>-Xms256m -Xmx512m</argLine> -->
                     <systemPropertyVariables>
                         <surefire.reports.directory>
@@ -317,31 +319,12 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
-
-                    <!-- <properties> -->
-                    <!-- <property> -->
-                    <!-- <name>usedefaultlisteners</name> -->
-                    <!-- <value>false</value> -->
-                    <!-- </property> -->
-                    <!-- <property> -->
-                    <!-- <name>listener</name> -->
-                    <!-- <value>ru.yandex.qatools.allure.testng.AllureTestListener</value> -->
-                    <!-- </property> -->
-                    <!-- </properties> -->
-
                     <systemProperties>
                         <property>
                             <name>allure.results.directory</name>
                             <value>${allure.results.directory}</value>
                         </property>
-                        <!-- <property> -->
-                        <!-- <name>allure.link.issue.pattern</name> -->
-                        <!-- <value>${issues.tracker}</value> -->
-                        <!-- </property> -->
-                        <!-- <property> -->
-                        <!-- <name>allure.link.tms.pattern</name> -->
-                        <!-- <value>${tms}</value> -->
-                        <!-- </property> -->
+
                     </systemProperties>
                 </configuration>
             </plugin>
@@ -357,14 +340,7 @@
                             <goal>exec</goal>
                         </goals>
                         <phase>site</phase>
-                        <!-- <phase>test</phase> -->
-                        <configuration>
-                           <!-- <executable>allureServer.bat</executable>
-                           --> <!-- <arguments> -->
-                            <!-- <argument>exec-maven-plugin</argument> -->
-                            <!-- <argument>1.6.0</argument> -->
-                            <!-- </arguments> -->
-                        </configuration>
+
                     </execution>
                 </executions>
             </plugin>
@@ -382,35 +358,12 @@
                         </goals>
                         <configuration>
                             <message>+++++Operation System: ${os.detected.name}</message>
-                            <!-- 							<message>+++++Operation System: ${os.detected.classifier}</message> -->
-                            <!-- 							<message>+++++Local Repository: ${settings.localRepository}</message> -->
-                            <!-- 							<message>+++++TestNG Version: ${org.testng.version}</message> -->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.google.code.echo-maven-plugin</groupId>
-                <artifactId>echo-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <inherited>false</inherited>
-                <configuration>
-                    <!-- 					<message>*****ArtifactId: ${project.artifactId}</message> -->
-                    <!-- 					<message>*****Local Repository: ${settings.localRepository}</message> -->
-                    <message>*****Project.build.directory: ${project.build.directory}</message>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>echo</goal>
-                        </goals>
+                           </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-
     <reporting>
         <excludeDefaults>true</excludeDefaults>
         <plugins>
