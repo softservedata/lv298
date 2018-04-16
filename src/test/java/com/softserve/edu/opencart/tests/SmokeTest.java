@@ -94,7 +94,7 @@ public class SmokeTest extends TestRunner {
     @DataProvider//(parallel = true)
     public Object[][] productCurrencyProvider() {
         return new Object[][] {
-            //{ ProductRepository.macBook(),  Currencies.EURO },
+            { ProductRepository.macBook(),  Currencies.EURO },
             { ProductRepository.macBook(),  Currencies.POUND_STERLING }
         };
     }
@@ -109,9 +109,9 @@ public class SmokeTest extends TestRunner {
         return ListUtils.toMultiArray(ProductRepository.fromExcelProducts(), Currencies.EURO);
     }
 
-    //@Test(dataProvider = "productCurrencyProvider")
+    @Test(dataProvider = "productCurrencyProvider")
     //@Test(dataProvider = "productCurrencyProviderFromCsv")
-    @Test(dataProvider = "productCurrencyProviderFromExcel")
+    //@Test(dataProvider = "productCurrencyProviderFromExcel")
     public void smoke5Currency(IProduct product, Currencies currencyName) throws Exception {
         logger.info("@Test start" 
                     + " product Name = " + product.getName()

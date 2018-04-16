@@ -13,13 +13,16 @@ public class ApplJDBC {
         Connection con = null;
         String username = "lv298";
         String password = "Lv298_Set";
+        //String username = "root";
+        //String password = "Lv298_Set";
         //
         // Sybase
         //String URL = "jdbc:jtds:sqlserver://ssu-sql12/ssu-oms;instance=tc;";
         //DriverManager.registerDriver(new net.sourceforge.jtds.jdbc.Driver());
         //
         // MySQL
-        String URL = "jdbc:mysql://192.168.103.210:3306/lv298";
+        //String URL = "jdbc:mysql://192.168.103.210:3306/lv298";
+        String URL = "jdbc:mysql://192.168.103.210:3306/opencart";
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         //DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         //
@@ -34,7 +37,10 @@ public class ApplJDBC {
         Statement st = con.createStatement();
         // Statement allows you to send inquiries database
         //st.execute("INSERT INTO Users(IsUserActive,Balance,Email,FirstName,LastName,Login,Password,CustomerTypeRef,RegionRef,RoleRef) VALUES (1,null,'mail@gmail.com','melanka','horoshko','melanka','qwerty',null,1,1);");
-        ResultSet rs = st.executeQuery("select * from temp");
+        //
+        ////st.execute("UPDATE customer_login SET total='1' WHERE email LIKE 'jar%';");
+        //ResultSet rs = st.executeQuery("select * from temp");
+        ResultSet rs = st.executeQuery("select * from customer_login;");
         //ResultSet rs = st.executeQuery("select * from Roles");
         //
         int columnCount = rs.getMetaData().getColumnCount();

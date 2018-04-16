@@ -27,8 +27,10 @@ public final class ProductRepository {
         		.setSearchKey("mac")
         		.setName("MacBook")
         		.setDescription("Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1")
-        		.setPrice(Currencies.EURO, 560.94)
-        		.setPrice(Currencies.POUND_STERLING, 487.62)
+        		//.setPrice(Currencies.EURO, 560.94)
+        		.setPrice(Currencies.EURO, 472.33)
+        		//.setPrice(Currencies.POUND_STERLING, 487.62)
+        		.setPrice(Currencies.POUND_STERLING, 368.73)
         		.setPrice(Currencies.US_DOLLAR, 602.00)
         		.buildProduct();
     }
