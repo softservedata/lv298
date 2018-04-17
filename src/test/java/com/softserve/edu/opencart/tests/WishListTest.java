@@ -8,6 +8,7 @@ import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.*;
 import com.softserve.edu.opencart.tools.LiteralConstants;
 import com.softserve.edu.opencart.tools.RegexUtils;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -20,6 +21,7 @@ public class WishListTest extends TestRunner {
 
     private boolean containsProduct = false;
 
+    @Step("Login Step for user: {0} work with product: {1}, for method: {method} step ...")
     private HomePage loginAndCheckProductInList(IUser user, IProduct product) {
         HomePage homePage = Application.get().loadHomePage().loginToHomePage
                 (user);
@@ -30,7 +32,10 @@ public class WishListTest extends TestRunner {
 
     //1 *********Redirect to Login Page Test*********
     @JiraTicket(type = "test", name = "LVSET-54")
-    @Test
+    @Test(priority = 1,description = "Redirect to Login Page Test")
+    @Description("Verify that you redirected to the login page if you click on Wish List link, while you don't logged into the system.")
+    @Severity(SeverityLevel.TRIVIAL)
+    @Epic("Opencart Tests")
     public void redirectToLoginPageTest() {
         HomePage homePage = Application.get().loadHomePage()
                 .signoutToHomePage();
@@ -44,13 +49,16 @@ public class WishListTest extends TestRunner {
     public Object[][] usersProvider() {
         return new Object[][]{
                 new Object[]{UserRepository.get().customer()}
-                //new Object[] { UserRepository.get().customer2() }
+                //new Object[] { UserRepository.get().customer1() }
         };
     }
 
-    //2 *********Login Test*********w
+    //2 *********Login Test*********
     @JiraTicket(type = "test", name = "LVSET-55")
-    @Test(dataProvider = "usersProvider")
+    @Test(priority = 1,description = "Log in and goto Wish List", dataProvider = "usersProvider")
+    @Description("Verify that you Wish List page is opened if you click on Wish List link.")
+    @Severity(SeverityLevel.TRIVIAL)
+    @Epic("Opencart Tests")
     public void loginToWishListTest(IUser user) {
         MyAccountPage myAccountPage = Application.get().loadHomePage()
                 .signoutToHomePage().gotoLoginPage()
@@ -68,20 +76,23 @@ public class WishListTest extends TestRunner {
         return new Object[][]{
                 new Object[]{UserRepository.get().customer(),
                         ProductRepository.macBook()}
-//                new Object[] { UserRepository.get().customer2(),
+//                new Object[] { UserRepository.get().customer1(),
 // ProductRepository.iPhone() }
         };
     }
 
     @DataProvider
     public Object[][] userWithoutProductsProvider() {
-        return new Object[][]{new Object[]{UserRepository.get().customer2(),
+        return new Object[][]{new Object[]{UserRepository.get().customer1(),
                 ProductRepository.macBook()}};
     }
 
     //3 ********Wish List Contains Product Test*********
     @JiraTicket(type = "test", name = "LVSET-56")
-    @Test(dataProvider = "userProductsProvider")
+    @Test(priority = 3,description = "User Wish List Contains Product",dataProvider = "userProductsProvider")
+    @Description("Verify that user wish list contains a specified product.")
+    @Severity(SeverityLevel.NORMAL)
+    @Epic("Opencart Tests")
     public void containsProductTest(IUser user, IProduct product) {
         loginAndCheckProductInList(user, product);
         Assert.assertTrue(containsProduct);
@@ -89,7 +100,10 @@ public class WishListTest extends TestRunner {
 
     //4 ********Wish List Does Not Contain Product*********
     @JiraTicket(type = "test", name = "LVSET-57")
-    @Test(dataProvider = "userWithoutProductsProvider")
+    @Test(priority = 3,description = "User Wish List Doesn't Contains Product",dataProvider = "userWithoutProductsProvider")
+    @Description("Verify that user wish list doesn't contain a specified product.")
+    @Severity(SeverityLevel.NORMAL)
+    @Epic("Opencart Tests")
     public void doesNotContainProductTest(IUser user, IProduct product) {
         loginAndCheckProductInList(user, product);
         Assert.assertFalse(containsProduct);
@@ -97,7 +111,10 @@ public class WishListTest extends TestRunner {
 
     //5 *********Add And Remove Product From Wish List Test*********
     @JiraTicket(type = "test", name = "LVSET-44")
-    @Test(dataProvider = "userProductsProvider")
+    @Test(priority = 4,description = "Add And Remove Product From Wish List",dataProvider = "userProductsProvider")
+    @Description("Verify that specified product added to Wish List correctly, then remove him from WiSh List.")
+    @Severity(SeverityLevel.CRITICAL)
+    @Epic("Opencart Tests")
     public void addRemoveTest(IUser user, IProduct product) {
         HomePage homePage = loginAndCheckProductInList(user, product);
 
@@ -118,8 +135,11 @@ public class WishListTest extends TestRunner {
     }
 
     //6 *********Amount Test*********
-    @Test(dataProvider = "userProductsProvider")
     @JiraTicket(type = "test", name = "LVSET-58")
+    @Test(priority = 3,description = "Wish List Content Amount",dataProvider = "userProductsProvider")
+    @Description("Verify that wish list amount increased if you add a new product.")
+    @Severity(SeverityLevel.NORMAL)
+    @Epic("Opencart Tests")
     public void amountTest(IUser user, IProduct product) {
         int expected;
         HomePage homePage = loginAndCheckProductInList(user, product);
@@ -146,8 +166,11 @@ public class WishListTest extends TestRunner {
 
     //7 *********Add And Remove Product From Wish List Success Notification Test*********
     @JiraTicket(type = "test", name = "LVSET-59")
-    @Test(dataProvider = "userProductsProvider")
-    public void addToListSuccessNotificationTest(IUser user, IProduct
+    @Test(priority = 1,description = "Add and Remove Product From Wish List Success Notification",dataProvider = "userProductsProvider")
+    @Description("Verify that correct message shown when you add the product to wish list.")
+    @Severity(SeverityLevel.TRIVIAL)
+    @Epic("Opencart Tests")
+    public void productActionNotificationTest(IUser user, IProduct
             product) {
         SoftAssert softAssertion= new SoftAssert();
         HomePage homePage = loginAndCheckProductInList(user, product);

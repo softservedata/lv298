@@ -33,6 +33,7 @@ public class ProductComponent {
         getAddToWish();
     }
 
+
     // *********Name*********
     public WebElement getName() {       
        return productLayout.findElement(By.cssSelector(ANCH_PRODUCT_NAME_CSS));

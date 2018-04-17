@@ -9,7 +9,7 @@ import com.softserve.edu.opencart.data.users.IUser;
 
 public class LoginPage extends ARightPanel {
 
-    public static final String URL = "http://setopencart.epizy.com/index.php?route=account/login";
+    public static final String URL = BASE_URL+"/index.php?route=account/login";
     
     // *********Web Elements*********
     @FindBy(id = "input-email")
@@ -37,6 +37,7 @@ public class LoginPage extends ARightPanel {
     }
 
     public void sendEmailFieldText(String text) {
+
         sendWebElementText(getEmailField(), text);
     }
 

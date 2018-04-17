@@ -104,7 +104,7 @@ public class WishListPage extends ARightPanel {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // *********WishListPage Fields*********
-    public static final String URL = "http://setopencart.epizy.com/index.php?route=account/wishlist";
+    public static final String URL = BASE_URL+"/index.php?route=account/wishlist";
     private static final String IN_STOCK = "instock";
     
     protected List<ProductComponentInWishList> productComponents;

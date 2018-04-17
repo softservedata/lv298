@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.tests;
 
 import com.softserve.edu.opencart.tools.ListUtils;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -17,39 +18,9 @@ import com.softserve.edu.opencart.pages.SearchPage;
 
 import java.sql.SQLException;
 
+
 public class SmokeTest extends TestRunner {
 
-    String URL = "jdbc:mysql://192.168.0.108:3306/opencart";
-    String username = "svehetc";
-    String ps = "Lv298_Set";
-  
-    //@Test(dataProvider = "productsProvider")
-    public void smoke3TestRunner(IProduct product) throws Exception {
-        SearchPage searchPage = Application.get().loadHomePage() 
-                .searchByProduct(product);
-        System.out.println("***" + searchPage.getFeaturedBlock().getProductComponentTexts());
-        Assert.assertTrue(searchPage.getFeaturedBlock().getProductComponentTexts()
-                .contains(product.getName()));
-    }
-
-    @DataProvider
-    public Object[][] usersProvider() {
-        return new Object[][] { { UserRepository.get().customer() } };
-    }
-
-    //@Test(dataProvider = "usersProvider")
-    public void smoke4Login(IUser user) throws Exception {
-        MyAccountPage myAccountPage = Application.get()
-                .loadHomePage() 
-                .gotoLoginPage()
-                .successLogin(user);
-
-        Assert.assertEquals(myAccountPage.getMyAccountLabelText(),
-                MyAccountPage.MY_ACCOUNT_LABEL_TEXT);
-        HomePage homePage = myAccountPage.signoutToHomePage();
-        Assert.assertFalse(homePage.isLogged());
-    }
-    
     @DataProvider
     public Object[][] productCurrencyProvider() {
         return new Object[][] {
@@ -69,28 +40,30 @@ public class SmokeTest extends TestRunner {
     }
 
     @DataProvider//(parallel = true)
-    public Object[][] productCurrencyProviderFromDb() throws SQLException {
-        return ListUtils.toMultiArray(ProductRepository.fromDbProducts(URL,username,ps), Currencies.EURO);
+    public Object[][] productCurrencyProviderFromDb()  {
+        return ListUtils.toMultiArray(ProductRepository.fromDbProducts(), Currencies.EURO);
     }
 
-//    @Test(dataProvider = "productCurrencyProviderFromCsv")
-//    @Test(dataProvider = "productCurrencyProviderFromExcel")
-    @Test(dataProvider = "productCurrencyProviderFromDb")
-
-    public void smoke5Currency(IProduct product, Currencies currencyName) throws Exception {
+//    @Test(priority = 5,description = "Smoke Test for Opencart",dataProvider = "productCurrencyProviderFromCsv")
+//    @Test(priority = 5,description = "Smoke Test for Opencart",dataProvider = "productCurrencyProviderFromExcel")
+    @Test(priority = 5,description = "Smoke Test for Opencart",dataProvider = "productCurrencyProviderFromDb")
+    @Description("This test search product and verify it price with test Currency")
+    @Severity(SeverityLevel.BLOCKER)
+    @Epic("Opencart Tests")
+    public void smoke5Currency(IProduct product, Currencies currencyName) {
         logger.info("@Test start"
                 + " product Name = " + product.getName()
                 + " currencyName = " + currencyName.toString());
         SearchPage searchPage = Application.get().loadHomePage()
                 .selectCurrency(currencyName)
                 .searchByProduct(product);
-        Thread.sleep(1000);
+       // Thread.sleep(1000);
         System.out.println("***" + searchPage.getFeaturedBlock().getProductComponentTexts());
         Assert.assertTrue(searchPage.getFeaturedBlock().getProductComponentTexts()
                 .contains(product.getName()));
         Assert.assertEquals(searchPage.getFeaturedBlock().getPriceAmountByProduct(product),
                 product.getPriceByCurrencyName(currencyName));
-        Thread.sleep(1000);
+       // Thread.sleep(1000);
         logger.info("@Test done");
     }
 

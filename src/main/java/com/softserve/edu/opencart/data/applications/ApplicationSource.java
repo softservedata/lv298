@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.data.applications;
 
+import java.sql.Driver;
+
 //*********Builder Pattern*********
 interface IBrowserName {
     IDriverPath setBrowserName(String browserName);
@@ -9,24 +11,41 @@ interface IDriverPath {
     IBaseUrl setDriverPath(String driverPath);
 }
 
-interface IBaseUrl {
-    IApplicationSourceBuild setBaseUrl(String baseUrl);
-}
-
 /*interface IBaseUrl {
+    IApplicationSourceBuild setBaseUrl(String baseUrl);
+}*/
+
+interface IBaseUrl {
     IImplicitWaitTimeOut setBaseUrl(String baseUrl);
 }
 
 interface IImplicitWaitTimeOut {
-    IApplicationSourceBuild setImplicitWaitTimeOut(long implicitWaitTimeOut);
-}*/
+    IDatabaseUrl setImplicitWaitTimeOut(long implicitWaitTimeOut);
+}
+
+interface IDatabaseUrl {
+    IDatabaseLogin setDatabaseUrl(String DatabaseUrl);
+}
+
+interface IDatabaseLogin {
+    IDatabasePassword setDatabaseLogin(String DatabaseLogin);
+}
+
+interface IDatabasePassword {
+    IJdbcDriver setDatabasePassword(String DatabasePassword);
+}
+
+interface IJdbcDriver {
+    IApplicationSourceBuild setJdbcDriver(Driver JdbcDriver);
+}
 
 interface IApplicationSourceBuild {
     IApplicationSource build();
 }
 
 public final class ApplicationSource implements IBrowserName, IDriverPath,
-                   IBaseUrl, IApplicationSourceBuild,// IImplicitWaitTimeOut,
+                   IBaseUrl, IApplicationSourceBuild, IImplicitWaitTimeOut,
+        IDatabaseUrl,IDatabaseLogin,IDatabasePassword,IJdbcDriver,
                                                         IApplicationSource {
 
     //*********Browser Data*********
@@ -63,9 +82,10 @@ public final class ApplicationSource implements IBrowserName, IDriverPath,
     //private String adminLogoutUrl;
     //
     //*********Database Connection*********
-    //private String databaseUrl;
-    //private String databaseLogin;
-    //private String databasePassword;
+    private String databaseUrl;
+    private String databaseLogin;
+    private String databasePassword;
+    private Driver jdbcDriver;
 
     // *********Constructor*********
     private ApplicationSource() {
@@ -85,20 +105,37 @@ public final class ApplicationSource implements IBrowserName, IDriverPath,
         return this;
     }
 
-   /* public IImplicitWaitTimeOut setBaseUrl(final String baseUrl) {
-        this.baseUrl = baseUrl;
-        return this;
-    }*/
-
-    public IApplicationSourceBuild setBaseUrl(final String baseUrl) {
+    public IImplicitWaitTimeOut setBaseUrl(final String baseUrl) {
         this.baseUrl = baseUrl;
         return this;
     }
 
-  /*  public IApplicationSourceBuild setImplicitWaitTimeOut(final long implicitWaitTimeOut) {
+    public IDatabaseUrl setImplicitWaitTimeOut(final long implicitWaitTimeOut ) {
         this.implicitWaitTimeOut = implicitWaitTimeOut;
         return this;
+    }
+    public IDatabaseLogin setDatabaseUrl(final String databaseUrl) {
+        this.databaseUrl = databaseUrl;
+        return this;
+    }
+    public IDatabasePassword setDatabaseLogin(final String databaseLogin) {
+        this.databaseLogin = databaseLogin;
+        return this;
+    }
+    public IJdbcDriver setDatabasePassword(final String databasePassword) {
+        this.databasePassword = databasePassword;
+        return this;
+    }
+
+   /* public IApplicationSourceBuild setBaseUrl(final String baseUrl) {
+        this.baseUrl = baseUrl;
+        return this;
     }*/
+
+    public IApplicationSourceBuild setJdbcDriver(final Driver jdbcDriver) {
+        this.jdbcDriver = jdbcDriver;
+        return this;
+    }
 
 
 
@@ -120,6 +157,22 @@ public final class ApplicationSource implements IBrowserName, IDriverPath,
 
     public String getBaseUrl() {
         return baseUrl;
+    }
+
+    public String getDatabaseUrl() {
+        return databaseUrl;
+    }
+
+    public String getDatabaseLogin() {
+        return databaseLogin;
+    }
+
+    public String getDatabasePassword() {
+        return databasePassword;
+    }
+
+    public Driver getJdbcDriver() {
+        return jdbcDriver;
     }
 
 }

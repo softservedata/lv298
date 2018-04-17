@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.data.applications;
 
+import java.sql.Driver;
+
 public interface IApplicationSource {
 
     String getBrowserName();
@@ -9,5 +11,13 @@ public interface IApplicationSource {
     long getImplicitWaitTimeOut();
 
     String getBaseUrl();
+
+    String getDatabaseUrl();
+
+    String getDatabaseLogin();
+
+    String getDatabasePassword();
+
+    Driver getJdbcDriver();
 
 }

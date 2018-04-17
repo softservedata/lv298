@@ -215,6 +215,9 @@ public abstract class AHeaderBlock {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // *********AHeaderBlock Fields********
+    private static final String IP = "192.168.0.108";
+//    public static final String BASE_URL = String.format("http://%s/op",IP);
+    public static final String BASE_URL = "http://setopencart.epizy.com";
     public static final Logger LOGGER = LoggerFactory.getLogger(AHeaderBlock
             .class);
 
@@ -265,7 +268,7 @@ public abstract class AHeaderBlock {
 
     //TODO develop WebElement Wrapper
     // *********Atomic operations*********
-    public void scrollToWebElement(final WebElement webElement) {
+    private void scrollToWebElement(final WebElement webElement) {
 
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("window.scrollTo("+webElement.getLocation().x+","+webElement.getLocation().y+")");

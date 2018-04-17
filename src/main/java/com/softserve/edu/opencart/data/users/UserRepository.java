@@ -41,11 +41,11 @@ public final class UserRepository {
                 .build();
     }
 
-    public IUser customer2() {
+    public IUser customer1() {
         return User.get()
                 .setFirstname("firstname")
                 .setLastname("lastname")
-                .setEmail("hahaha@gmail.com")
+                .setEmail("customer1@gmail.com")
                 .setTelephone("telephone")
                 .setAddressMain("addressMain")
                 .setCity("city")

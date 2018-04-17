@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
@@ -33,7 +35,8 @@ public class ScreenshotAtFailTestListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         try {
             takeScreenShot(result.getName());
-            System.out.println("Screen");
+            //saveScreenshotPNG();
+            System.out.println("Screenshot");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -66,10 +69,19 @@ public class ScreenshotAtFailTestListener implements ITestListener {
     }
     
     private void takeScreenShot(String testName) throws IOException {
+        JavascriptExecutor executor = (JavascriptExecutor)Application.get().driver();
+
         String currentTime = new SimpleDateFormat(TIME_TEMPLATE).format(new Date());
-        
+        executor.executeScript("document.body.style.zoom = '0.5'");
         File scrFile = ((TakesScreenshot)Application.get().driver()).getScreenshotAs(OutputType.FILE);
+        saveScreenshotPNG();
         FileUtils.copyFile(scrFile, new File("./ScreensOnFail/"+testName+ "_" + currentTime + "_screenshot.png"));
+        executor.executeScript("document.body.style.zoom = '1'");
+    }
+
+    @Attachment(value = "Page Screenshot", type = "image/png")
+    public byte[] saveScreenshotPNG(){
+        return ((TakesScreenshot)Application.get().driver()).getScreenshotAs(OutputType.BYTES);
     }
  
 }

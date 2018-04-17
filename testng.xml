@@ -1,38 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Suite1">
-
-	<!-- <parameter name="loginurl" value="http://registrator.herokuapp.com/login"/> -->
-	<!-- <parameter name="logouturl" value="http://registrator.herokuapp.com/logout"/> -->
-	<!-- <parameter name="browserName" value="chrome" /> -->
+<suite name="OpenCart">
 
 	<listeners>
 		<listener
 			class-name="com.softserve.edu.opencart.listeners.ScreenshotAtFailTestListener" />
 	</listeners>
 	<!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
-	<test verbose="5" name="Test1">
-		<parameter name="number" value="2" />
-
+	<test verbose="5" name="WishList Test">
 		<classes>
+			<!--<class name="com.softserve.edu.opencart.tests.SmokeTest" />-->
 			<class name="com.softserve.edu.opencart.tests.WishListTest">
 				<methods>
 					<include name="redirectToLoginPageTest" />
 					<include name="loginToWishListTest" />
-					
+
 					<include name="containsProductTest" />
 					<include name="doesNotContainProductTest" />
-					
+
 					<include name="addRemoveTest" />
 					<include name="amountTest" />
-					
-					<include name="addToListSuccessNotificationTest" />
-					<include name="removeFromListSuccessNotificationTest" />
+
+					<include name="productActionNotificationTest" />
 				</methods>
 			</class>
-
 		</classes>
-	</test> <!-- Test -->
+	</test>
 
-</suite> <!-- Suite -->
+</suite>

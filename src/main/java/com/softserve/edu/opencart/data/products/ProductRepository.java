@@ -2,7 +2,7 @@ package com.softserve.edu.opencart.data.products;
 
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.tools.CSVReader;
-import com.softserve.edu.opencart.tools.DbReader;
+import com.softserve.edu.opencart.tools.DBReader;
 import com.softserve.edu.opencart.tools.ExcelReader;
 
 import java.sql.SQLException;
@@ -82,8 +82,12 @@ public final class ProductRepository {
         return Product.getByList(new ExcelReader(filename).getAllCells());
     }
 
-    public static List<IProduct> fromDbProducts(String URL,String username,String password) throws SQLException {
-        return Product.getByList(new DbReader(URL,username,password).getAllRecords());
+    public static List<IProduct> fromDbProducts(){
+        return fromDbProducts("Select * from products");
+    }
+
+    public static List<IProduct> fromDbProducts(String sqlSelect) {
+        return Product.getByList(new DBReader(sqlSelect).getAllCells());
     }
 
     // *********Repository*********

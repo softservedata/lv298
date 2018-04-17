@@ -1,13 +1,13 @@
 package com.softserve.edu.opencart.annotations;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
+@Documented
+@Inherited
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.METHOD, ElementType.TYPE})
 public @interface JiraTicket {
-    String type();
+    String type() default "";
     String name() default "LVSET-";
+    String url() default "http://ssu-jira.softserveinc.com/browse/";
 }
