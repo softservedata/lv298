@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.tools.CSVReader;
+import com.softserve.edu.opencart.tools.DBReader;
 import com.softserve.edu.opencart.tools.ExcelReader;
 
 public final class ProductRepository {
@@ -49,6 +50,15 @@ public final class ProductRepository {
 
     public static List<IProduct> fromExcelProducts(String filename) {
     	return Product.getByList(new ExcelReader(filename).getAllCells());
+    }
+
+    public static List<IProduct> fromDBProducts() {
+    	// TODO
+    	return fromDBProducts("Select ....");
+    }
+
+    public static List<IProduct> fromDBProducts(String sqlSelect) {
+    	return Product.getByList(new DBReader(sqlSelect).getAllCells());
     }
 
 }

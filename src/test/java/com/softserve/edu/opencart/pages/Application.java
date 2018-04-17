@@ -1,5 +1,8 @@
 package com.softserve.edu.opencart.pages;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
@@ -8,6 +11,9 @@ import com.softserve.edu.opencart.tools.BrowserWrapper;
 
 public class Application {
 
+	// TODO Develop JdbcDriverWrapper (ConnectionManager) class
+	private final String DB_CONNECTION_ERROR = "DB Connection Error, %s";
+	//
     // Use Singleton, Repository
     private static volatile Application instance;
     //
@@ -24,6 +30,7 @@ public class Application {
     //
     //private ISearch search;
     //private ConnectionManager connectionManager;
+    private Connection connection;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
@@ -71,6 +78,15 @@ public class Application {
             }
             //
             //instance.connectionManager().closeAllConnections();
+            if (instance.connection != null) {
+            	// TODO Develop JdbcDriverWrapper (ConnectionManager) class
+            	try {
+					instance.connection.close();
+				} catch (SQLException e) {
+					//e.printStackTrace();
+					throw new RuntimeException(String.format(instance.DB_CONNECTION_ERROR, e));
+				}
+            }
             instance = null;
         }
     }
@@ -112,6 +128,22 @@ public class Application {
 //    public ConnectionManager connectionManager() {
 //        return connectionManager;
 //    }
+
+	public Connection getConnection() {
+		if (connection == null) {
+			// TODO Develop JdbcDriverWrapper (ConnectionManager) class
+			try {
+				DriverManager.registerDriver(getApplicationSource().getJdbcDriver());
+				connection = DriverManager.getConnection(getApplicationSource().getDatabaseUrl(),
+						getApplicationSource().getDatabaseLogin(),
+						getApplicationSource().getDatabasePassword());
+			} catch (SQLException e) {
+				//e.printStackTrace();
+				throw new RuntimeException(String.format(DB_CONNECTION_ERROR, e));
+			}
+		}
+		return connection;
+	}
 
     // Initialization
 

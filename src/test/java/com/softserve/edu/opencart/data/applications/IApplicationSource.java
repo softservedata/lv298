@@ -1,13 +1,23 @@
 package com.softserve.edu.opencart.data.applications;
 
+import java.sql.Driver;
+
 public interface IApplicationSource {
 
-    String getBrowserName();
+	String getBrowserName();
 
-    String getDriverPath();
+	String getDriverPath();
 
-    long getImplicitWaitTimeOut();
+	long getImplicitWaitTimeOut();
 
-    String getBaseUrl();
+	String getBaseUrl();
+
+	String getDatabaseUrl();
+
+	String getDatabaseLogin();
+
+	String getDatabasePassword();
+
+	Driver getJdbcDriver();
 
 }

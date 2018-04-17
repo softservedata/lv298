@@ -390,7 +390,8 @@
 				<configuration>
 <!-- 					<message>*****ArtifactId: ${project.artifactId}</message> -->
 <!-- 					<message>*****Local Repository: ${settings.localRepository}</message> -->
- 					<message>*****Project.build.directory: ${project.build.directory}</message>
+<!--  					<message>*****Project.build.directory: ${project.build.directory}</message> -->
+                	<message>*****database.password: ${database.password}</message>
 				<messages> 
 				</messages>
 				</configuration>

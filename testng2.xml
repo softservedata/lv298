@@ -20,6 +20,8 @@
 <!-- 				</methods> -->
 <!-- 			</class> -->
 			<class name="com.softserve.edu.opencart.tests.SmokeTest" />
+
+<!-- 			<class name="com.softserve.edu.ReadPropertyTest" /> -->
 <!-- 			<class name="com.softserve.edu.opencart.tests.SmokeTest"> -->
 <!-- 				<methods> -->
 <!-- 					<include name="smoke5Currency" /> -->

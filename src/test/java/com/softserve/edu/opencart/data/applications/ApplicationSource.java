@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.data.applications;
 
+import java.sql.Driver;
+
 public class ApplicationSource implements IApplicationSource {
 
     // Browser Data
@@ -36,17 +38,26 @@ public class ApplicationSource implements IApplicationSource {
     //private String adminLogoutUrl;
     //
     // Database Connection
-    //private String databaseUrl;
-    //private String databaseLogin;
-    //private String databasePassword;
+    private String databaseUrl;
+    private String databaseLogin;
+    private String databasePassword;
+    // TODO Must be String. Develop JdbcDriverWrapper (ConnectionManager) class
+    private Driver jdbcDriver;
 
     // TODO Develop Builder
     public ApplicationSource(String browserName, String driverPath,
-            long implicitWaitTimeOut, String baseUrl) {
+            long implicitWaitTimeOut, String baseUrl,
+            String databaseUrl, String databaseLogin, String databasePassword,
+            Driver jdbcDriver) {
         this.browserName = browserName;
         this.driverPath = driverPath;
         this.implicitWaitTimeOut = implicitWaitTimeOut;
         this.baseUrl = baseUrl;
+        //
+        this.databaseUrl = databaseUrl;
+        this.databaseLogin = databaseLogin;
+        this.databasePassword = databasePassword;
+        this.jdbcDriver = jdbcDriver;
     }
     
     // setters
@@ -67,6 +78,22 @@ public class ApplicationSource implements IApplicationSource {
         this.baseUrl = baseUrl;
     }
 
+    public void setDatabaseUrl(String databaseUrl) {
+        this.databaseUrl = databaseUrl;
+    }
+
+    public void setDatabaseLogin(String databaseLogin) {
+        this.databaseLogin = databaseLogin;
+    }
+
+    public void setDatabasePassword(String databasePassword) {
+        this.databasePassword = databasePassword;
+    }
+
+    public void setJdbcDriver(Driver jdbcDriver) {
+        this.jdbcDriver = jdbcDriver;
+    }
+
     // getters
 
     public String getBrowserName() {
@@ -83,6 +110,22 @@ public class ApplicationSource implements IApplicationSource {
 
     public String getBaseUrl() {
         return baseUrl;
+    }
+
+    public String getDatabaseUrl() {
+        return databaseUrl;
+    }
+
+    public String getDatabaseLogin() {
+        return databaseLogin;
+    }
+
+    public String getDatabasePassword() {
+        return databasePassword;
+    }
+
+    public Driver getJdbcDriver() {
+        return jdbcDriver;
     }
 
 }
