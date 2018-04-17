@@ -26,6 +26,7 @@ import com.softserve.edu.opencart.pages.HomePage;
 import com.softserve.edu.opencart.pages.MyAccountPage;
 import com.softserve.edu.opencart.pages.SearchPage;
 import com.softserve.edu.opencart.tools.RegexUtils;
+import io.qameta.allure.Epic;
 
 public class SmokeTest extends TestRunner {
     
@@ -142,7 +143,8 @@ public class SmokeTest extends TestRunner {
     }
 //    @Title("Add to cart test")
     @Test(dataProvider = "productProvider")
-    @Description("Add to cart 2 product and then delete ")
+//    @Description("Add to cart 2 product and then delete ")
+//    @Epic("Add to cart and check notifivation")
     public void smoke7(IProduct product) throws Exception {
         HomePage homePage = Application.get()
                 .loadHomePage()
@@ -158,7 +160,7 @@ public class SmokeTest extends TestRunner {
     }
 //    @Title("Delete from cart test")
     @Test(dataProvider = "productProvider")
-    @Description("testing deleting from")
+//    @Description("testing deleting from")
     public void smoke8(IProduct product) throws Exception {
         HomePage homePage = Application.get().loadHomePage();
         homePage.addToCartByProduct(product);
