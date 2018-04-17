@@ -139,7 +139,7 @@ public class SmokeTest extends TestRunner {
     public Object[][] productProvider() {
         return new Object[][] { { ProductRepository.macBook()}, { ProductRepository.iPhone()}};
     }
-    @Test(dataProvider = "productProvider")
+    //@Test(dataProvider = "productProvider")
     public void smoke7(IProduct product) throws Exception {
         HomePage homePage = Application.get()
                 .loadHomePage()
@@ -151,7 +151,7 @@ public class SmokeTest extends TestRunner {
         homePage.deleteAllProductFromCart();
         Thread.sleep(2000);
     }
-    @Test(dataProvider = "productProvider")
+    //@Test(dataProvider = "productProvider")
     public void smoke8(IProduct product) throws Exception {
         HomePage homePage = Application.get().loadHomePage();
         homePage.addToCartByProduct(product);
