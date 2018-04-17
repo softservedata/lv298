@@ -34,10 +34,7 @@
         <!-- - - - - - Reports - - - - - -->
         <testng.reports.directory>target/surefire-reports/test-output</testng.reports.directory>
         <jenkins.server>absent</jenkins.server>
-        ////
-         <allure.version>1.5.0</allure.version>
-        <aspectj.version>1.7.4</aspectj.version>
-        ///
+        <!-- <allure.version>1.5.0</allure.version> -->
         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
         <allure-testng.version>2.0-BETA21</allure-testng.version>
         <allure-testng-adaptor.version>1.5.4</allure-testng-adaptor.version>
