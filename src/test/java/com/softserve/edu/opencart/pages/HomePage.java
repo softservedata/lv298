@@ -72,6 +72,11 @@ public final class HomePage extends AHeaderBlock {
     
     public HomePage addToCartByProduct(IProduct product) {
         getFeaturedBlock().clickAddToCartByProduct(product);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return new HomePage(driver, true);
     }
 }

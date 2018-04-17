@@ -245,6 +245,11 @@ public abstract class AHeaderBlock {
     public boolean isNotificationSuccess() {//TO DO if null = false
         NotificationMessage notificationMessage = new NotificationMessage();
 //        return getNotificationMessage().isSuccess();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return notificationMessage.isSuccess();
     }
     
@@ -311,6 +316,11 @@ public abstract class AHeaderBlock {
     }
     public void clickMiniCart() {//TODO
         getMiniCartBtn().click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         miniCartComponent = new MiniCartComponent();
     }
  // *---------------getMiniCartComponent

@@ -144,27 +144,22 @@ public class SmokeTest extends TestRunner {
         HomePage homePage = Application.get()
                 .loadHomePage()
                 .addToCartByProduct(product);
-        Thread.sleep(2000);
         Assert.assertTrue(homePage.isNotificationSuccess());
-        Thread.sleep(2000);
         homePage.clickMiniCart();
-        Thread.sleep(2000);
         int expected = 1;
         Assert.assertEquals(homePage.getMiniCartProductElementsNumber(), expected);
         homePage.deleteAllProductFromCart();
         Thread.sleep(2000);
     }
-    //@Test(dataProvider = "productProvider")
+    @Test(dataProvider = "productProvider")
     public void smoke8(IProduct product) throws Exception {
         HomePage homePage = Application.get().loadHomePage();
         homePage.addToCartByProduct(product);
-        Thread.sleep(2000);
         homePage.clickMiniCart();
         homePage.deleteAllProductFromCart();
         int expected = 0;
         homePage.clickMiniCart();
         Assert.assertEquals(homePage.getMiniCartProductElementsNumber(), expected);
         Assert.assertTrue(homePage.isMiniShoppingCartEmpty());
-        
     }
 }
