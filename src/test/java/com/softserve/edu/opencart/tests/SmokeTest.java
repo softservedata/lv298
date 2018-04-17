@@ -139,22 +139,22 @@ public class SmokeTest extends TestRunner {
     public Object[][] productProvider() {
         return new Object[][] { { ProductRepository.macBook()}, { ProductRepository.iPhone()}};
     }
-    @Title("Add to cart test")
+//    @Title("Add to cart test")
     @Test(dataProvider = "productProvider")
     public void smoke7(IProduct product) throws Exception {
         HomePage homePage = Application.get()
                 .loadHomePage()
                 .addToCartByProduct(product);
-        @Step("Check is notification exist")
+//        @Step("Check is notification exist")
         Assert.assertTrue(homePage.isNotificationSuccess());
         homePage.clickMiniCart();
         int expected = 1;
-        @Step("Check is cart not empty")
+//        @Step("Check is cart not empty")
         Assert.assertEquals(homePage.getMiniCartProductElementsNumber(), expected);
         homePage.deleteAllProductFromCart();
         Thread.sleep(2000);
     }
-    @Title("Delete from cart test")
+//    @Title("Delete from cart test")
     @Test(dataProvider = "productProvider")
     public void smoke8(IProduct product) throws Exception {
         HomePage homePage = Application.get().loadHomePage();
@@ -165,5 +165,6 @@ public class SmokeTest extends TestRunner {
         homePage.clickMiniCart();
         Assert.assertEquals(homePage.getMiniCartProductElementsNumber(), expected);
         Assert.assertTrue(homePage.isMiniShoppingCartEmpty());
+
     }
 }
