@@ -6,12 +6,14 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.registration.FailRegistrationPage;
 import com.softserve.edu.opencart.pages.registration.SuccessRegistrationPage;
 import com.softserve.edu.opencart.tests.TestRunner;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+@Epic ("Functional test for User Registration")
 public class UserRegistration extends TestRunner {
 
 
@@ -24,7 +26,6 @@ public class UserRegistration extends TestRunner {
     public Object[][] successUserProvider() {
         return new Object[][]{{UserRepository.get().successRegistrationUser()}};
     }
-
 
     @Feature("Registration Page")
     @Test(dataProvider = "failUserProvider"

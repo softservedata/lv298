@@ -3,10 +3,13 @@ package com.softserve.edu.opencart.tests.registrationPageTest;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.registration.EmptyFieldsRegistrationPage;
 import com.softserve.edu.opencart.tests.TestRunner;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+@Epic("UI test for warning messages appearing cheking")
 public class EmptyFieldsWarningMessages extends TestRunner {
     private EmptyFieldsRegistrationPage emptyFieldsRegistrationPage;
 
@@ -16,6 +19,7 @@ public class EmptyFieldsWarningMessages extends TestRunner {
         emptyFieldsRegistrationPage = Application.get().loadHomePage().gotoRegistrationPage().emptyFieldsRegistrationPage();
     }
 
+    @Feature("UI test")
     @Test(testName = "Check if First Name Wrong Message is appear",
             description = "Check if first name wrong message is appear",
             priority = 1)
@@ -28,6 +32,7 @@ public class EmptyFieldsWarningMessages extends TestRunner {
         logger.debug("checkTheErrorMessageNearFirstNameField Finished");
     }
 
+    @Feature("UI test")
     @Test(testName = "Check if Last Name Wrong Message is appear")
     public void checkErrorMessageNearLastNameField() {
         logger.debug("checkTheErrorMessageNearLastNameField STARTED");
@@ -38,6 +43,7 @@ public class EmptyFieldsWarningMessages extends TestRunner {
         logger.debug("checkTheErrorMessageNearLastNameField FINISHED");
     }
 
+    @Feature("UI test")
     @Test(testName = "Check if E-mail Wrong Message is appear")
     public void checkErrorMessageNearEmailField() {
         logger.debug("checkErrorMessageNearEmailField STARTED");
@@ -48,6 +54,7 @@ public class EmptyFieldsWarningMessages extends TestRunner {
         logger.debug("checkErrorMessageNearEmailField FINISHED");
     }
 
+    @Feature("UI test")
     @Test(testName = "Check if Telephone Wrong Message is appear")
     public void checkErrorMessageNearTelephoneField() {
         logger.debug("checkErrorMessageNearTelephoneField STARTED");
@@ -58,6 +65,8 @@ public class EmptyFieldsWarningMessages extends TestRunner {
         logger.debug("checkErrorMessageNearTelephoneField FINISHED");
     }
 
+
+    @Feature("UI test")
     @Test(testName = "Check if Main Address Wrong Message is appear")
     public void checkErrorMessageNearMainAddressField() {
         logger.debug("checkErrorMessageNearMainAddressField STARTED");
@@ -68,6 +77,8 @@ public class EmptyFieldsWarningMessages extends TestRunner {
         logger.debug("checkErrorMessageNearMainAddressField FINISHED");
     }
 
+
+    @Feature("UI test")
     @Test(testName =  "Check if City Wrong Message is appear")
     public void checkErrorMessageNearCityField(){
         logger.debug("checkErrorMessageNearCityField STARTED");
@@ -78,6 +89,8 @@ public class EmptyFieldsWarningMessages extends TestRunner {
         logger.debug("checkErrorMessageNearCityField FINISHED");
     }
 
+
+    @Feature("UI test")
     @Test(testName = "Check if Postcode Wrong Message is appear")
     public void checkErrorMessageNearPostcodeField(){
         logger.debug("checkErrorMessageNearPostcodeField STARTED");
@@ -88,6 +101,8 @@ public class EmptyFieldsWarningMessages extends TestRunner {
         logger.debug("checkErrorMessageNearPostcodeField FINISHED");
     }
 
+
+    @Feature("UI test")
     @Test(testName = "Check if State Wrong Message is appear")
     public void checkErrorMessageNearStateSelector(){
         logger.debug("checkErrorMessageNearStateSelector STARTED");
@@ -98,6 +113,8 @@ public class EmptyFieldsWarningMessages extends TestRunner {
         logger.debug("checkErrorMessageNearStateSelector FINISHED");
     }
 
+
+    @Feature("UI test")
     @Test(testName = "Check if Password WrongMessage is appear")
     public void checkErrorMessageNearPasswordField(){
         logger.debug("checkErrorMessageNearPasswordField STARTED");
