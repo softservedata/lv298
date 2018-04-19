@@ -1,0 +1,106 @@
+Currency table contains convert values
+
+DESCRIBE currency;
+SELECT * FROM currency;
+*****SELECT title,code,value FROM currency;
+
+*****SELECT * FROM tax_rule;
+
+SELECT * FROM tax_class;
+*****SELECT  tax_class_id,title,description FROM tax_class;
+
+SELECT * FROM tax_rate;
+*****SELECT tax_rate_id,geo_zone_id,name,rate,type FROM tax_rate;
+
+DESCRIBE product;
+
+DESCRIBE product_description;
+
+--------------------------------------------------------------------------------------------
+Get products name, price, tax_class_id
+
+SELECT product_description.product_id,product_description.name,product.price,product.tax_class_id 
+FROM product 
+JOIN product_description ON product.product_id = product_description.product_id;
+--------------------------------------------------------------------------------------------
+Convert price according to tax and currency
+for all with tax "Taxable Goods" Price = (product.price * 1.2 + 2.0) * currency.value
+
+SELECT product_description.product_id AS "ID",product_description.name AS "Name",CAST((product.price * 1.2 + 2.0) * currency.value AS decimal(15,2)) AS "Price",currency.code AS "Code"
+FROM  product_description,product,currency
+WHERE (product_description.product_id = product.product_id) and (product.tax_class_id = 9)
+ORDER BY product.product_id;
+
+
+--------------------------------------------------------------------------------------------
+for all with tax "Downloadable Products" Price = (product.price + 2.0) * currency.value
+
+SELECT product_description.product_id AS "ID",product_description.name AS "Name",CAST((product.price + 2.0) * currency.value AS decimal(15,2)) AS "Price",currency.code AS "Code"
+FROM  product_description,product,currency, tax_class
+WHERE (product_description.product_id = product.product_id) and (product.tax_class_id = 10)
+ORDER BY product.product_id;
+
+
+--------------------------------------------------------------------------------------------
+for all with undefiend tax Price = product.price
+
+SELECT product_description.product_id AS "ID",product_description.name AS "Name",CAST(product.price * currency.value AS decimal(15,2)) AS "Price",currency.code AS "Code"
+FROM  product_description,product,currency
+WHERE (product_description.product_id = product.product_id) and (product.tax_class_id = 100)
+ORDER BY product.product_id;
+--------------------------------------------------------------------------------------------
+
+SELECT product_description.product_id,product_description.name,product.price,product.tax_class_id 
+FROM product 
+JOIN product_description ON product.product_id = product_description.product_id
+WHERE product_description.name = "MacBook";
+
+UPDATE product
+SET tax_class_id = 10
+WHERE product_id = 43;
+
+
+--------------------------------------------------------------------------------------------
+SELECT code, value FROM currency;
+
+SELECT code, EUR, GBP, USD
+FROM (
+SELECT code, value FROM currency) AS SourceTable
+PIVOT(
+value
+FOR code IN (EUR, GBP, USD)
+) AS PivotTable;
+
+
+select
+    title,
+    case when code = "EUR" then value end as EUR,
+    case when code = "GBP" then value end as GBP,
+    case when code = "USD" then value end as USD
+  from currency;
+
+  select
+    product_description.name,
+    case when code = "EUR" then value end as EUR,
+    case when code = "GBP" then value end as GBP,
+    case when code = "USD" then value end as USD
+  from currency,product_description;
+ 
+ 
+--------------------------------------------------------------------------------------------
+
+all correct prices
+
+SELECT product_description.product_id AS "ID",product_description.name AS "Name",CAST((product.price * 1.2 + 2.0) * currency.value AS decimal(15,2)) AS "Price",currency.code AS "Code"
+FROM  product_description,product,currency
+WHERE (product_description.product_id = product.product_id) and (product.tax_class_id = 9)
+UNION ALL
+SELECT product_description.product_id AS "ID",product_description.name AS "Name",CAST((product.price + 2.0) * currency.value AS decimal(15,2)) AS "Price",currency.code AS "Code"
+FROM  product_description,product,currency, tax_class
+WHERE (product_description.product_id = product.product_id) and (product.tax_class_id = 10)
+UNION ALL
+SELECT product_description.product_id AS "ID",product_description.name AS "Name",CAST(product.price * currency.value AS decimal(15,2)) AS "Price",currency.code AS "Code"
+FROM  product_description,product,currency
+WHERE (product_description.product_id = product.product_id) and (product.tax_class_id = 100);
+
+
