@@ -10,7 +10,7 @@ public interface IExternalReader {
 
     //IRowFactory getRowFactory();
 
-    String getPath();
+    //String getPath();
     
     List<List<String>> getAllCells();
     

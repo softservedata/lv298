@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
@@ -11,6 +12,9 @@ import com.softserve.edu.opencart.tools.BrowserWrapper;
 
 public class Application {
 
+	public static final double PRICE_PRECISION = 0.001;
+	private final String Decimal_Format_2 = ".##";
+	//
 	// TODO Develop JdbcDriverWrapper (ConnectionManager) class
 	private final String DB_CONNECTION_ERROR = "DB Connection Error, %s";
 	//
@@ -93,6 +97,10 @@ public class Application {
 
     // getters
 
+    public DecimalFormat getDecimalFormat2() {
+    	return new DecimalFormat(Decimal_Format_2); 
+    }
+
     // TODO Change for parallel work
     // TODO remove get
     public IApplicationSource getApplicationSource() {
@@ -174,6 +182,14 @@ public class Application {
 //    private void initConnectionManager(IApplicationSource applicationSource) {
 //        this.connectionManager = new ConnectionManager(applicationSource);
 //    }
+
+    public double roundTo2digits(double number) {
+    	return Double.parseDouble(roundTo2digitsToString(number));
+    }
+
+    public String roundTo2digitsToString(double number) {
+    	return getDecimalFormat2().format(number + PRICE_PRECISION);
+    }
 
     // Pages
 

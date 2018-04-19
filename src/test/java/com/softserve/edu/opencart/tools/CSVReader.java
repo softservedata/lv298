@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class CSVReader implements IExternalReader {
+public final class CSVReader implements IFileReader {
     
 //    private static class CSVFactory implements IRowFactory {
 //        public List<String> updateRow(List<String> row) {

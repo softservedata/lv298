@@ -109,9 +109,16 @@ public class SmokeTest extends TestRunner {
         return ListUtils.toMultiArray(ProductRepository.fromExcelProducts(), Currencies.EURO);
     }
 
-    @Test(dataProvider = "productCurrencyProvider")
+    @DataProvider//(parallel = true)
+    public Object[][] productCurrencyProviderFromDB() {
+        return ListUtils.toMultiArray(ProductRepository.fromDBProductMacBook(), Currencies.EURO);
+        //return ListUtils.toMultiArray(ProductRepository.fromDBProductMacBook(), Currencies.POUND_STERLING);
+    }
+
+    //@Test(dataProvider = "productCurrencyProvider")
     //@Test(dataProvider = "productCurrencyProviderFromCsv")
     //@Test(dataProvider = "productCurrencyProviderFromExcel")
+    @Test(dataProvider = "productCurrencyProviderFromDB")
     public void smoke5Currency(IProduct product, Currencies currencyName) throws Exception {
         logger.info("@Test start" 
                     + " product Name = " + product.getName()
@@ -119,13 +126,13 @@ public class SmokeTest extends TestRunner {
         SearchPage searchPage = Application.get().loadHomePage() 
                 .selectCurrency(currencyName)
                 .searchByProduct(product.getSearchKey());
-        Thread.sleep(4000);
+        Thread.sleep(1000);
         System.out.println("***" + searchPage.getFeaturedBlock().getProductComponentTexts());
         Assert.assertTrue(searchPage.getFeaturedBlock().getProductComponentTexts()
                 .contains(product.getName()));
         Assert.assertEquals(searchPage.getFeaturedBlock().getPriceAmountByProductName(product.getName()),
-                product.getPriceByCurrencyName(currencyName));
-        Thread.sleep(4000);
+                product.getPriceByCurrencyName(currencyName), Application.PRICE_PRECISION);
+        Thread.sleep(1000);
         logger.info("@Test done");
     }
 

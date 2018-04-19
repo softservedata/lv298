@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.tools.RegexUtils;
 
 interface ISearchKey {
@@ -39,6 +40,10 @@ public class Product implements ISearchKey, IName, IDescription, IPartialProduct
 	private static final int REQUIRED_COLUMN_NAME = 1;
 	private static final int REQUIRED_COLUMN_DESCRIPTION = 2;
 	private static final int REQUIRED_COLUMN_NUMBER = 3;
+	//
+	private static final double EURO_COEFFICIENT = 0.94466;
+	private static final double POUND_STERLING_COEFFICIENT = 0.73746;
+	private static final double US_DOLLAR_COEFFICIENT = 1.204;
 
     private String searchKey;
     private String name;
@@ -56,6 +61,37 @@ public class Product implements ISearchKey, IName, IDescription, IPartialProduct
     //    this.description = description;
     //    this.prices = prices;
     //}
+
+    public static List<IProduct> getByListFromDB(List<List<String>> baseRows) {
+    	List<List<String>> result = new ArrayList<>();
+    	List<String> row = new ArrayList<>();
+    	double priceExTax;
+    	//
+    	row.add("searchKey");
+    	row.add("name");
+    	row.add("description");
+    	row.add("EURO");
+    	row.add("POUND_STERLING");
+    	row.add("US_DOLLAR");
+    	result.add(row);
+    	//
+    	for (List<String> currentRow : baseRows) {
+    		row = new ArrayList<>();
+    		row.add(currentRow.get(0)); // searchKey
+    		row.add(currentRow.get(0)); // name
+    		row.add(currentRow.get(1)); // description
+    		priceExTax = Double.parseDouble(currentRow.get(2)); // Excluding Tax
+    		System.out.println("roundTo2digitsToString: " + Application.get().roundTo2digitsToString(priceExTax * EURO_COEFFICIENT));
+    		row.add(String.valueOf(priceExTax * EURO_COEFFICIENT));
+    		row.add(String.valueOf(priceExTax * POUND_STERLING_COEFFICIENT));
+    		row.add(String.valueOf(priceExTax * US_DOLLAR_COEFFICIENT));
+    		//row.add(Application.get().roundTo2digitsToString(priceExTax * EURO_COEFFICIENT));
+    		//row.add(Application.get().roundTo2digitsToString(priceExTax * POUND_STERLING_COEFFICIENT));
+    		//row.add(Application.get().roundTo2digitsToString(priceExTax * US_DOLLAR_COEFFICIENT));
+    		result.add(row);
+    	}
+    	return getByList(result);
+    }
 
     public static List<IProduct> getByList(List<List<String>> rows) {
     	List<IProduct> result = new ArrayList<>();

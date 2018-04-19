@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.softserve.edu.opencart.pages.Application;
 
-public final class DBReader implements IExternalReader {
+public final class DBReader implements ISqlReader {
     
 	private String sqlSelect;
 	
@@ -20,7 +20,7 @@ public final class DBReader implements IExternalReader {
         return this.sqlSelect;
     }
 
-	public String getPath() {
+	public String getQuery() {
 		return getSqlSelect();
 	}
 	
