@@ -24,7 +24,7 @@ public abstract class TestRunner {
     @BeforeSuite
     public void beforeClass(ITestContext context) {
         logger.debug("Before Suite TestNG");
-        Application.get(ApplicationSourceRepository.Chrome());
+        Application.get(ApplicationSourceRepository.ChromeWithoutUI());
     }
 
 

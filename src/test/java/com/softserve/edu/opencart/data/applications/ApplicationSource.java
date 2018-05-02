@@ -74,7 +74,7 @@ public class ApplicationSource implements IApplicationSource {
 
 
     public String getBaseUrl() {
-        return null;
+        return baseUrl;
     }
 
     public String getDatabaseUrl() {

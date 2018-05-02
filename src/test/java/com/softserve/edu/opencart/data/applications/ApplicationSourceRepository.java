@@ -18,7 +18,8 @@ public final class ApplicationSourceRepository {
         return Chrome();
     }
 
-    public static IApplicationSource Chrome() {
+
+    public static IApplicationSource ChromeWithoutUI(){
         Driver jdbcDriver;
         try {
             jdbcDriver = new com.mysql.jdbc.Driver();
@@ -26,14 +27,35 @@ public final class ApplicationSourceRepository {
             throw new RuntimeException(String.format(DB_CONNECTION_ERROR, e));
         }
         System.out.println("***PASS: " + SystemPropertyUtils.getExistingProperty("database-password", "DATABASE_PASSWORD"));
+        return new ApplicationSource("ChromeWithoutUI",
+                ApplicationSourceRepository.class.getResource(CHROME_WINDOWS_DRIVER_RELATIVE_PATH).getPath().substring(1),
+                10,
+                "http://192.168.56.101/",
+                "jdbc:mysql://192.168.56.101:3306/opencart",
+                "ocuser",
+                SystemPropertyUtils.getExistingProperty("database-password", "DATABASE_PASSWORD"),
+                jdbcDriver
+        );
+    }
+
+    public static IApplicationSource Chrome() {
+        Driver jdbcDriver;
+        try {
+            jdbcDriver = new com.mysql.jdbc.Driver();
+        } catch (SQLException e) {
+            throw new RuntimeException(String.format(DB_CONNECTION_ERROR, e));
+        }
+        System.out.println("***PASS: " + SystemPropertyUtils.getExistingProperty("database-password",
+                                                                            "DATABASE_PASSWORD"));
 
         return new ApplicationSource("ChromeTemporary",
                 ApplicationSourceRepository.class.getResource(CHROME_WINDOWS_DRIVER_RELATIVE_PATH).getPath().substring(1),
                 10,
-                BASE_URL,
+                "http://192.168.56.101/",
                 "jdbc:mysql://192.168.56.101:3306/opencart",
                 "ocuser",
-                "12345q",
+                SystemPropertyUtils.getExistingProperty("database-password",
+                                                        "DATABASE_PASSWORD"),
                 jdbcDriver
         );
     }

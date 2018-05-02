@@ -64,10 +64,6 @@ public class Application {
         }
     }
 
-    // getters
-    public IApplicationSource getApplicationSource() {
-        return applicationSource;
-    }
 
 
     public BrowserWrapper getBrowser() {
@@ -106,5 +102,10 @@ public class Application {
             }
         }
         return connection;
+    }
+
+    // getters
+    public IApplicationSource getApplicationSource() {
+        return applicationSource;
     }
 }
