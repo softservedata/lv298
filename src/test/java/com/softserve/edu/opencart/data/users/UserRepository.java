@@ -32,7 +32,7 @@ public final class UserRepository {
                 .setAddressMain("addressMain")
                 .setCity("city")
                 .setPostCode("postCode")
-                .setCountry(Countryes.POLAND.toString())
+                .setCountry(Countryes.USA.toString())
                 .setState(States.LUBELSKIE.toString())
                 .setPassword("qwerty")
                 .setSubscribe(true)

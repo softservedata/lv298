@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 
 public class BrowserWrapper {
 
+
+
     private interface IBrowser {
         WebDriver getBrowser(IApplicationSource applicationSource);
     }
@@ -48,7 +50,6 @@ public class BrowserWrapper {
             options.addArguments("--ignore-certificate-errors");
             WebDriver driver = new ChromeDriver(options);
             driver.manage().window().maximize();
-            //System.out.println("\t\t\t*** ChromeWithoutUI: new ChromeDriver(options)");
             return driver;
         }
     }
@@ -121,22 +122,15 @@ public class BrowserWrapper {
                 break;
             }
         }
-        //System.out.println("\tBrowser Start. currentBrowser name = " + currentBrowser.toString());
         driver = currentBrowser.runBrowser(applicationSource);
-        //
-        // TODO Move to Search Class
+
         driver.manage().timeouts().implicitlyWait(applicationSource.getImplicitWaitTimeOut(), TimeUnit.SECONDS);
     }
 
-    // TODO Change to default package
     public WebDriver getDriver() {
         return driver;
     }
 
-    // TODO Zoom page before take screen or move to element. Yandex Ashot
-    // https://github.com/assertthat/selenium-shutterbug
-    // document.body.scrollHeight
-    // document.body.style.zoom = 0.5
     public File getScreenshot() {
         return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
     }

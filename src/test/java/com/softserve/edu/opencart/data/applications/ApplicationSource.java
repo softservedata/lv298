@@ -1,68 +1,62 @@
 package com.softserve.edu.opencart.data.applications;
 
-/*
-Application source builder realization through interfaces.
- */
-interface IBrowserName {
-    IDriverPath setBrowserName(String browserName);
-}
+import java.sql.Driver;
 
-interface IDriverPath {
-    IImplicitWaitTimeOut setDriverPath(String driverPath);
-}
-
-interface IImplicitWaitTimeOut {
-    IBaseUrl setImplicitWaitTimeOut(long implicitWaitTimeOut);
-}
-
-interface IBaseUrl {
-    IApplicationSourceBuilder setBaseUrl(String baseUrl);
-}
-
-interface IApplicationSourceBuilder {
-    IApplicationSource build();
-}
-
-
-public class ApplicationSource implements IBrowserName, IDriverPath, IImplicitWaitTimeOut, IBaseUrl,
-        IApplicationSourceBuilder, IApplicationSource {
+public class ApplicationSource implements IApplicationSource {
 
     // Browser Data
     private String browserName;
     private String driverPath;
     private long implicitWaitTimeOut;
     private String baseUrl;
+    private String databaseUrl;
+    private String databaseLogin;
+    private String databasePassword;
+    private Driver jdbcDriver;
 
-    private ApplicationSource() {
-    }
+    public ApplicationSource(String browserName, String driverPath,
+                             long implicitWaitTimeOut, String baseUrl,
+                             String databaseUrl, String databaseLogin,
+                             String databasePassword, Driver jdbcDriver) {
+        this.browserName = browserName;
+        this.driverPath = driverPath;
+        this.implicitWaitTimeOut = implicitWaitTimeOut;
+        this.baseUrl = baseUrl;
+        this.databaseUrl = databaseUrl;
+        this.databaseLogin = databaseLogin;
+        this.databasePassword = databasePassword;
+        this.jdbcDriver = jdbcDriver;
 
-    public static IBrowserName get() {
-        return new ApplicationSource();
     }
 
     //Setters
-    public IDriverPath setBrowserName(String browserName) {
+
+    public void setBrowserName(String browserName) {
         this.browserName = browserName;
-        return this;
     }
 
-    public IImplicitWaitTimeOut setDriverPath(String driverPath) {
+    public void setDriverPath(String driverPath) {
         this.driverPath = driverPath;
-        return this;
     }
 
-    public IBaseUrl setImplicitWaitTimeOut(long implicitWaitTimeOut) {
+    public void setImplicitWaitTimeOut(long implicitWaitTimeOut) {
         this.implicitWaitTimeOut = implicitWaitTimeOut;
-        return this;
     }
 
-    public IApplicationSourceBuilder setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
-        return this;
+    public void setDatabaseUrl(String databaseUrl) {
+        this.databaseUrl = databaseUrl;
     }
 
-    public IApplicationSource build() {
-        return this;
+    public void setDatabaseLogin(String databaseLogin) {
+        this.databaseLogin = databaseLogin;
+    }
+
+    public void setDatabasePassword() {
+        this.databasePassword = databasePassword;
+    }
+
+    public void setJdbcDriver() {
+        setJdbcDriver();
     }
 
     //GETTERS
@@ -78,7 +72,25 @@ public class ApplicationSource implements IBrowserName, IDriverPath, IImplicitWa
         return implicitWaitTimeOut;
     }
 
+
     public String getBaseUrl() {
-        return baseUrl;
+        return null;
     }
+
+    public String getDatabaseUrl() {
+        return databaseUrl;
+    }
+
+    public String getDatabaseLogin() {
+        return databaseLogin;
+    }
+
+    public String getDatabasePassword() {
+        return databasePassword;
+    }
+
+    public Driver getJdbcDriver() {
+        return jdbcDriver;
+    }
+
 }

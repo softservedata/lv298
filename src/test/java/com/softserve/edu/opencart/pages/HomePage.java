@@ -23,19 +23,15 @@ public final class HomePage extends AHeaderBlock {
     public FeaturedBlock getFeaturedBlock() {
         return featuredBlock;
     }
-    
-    // TODO For BrowserTest class. Duplicate Code. Delete 
+
     public List<String> getProductComponentTexts() {
         return getFeaturedBlock().getProductComponentTexts();
     }
     
-    // TODO For BrowserTest class. Duplicate Code. Delete
     public double getPriceAmountByProductName(String productName) {
         return getFeaturedBlock().getPriceAmountByProductName(productName);
-    }    
-    
+    }
     // Business Logic
-
     public HomePage selectCurrency(Currencies currencyName) {
         chooseCurrency(currencyName);
         return new HomePage(driver);
@@ -46,5 +42,4 @@ public final class HomePage extends AHeaderBlock {
         //return this;
         return new HomePage(driver);
     }
-    
 }

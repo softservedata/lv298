@@ -1,66 +1,40 @@
 package com.softserve.edu.opencart.data.applications;
 
-import com.softserve.edu.opencart.tools.BrowserWrapper;
+
+import com.softserve.edu.opencart.tools.SystemPropertyUtils;
+
+import java.sql.Driver;
+import java.sql.SQLException;
 
 public final class ApplicationSourceRepository {
-    final String BASE_URL = "http://172.16.83.225/";
-    //final String BASE_URL = "https://nazaronoc.000webhostapp.com/";
-    final String CHROME_WINDOWS_DRIVER_RELATIVE_PATH = "/chromedriver-windows-32bit.exe";
-    final String FIREFOX_WINDOWS_DRIVER_RELATIVE_PATH ="/geckodriver-windows-64bit.exe";
-
-    private static volatile ApplicationSourceRepository instance = null;
+    final static String BASE_URL = "http://192.168.56.101/";
+    final static String CHROME_WINDOWS_DRIVER_RELATIVE_PATH = "/chromedriver-windows-32bit.exe";
+    final static String DB_CONNECTION_ERROR = "DB Connection Error, %s";
 
     private ApplicationSourceRepository() {
     }
 
-    public static ApplicationSourceRepository get() {
-        if (instance == null) {
-            synchronized (ApplicationSourceRepository.class) {
-                if (instance == null) {
-                    instance = new ApplicationSourceRepository();
-                }
-            }
+    public static IApplicationSource defaultParameters() {
+        return Chrome();
+    }
+
+    public static IApplicationSource Chrome() {
+        Driver jdbcDriver;
+        try {
+            jdbcDriver = new com.mysql.jdbc.Driver();
+        } catch (SQLException e) {
+            throw new RuntimeException(String.format(DB_CONNECTION_ERROR, e));
         }
-        return instance;
+        System.out.println("***PASS: " + SystemPropertyUtils.getExistingProperty("database-password", "DATABASE_PASSWORD"));
+
+        return new ApplicationSource("ChromeTemporary",
+                ApplicationSourceRepository.class.getResource(CHROME_WINDOWS_DRIVER_RELATIVE_PATH).getPath().substring(1),
+                10,
+                BASE_URL,
+                "jdbc:mysql://192.168.56.101:3306/opencart",
+                "ocuser",
+                "12345q",
+                jdbcDriver
+        );
     }
-
-    public IApplicationSource defaultSource() {
-        return openCartChrome();
-    }
-
-    public IApplicationSource openCartChrome() {
-        return ApplicationSource.get()
-                .setBrowserName("ChromeTemporary")
-                .setDriverPath(ApplicationSourceRepository.class.getResource(CHROME_WINDOWS_DRIVER_RELATIVE_PATH)
-                        .getPath()
-                        .substring(1))
-                .setImplicitWaitTimeOut(10)
-                .setBaseUrl(BASE_URL)
-                .build();
-    }
-
-
-    public IApplicationSource openCartFirefox() {
-        return ApplicationSource.get()
-                .setBrowserName("FirefoxTemporary")
-                .setDriverPath(ApplicationSourceRepository.class.getResource(FIREFOX_WINDOWS_DRIVER_RELATIVE_PATH)
-                        .getPath()
-                        .substring(1))
-                .setImplicitWaitTimeOut(10)
-                .setBaseUrl(BASE_URL)
-                .build();
-    }
-
-    public IApplicationSource openCartWithoutUIChrome(){
-        return ApplicationSource.get()
-                .setBrowserName("ChromeWithoutUI")
-                .setDriverPath(ApplicationSourceRepository.class.getResource(CHROME_WINDOWS_DRIVER_RELATIVE_PATH)
-                        .getPath()
-                        .substring(1))
-                .setImplicitWaitTimeOut(10)
-                .setBaseUrl(BASE_URL)
-                .build();
-    }
-
-
 }

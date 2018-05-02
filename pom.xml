@@ -149,17 +149,7 @@
             <scope>runtime</scope>
         </dependency>
         <!-- - - - DB Access - - - -->
-        <!-- <dependency> -->
-        <!-- <groupId>com.microsoft.sqlserver</groupId> -->
-        <!-- <artifactId>mssql-jdbc</artifactId> -->
-        <!-- <version>6.2.2</version> -->
-        <!-- </dependency> -->
-        <!-- <dependency> -->
-        <!-- <groupId>com.microsoft.sqlserver</groupId> -->
-        <!-- <artifactId>sqljdbc4</artifactId> -->
-        <!-- <version>4.0</version> -->
-        <!-- <version>4.0.2206.100</version> -->
-        <!-- </dependency> -->
+
         <dependency>
             <groupId>net.sourceforge.jtds</groupId>
             <artifactId>jtds</artifactId>
@@ -169,11 +159,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connector.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.connector.version}</version>
         </dependency>
         <!-- - - - Hibernate - - - -->
         <dependency>
