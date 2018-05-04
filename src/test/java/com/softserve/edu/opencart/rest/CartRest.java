@@ -8,11 +8,17 @@ public class CartRest {
 		return null;
 	}
 
+	public String loginToCart() {
+		RestRequest restRequest = new RestRequest();
+		return restRequest.sendRequestPostLogin("http://192.168.103.210/opencart/upload/index.php?route=api/login");
+		//return null;
+	}
+
 	public String getAllFromCart(String token) {
 		String tokenParams = "token=" + token;
 		RestRequest restRequest = new RestRequest();
-		//return restRequest.sendRequestPost("http://192.168.103.210/opencart/upload/index.php?route=api/cart/products", tokenParams);
-		return restRequest.sendRequestGet("http://192.168.103.210/opencart/upload/index.php?route=api/cart/products&token=Ze6zE0rtz1BAGXswTnOUX5IxXw6ypkDg");
+		return restRequest.sendRequestPost("http://192.168.103.210/opencart/upload/index.php?route=api/cart/products", tokenParams);
+		//return restRequest.sendRequestGet("http://192.168.103.210/opencart/upload/index.php?route=api/cart/products&token=Ze6zE0rtz1BAGXswTnOUX5IxXw6ypkDg");
 	}
 
 }

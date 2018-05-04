@@ -17,8 +17,10 @@ public class RestTest {
     @Test
     public void verifyCart() {
     	CartRest cartRest = new CartRest();
+//    	System.out.println("RESULT:\n" 
+//    			+ cartRest.getAllFromCart("YSIWCobcyuuY01rk45YPRckrciZlTvMJ"));
     	System.out.println("RESULT:\n" 
-    			+ cartRest.getAllFromCart("Ze6zE0rtz1BAGXswTnOUX5IxXw6ypkDg"));
+    			+ cartRest.loginToCart());
     }
 
 }
