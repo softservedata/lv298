@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages;
 
+import com.softserve.edu.opencart.data.users.IUser;
 import org.openqa.selenium.WebDriver;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
@@ -200,14 +201,12 @@ public class Application {
     }
     
 
-    // public LoginPage login() {
-    // getBrowser().openUrl(applicationSource.getUserLoginUrl());
-    // return new LoginPage();
-    // }
+     public HomePage loginToHomePage(IUser user) {
+         return loadHomePage().loginToHomePage(user);
+     }
 
-    // public LogoutPage logout() {
-    // getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-    // return new LogoutPage();
-    // }
+     public HomePage logoutToHomePage() {
+     return loadHomePage().logoutToHomePage();
+     }
 
 }

@@ -36,8 +36,8 @@ public final class ProductRepository {
         prices.put(Currencies.POUND_STERLING, 368.73);
         prices.put(Currencies.US_DOLLAR, 602.00);
         return Product.get()
-                .setSearchKey("mac")
                 .setName("MacBook")
+                .setSearchKey("mac")
                 .setDescription("Intel Core 2 Duo processor Powered by an "
                         + "Intel Core 2 Duo processor at speeds up to "
                         + "2.1")
@@ -51,11 +51,11 @@ public final class ProductRepository {
         prices.put(Currencies.POUND_STERLING, 75.46);
         prices.put(Currencies.US_DOLLAR, 123.20);
               return Product.get()
+                      .setName("iPhone")
                 .setSearchKey("iphone")
-                .setName("iPhone")
                 .setDescription("iPhone is a revolutionary new mobile phone "
                         + "that allows you to make a call by simply "
-                        + "tapping a name or number in your address book, a "
+                        + "tapping a geoZoneName or number in your address book, a "
                         + "favorites list, or a call log. It also "
                         + "automatically syncs all your contacts from a PC, "
                         + "Mac, or Internet service. And it lets you "

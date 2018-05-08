@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.data.products;
 
 import com.softserve.edu.opencart.data.Currencies;
+import com.softserve.edu.opencart.data.taxes.TaxClassRepository;
 import com.softserve.edu.opencart.tools.CSVReader;
 import com.softserve.edu.opencart.tools.RegexUtils;
 
@@ -10,12 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 //*********Builder Pattern*********
-interface ISearchKey {
-    IName setSearchKey(String searchKey);
-}
 
 interface IName {
-    IDescription setName(String name);
+    ISearchKey setName(String name);
+}
+
+interface ISearchKey {
+    IDescription setSearchKey(String searchKey);
 }
 
 interface IDescription {
@@ -32,9 +34,10 @@ interface IProductBuild {
 
 public final class Product implements ISearchKey, IName, IDescription, IPrices,
                                                     IProductBuild, IProduct {
-    private static final String SEARCH_KEY_HEADER = "searchKey";
+//    private static final String SEARCH_KEY_HEADER = "searchKey";
     private static final String NAME_HEADER = "name";
     private static final String DESCRIPTION_HEADER = "description";
+    private static final String PRICE_HEADER = "price";
 
     // *********Product Properties*********
     private String searchKey;
@@ -49,21 +52,24 @@ public final class Product implements ISearchKey, IName, IDescription, IPrices,
     public static List<IProduct> getByList(List<List<String>> rows) {
         List<IProduct> result = new ArrayList<>();
         Map<String, Integer> headers = new HashMap<>();
-
         for (List<String> currentRow : rows) {
             Map<Currencies, Double> productPrices = new HashMap<>();
             if (!RegexUtils.isWords(currentRow.toString())) {
                 //fill prices map
                     for (Currencies currency : Currencies.values()) {
-                        if (headers.containsKey(currency.name())){
+                        //TODO delete
+                        /*if (headers.containsKey(currency.name())){
                             productPrices.put(currency, RegexUtils.extractFirstDouble(currentRow.get(headers.get(currency.name()))));
-                        }
+                        }*/
+                        productPrices.put(currency, currency.evaluatePrice(
+                                Double.parseDouble(currentRow.get(headers.get(PRICE_HEADER))),
+                                TaxClassRepository.get().taxebleGoods()));
                     }
                 //build product
                 result.add(
                         Product.get()
-                        .setSearchKey(currentRow.get(headers.get(SEARCH_KEY_HEADER)))
                         .setName(currentRow.get(headers.get(NAME_HEADER)))
+                        .setSearchKey(currentRow.get(headers.get(NAME_HEADER)))
                         .setDescription(currentRow.get(headers.get(DESCRIPTION_HEADER)))
                         .setPrice(productPrices)
                         .buildProduct()
@@ -82,18 +88,19 @@ public final class Product implements ISearchKey, IName, IDescription, IPrices,
         return result;
     }
 
-    public static ISearchKey get() {
+    public static IName get() {
         return new Product();
     }
 
     // *********Setters*********
-    public IName setSearchKey(final String searchKey) {
-        this.searchKey = searchKey;
+
+    public ISearchKey setName(final String name) {
+        this.name = name;
         return this;
     }
 
-    public IDescription setName(final String name) {
-        this.name = name;
+    public IDescription setSearchKey(final String searchKey) {
+        this.searchKey = searchKey.substring(0,3).toLowerCase();
         return this;
     }
 
@@ -134,7 +141,7 @@ public final class Product implements ISearchKey, IName, IDescription, IPrices,
 
     @Override
     public String toString(){
-        return String.format("%s; %s; %s; %s",getSearchKey(), getName(), getPrices(), getDescription());
+        return String.format("%s; %s; %s; %s", getName(), getSearchKey(), getPrices(), getDescription());
     }
 
     //TODO delete

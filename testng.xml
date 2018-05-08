@@ -10,7 +10,7 @@
 	<!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
 	<test verbose="5" name="WishList Test">
 		<classes>
-			<!--<class name="com.softserve.edu.opencart.tests.SmokeTest" />-->
+			<!--<class geoZoneName="com.softserve.edu.opencart.tests.SmokeTest" />-->
 			<class name="com.softserve.edu.opencart.tests.WishListTest">
 				<methods>
 					<include name="redirectToLoginPageTest" />

@@ -7,15 +7,12 @@ import com.softserve.edu.opencart.tools.RegexUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 
 public abstract class AHeaderBlock {
@@ -215,7 +212,8 @@ public abstract class AHeaderBlock {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // *********AHeaderBlock Fields********
-    private static final String IP = "192.168.0.108";
+    private static final String IP = "192.168.43.169";
+//    private static final String IP = "192.168.0.108";
 //    public static final String BASE_URL = String.format("http://%s/op",IP);
     public static final String BASE_URL = "http://setopencart.epizy.com";
     public static final Logger LOGGER = LoggerFactory.getLogger(AHeaderBlock
@@ -447,7 +445,7 @@ public abstract class AHeaderBlock {
 
     public LoginPage gotoLoginPage() {
         if (isLogged()) {
-            HomePage homePage = signoutToHomePage();
+            HomePage homePage = logoutToHomePage();
             loadLoginPage(homePage);
         } else {
             loadLoginPage(this);
@@ -455,7 +453,7 @@ public abstract class AHeaderBlock {
         return new LoginPage(driver);
     }
 
-    public HomePage signoutToHomePage() {
+    public HomePage logoutToHomePage() {
         if (isLogged()) {
             clickSearchField();
             clickMyAccount();
@@ -470,7 +468,7 @@ public abstract class AHeaderBlock {
     }
 
     public HomePage loginToHomePage(IUser user) {
-        return signoutToHomePage()
+        return logoutToHomePage()
                 .gotoLoginPage()
                 .successLogin(user)
                 .gotoHomePage();

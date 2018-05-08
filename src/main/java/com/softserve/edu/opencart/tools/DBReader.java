@@ -8,9 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBReader implements IExternalReader {
+public class DBReader implements ISqlReader {
 
-    private final int firstColunm = 2;
+    private final int firstColunm = 1;
     private String sqlSelect;
 
     public DBReader(String sqlSelect) {
@@ -21,7 +21,7 @@ public class DBReader implements IExternalReader {
         return this.sqlSelect;
     }
 
-    public String getPath() {
+    public String getQuery() {
         return getSqlSelect();
     }
 
@@ -31,8 +31,8 @@ public class DBReader implements IExternalReader {
 
     public List<List<String>> getAllCells(String sqlSelect) {
 
-        List<List<String>> allRecords = new ArrayList<List<String>>();
-        List<String> rows = new ArrayList<String>();
+        List<List<String>> result = new ArrayList<List<String>>();
+        List<String> rows = new ArrayList<>();
 
         try (Statement st = Application.get().getConnection().createStatement
                 ()) {
@@ -40,7 +40,7 @@ public class DBReader implements IExternalReader {
 
                 int columnCount = resultSet.getMetaData().getColumnCount();
                 for (int i = firstColunm; i <= columnCount; i++) {
-                    rows.add(resultSet.getMetaData().getColumnName(i));
+                    rows.add(resultSet.getMetaData().getColumnLabel(i));
                 }
                 int recordCount = 1;
                 while (resultSet.next()) {
@@ -51,9 +51,9 @@ public class DBReader implements IExternalReader {
                 }
 
                 for (int i = 0; i < recordCount; i++) {
-                    int start = i * (columnCount - 1);
-                    int end = start + columnCount - 1;
-                    allRecords.add(rows.subList(start, end));
+                    int start = i * (columnCount);
+                    int end = start + columnCount;
+                    result.add(rows.subList(start, end));
                 }
             }
         } catch (SQLException e) {
@@ -61,7 +61,7 @@ public class DBReader implements IExternalReader {
             throw new RuntimeException(String.format(DB_READING_ERROR, e));
         }
 
-        return allRecords;
+        return result;
     }
 
 }

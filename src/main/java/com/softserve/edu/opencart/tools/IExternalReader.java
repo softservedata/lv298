@@ -9,8 +9,6 @@ public interface IExternalReader {
     String DB_READING_ERROR  = "DB Reading Error, %s";
     
     //IRowFactory getRowFactory();
-
-    String getPath();
     
     List<List<String>> getAllCells();
     

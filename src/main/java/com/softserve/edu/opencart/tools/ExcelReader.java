@@ -14,7 +14,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExcelReader implements IExternalReader {
+public class ExcelReader implements IFileReader {
 
 //    private static class ExcelFactory implements IRowFactory {
 //        public List<String> updateRow(List<String> row) {

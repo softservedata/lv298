@@ -62,13 +62,19 @@
 	<!-- <repositories> -->
 	<!-- <repository> -->
 	<!-- <id>ms-repo</id> -->
-	<!-- <name>Microsoft</name> -->
+	<!-- <geoZoneName>Microsoft</geoZoneName> -->
 	<!-- <url>http://clojars.org/repo/</url> -->
 	<!-- <url>https://mvnrepository.com/artifact/com.microsoft.azure/azure-storage</url> -->
 	<!-- </repository> -->
 	<!-- </repositories> -->
 
 	<dependencies>
+
+		<!--<dependency>
+			<groupId>com.squareup.okhttp</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>2.7.5</version>
+		</dependency>-->
 		<!-- - - - Test - - - -->
 		<dependency>
 			<groupId>org.testng</groupId>
@@ -314,11 +320,11 @@
 
 					<!-- <properties> -->
 					<!-- <property> -->
-					<!-- <name>usedefaultlisteners</name> -->
+					<!-- <geoZoneName>usedefaultlisteners</geoZoneName> -->
 					<!-- <value>false</value> -->
 					<!-- </property> -->
 					<!-- <property> -->
-					<!-- <name>listener</name> -->
+					<!-- <geoZoneName>listener</geoZoneName> -->
 					<!-- <value>ru.yandex.qatools.allure.testng.AllureTestListener</value> -->
 					<!-- </property> -->
 					<!-- </properties> -->
@@ -329,11 +335,11 @@
 							<value>${allure.results.directory}</value>
 						</property>
 						<!-- <property> -->
-						<!-- <name>allure.link.issue.pattern</name> -->
+						<!-- <geoZoneName>allure.link.issue.pattern</geoZoneName> -->
 						<!-- <value>${issues.tracker}</value> -->
 						<!-- </property> -->
 						<!-- <property> -->
-						<!-- <name>allure.link.tms.pattern</name> -->
+						<!-- <geoZoneName>allure.link.tms.pattern</geoZoneName> -->
 						<!-- <value>${tms}</value> -->
 						<!-- </property> -->
 					</systemProperties>

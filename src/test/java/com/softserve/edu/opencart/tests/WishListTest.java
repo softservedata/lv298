@@ -38,7 +38,7 @@ public class WishListTest extends TestRunner {
     @Epic("Opencart Tests")
     public void redirectToLoginPageTest() {
         HomePage homePage = Application.get().loadHomePage()
-                .signoutToHomePage();
+                .logoutToHomePage();
         LoginPage loginPage = homePage.gotoWishListPageLogout();
 
         assertEquals(loginPage.getCurrentUrl(), LoginPage.URL);
@@ -61,14 +61,14 @@ public class WishListTest extends TestRunner {
     @Epic("Opencart Tests")
     public void loginToWishListTest(IUser user) {
         MyAccountPage myAccountPage = Application.get().loadHomePage()
-                .signoutToHomePage().gotoLoginPage()
+                .logoutToHomePage().gotoLoginPage()
                 .successLogin(user);
         WishListPage wishListPage = myAccountPage.gotoWishListPage();
 
         assertEquals(wishListPage.getCurrentUrl(), WishListPage.URL);
 
         // *********Return Application To Its BeforeTest State*********
-        wishListPage.signoutToHomePage();
+        wishListPage.logoutToHomePage();
     }
 
     @DataProvider
@@ -128,9 +128,9 @@ public class WishListTest extends TestRunner {
         if (containsProduct) {
             homePage = wishListPage.gotoHomePage();
             homePage = homePage.addToWishListByProduct(product);
-            homePage.signoutToHomePage();
+            homePage.logoutToHomePage();
         } else {
-            wishListPage.signoutToHomePage();
+            wishListPage.logoutToHomePage();
         }
     }
 
@@ -157,9 +157,9 @@ public class WishListTest extends TestRunner {
         if (!containsProduct) {
             WishListPage wishListPage = homePage.gotoWishListPage();
             wishListPage = wishListPage.removeFromWishListByProduct(product);
-            wishListPage.signoutToHomePage();
+            wishListPage.logoutToHomePage();
         } else {
-            homePage.signoutToHomePage();
+            homePage.logoutToHomePage();
         }
 
     }
@@ -191,9 +191,9 @@ public class WishListTest extends TestRunner {
         if (containsProduct) {
             homePage = wishListPage.gotoHomePage();
             homePage = homePage.addToWishListByProduct(product);
-            homePage.signoutToHomePage();
+            homePage.logoutToHomePage();
         } else {
-            wishListPage.signoutToHomePage();
+            wishListPage.logoutToHomePage();
         }
 
         softAssertion.assertAll();

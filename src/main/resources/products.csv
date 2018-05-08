@@ -1,4 +1,4 @@
-searchKey;name;description;EURO;POUND_STERLING;US_DOLLAR
-mac;MacBook;Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..;472.33;368.72;602.00
-iphone;iPhone;iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam..;96.66;75.46;123.20
-mac;MacBook Air;MacBook Air is ultrathin, ultraportable, and ultra unlike anything else. But you don’t lose..;943.09;736.23;1,202.00
+name;description;price
+MacBook;Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..;500.00
+iPhone;iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam..;101.00
+MacBook Air;MacBook Air is ultrathin, ultraportable, and ultra unlike anything else. But you don’t lose..;1000.00
