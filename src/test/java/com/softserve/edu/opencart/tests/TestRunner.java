@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.pages.Application;
+import org.testng.internal.thread.ThreadTimeoutException;
 
 public abstract class TestRunner {
     // Use, if class Application is not singleton
@@ -23,7 +24,7 @@ public abstract class TestRunner {
         logger.info("@BeforeClass start");
        // System.out.println("@BeforeClass");
         // TODO Read context
-        Application.get(ApplicationSourceRepository.EpizyChrome());
+        Application.get(ApplicationSourceRepository.epizyChrome());
         logger.info("@BeforeClass done");
     }
 
@@ -44,12 +45,32 @@ public abstract class TestRunner {
         logger.info("@BeforeMethod done");
     }
 
-    @AfterMethod//(alwaysRun = true)
-    public void afterMethod(ITestResult result) {
-        logger.info(" @AfterMethod start");
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult) {
+        logger.info("@AfterMethod start");
         //Reporter.setCurrentTestResult(result);
-       // System.out.println("@AfterMethod");
-        logger.info(" @AfterMethod done");
+        //System.out.println("@AfterMethod");
+        //
+        String message = "\n";
+        if (testResult.getStatus() == ITestResult.SUCCESS) {
+            message = message + "PASSED: " + testResult.getName();
+        } else {
+            message = message + "FAILED: " + testResult.getName();
+            Throwable throwable = testResult.getThrowable();
+            if (throwable != null) {
+                message = message + "\n" + throwable.toString();
+                //
+                // If it's not a thread timeout, include the stack trace too
+                if (!(throwable instanceof ThreadTimeoutException)) {
+                    for (StackTraceElement e : throwable.getStackTrace()) {
+                        message = message + "\n        at " + e.toString();
+                    }
+                }
+            }
+        }
+        //
+        logger.info(message);
+        logger.info("@AfterMethod done");
     }
 
 }
